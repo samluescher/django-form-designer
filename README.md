@@ -7,7 +7,7 @@ Features:
 
 * Design contact forms, search forms etc from the Django admin, without writing any code
 * Form data can be logged, sent via e-mail or forwarded to any web address
-* Integration with Django CMS (add forms to any page)
+* Integration with [Django CMS](http://www.django-cms.org): Aadd forms to any page
 * Use drag & drop to change the position of your form fields
 * Fully collapsible admin interface for better overview over your form 
 * Implements many form fields included with Django (TextField, EmailField, DateField etc)
@@ -24,17 +24,17 @@ This document assumes that you are familiar with python and django.
 
 2. Add `form_designer` to your `INSTALLED_APPS` setting.
 
-    INSTALLED_APPS = (
-        ...
-        "form_designer",
-    )
+        INSTALLED_APPS = (
+            ...
+            "form_designer",
+        )
     
 3. Add the form_designer URLs to your URL conf. For instance, in order to make a form `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`:
 
-    urlpatterns = patterns('',
-        (r'^forms/', include('form_designer.urls')),
-        ...
-    )
+        urlpatterns = patterns('',
+            (r'^forms/', include('form_designer.urls')),
+            ...
+        )
 
 __Note__: If you are using the form_designer plugin for Django CMS, step 3 is __not__ necessary.
 
