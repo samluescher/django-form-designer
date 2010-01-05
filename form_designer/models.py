@@ -78,6 +78,7 @@ class FormLog(models.Model):
     class Meta:
         verbose_name = _('Form log')
         verbose_name_plural = _('Form logs')
+        ordering = ['-created']
 
 class FormDefinitionField(models.Model):
 
