@@ -34,6 +34,8 @@ This document assumes that you are familiar with Python and Django.
             (r'^forms/', include('form_designer.urls')),
             ...
         )
+   
+   __Note__: If you are using the form_designer plugin for Django CMS, step 4 is __not__ necessary.
 5. Add the form_designer admin URLs to your URL conf if you want to use CSV export. Add the following line to `urls.py` _before_ the admin URLs:
 
         urlpatterns = patterns('',
@@ -41,8 +43,6 @@ This document assumes that you are familiar with Python and Django.
             ...
             (r'^admin/', include(admin.site.urls)),
         )
-
-__Note__: If you are using the form_designer plugin for Django CMS, step 4 is __not__ necessary.
 
 Optional requirements
 ---------------------
