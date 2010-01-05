@@ -21,20 +21,21 @@ Installation
 This document assumes that you are familiar with Python and Django.
 
 1. Make sure `form_designer` is on your `PYTHONPATH`.
-2. Add `form_designer` to your `INSTALLED_APPS` setting.
+2. Make the directory `form_designer/media/form_designer` available under your `MEDIA_ROOT`.
+3. Add `form_designer` to your `INSTALLED_APPS` setting.
 
         INSTALLED_APPS = (
             ...
             'form_designer',
         )
-3. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`:
+4. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`:
 
         urlpatterns = patterns('',
             (r'^forms/', include('form_designer.urls')),
             ...
         )
 
-__Note__: If you are using the form_designer plugin for Django CMS, step 3 is __not__ necessary.
+__Note__: If you are using the form_designer plugin for Django CMS, step 4 is __not__ necessary.
 
 Optional requirements
 ---------------------
@@ -48,8 +49,9 @@ Known issues
 ------------
 
 * Redirection after successful form submission currently doesn't work if used with Django CMS.
+* It should be possible to edit a form directly from the Django CMS page form.
 
 Missing features
 ----------------
-
+  
 * File upload fields will be implemented
