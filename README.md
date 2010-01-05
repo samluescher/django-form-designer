@@ -28,14 +28,13 @@ This document assumes that you are familiar with Python and Django.
             ...
             'form_designer',
         )
-4. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`:
+4. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. __Note__: If you are using the form_designer plugin for Django CMS, step 4 is __not__ necessary:
 
         urlpatterns = patterns('',
             (r'^forms/', include('form_designer.urls')),
             ...
         )
    
-   __Note__: If you are using the form_designer plugin for Django CMS, step 4 is __not__ necessary.
 5. Add the form_designer admin URLs to your URL conf if you want to use CSV export. Add the following line to `urls.py` _before_ the admin URLs:
 
         urlpatterns = patterns('',
