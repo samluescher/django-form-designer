@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-24 12:04+0100\n"
+"POT-Creation-Date: 2010-01-05 16:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:12 admin.py:47
+#: admin.py:12 admin.py:48
 msgid "Basic"
 msgstr "Grundlegendes"
 
@@ -24,7 +24,7 @@ msgstr "Grundlegendes"
 msgid "Display"
 msgstr "Darstellung"
 
-#: admin.py:14 models.py:10
+#: admin.py:14 defaults.py:4
 msgid "Text"
 msgstr "Text"
 
@@ -32,7 +32,7 @@ msgstr "Text"
 msgid "Numbers"
 msgstr "Zahlen"
 
-#: admin.py:16 models.py:21
+#: admin.py:16 defaults.py:15
 msgid "Regex"
 msgstr "Regex"
 
@@ -40,99 +40,116 @@ msgstr "Regex"
 msgid "Choices"
 msgstr "Auswahl"
 
-#: admin.py:48
+#: admin.py:49
 msgid "Mail form"
 msgstr "Mail-Formular"
 
-#: admin.py:49
+#: admin.py:50
 msgid "Templates"
 msgstr "Vorlagen"
 
-#: admin.py:50
+#: admin.py:51
 msgid "Messages"
 msgstr "Meldungen"
 
-#: cms_plugins.py:9 models.py:52 models.py:86 models.py:212
+#: admin.py:69 admin_views.py:33 cms_plugins.py:10 models.py:36 models.py:75
+#: models.py:196
 msgid "Form"
 msgstr "Formular"
 
-#: defaults.py:4 models.py:25
-msgid "Default"
-msgstr "Voreinstellung"
+#: admin.py:74 models.py:76
+msgid "Data"
+msgstr "Daten"
+
+#: admin.py:86
+msgid "CSV export is not enabled."
+msgstr "CSV-Export ist nicht aktiviert."
+
+#: admin_views.py:35 models.py:74
+msgid "Created"
+msgstr "Erstellt"
 
 #: defaults.py:5
-msgid "as paragraphs"
-msgstr "als Absätze"
-
-#: defaults.py:6
-msgid "as table"
-msgstr "als Tabelle"
-
-#: models.py:11
 msgid "E-mail address"
 msgstr "E-Mail-Adresse"
 
-#: models.py:12
+#: defaults.py:6
 msgid "Web address"
 msgstr "Web-Adresse"
 
-#: models.py:13
+#: defaults.py:7
 msgid "Number"
 msgstr "Zahl"
 
-#: models.py:14
+#: defaults.py:8
 msgid "Decimal number"
 msgstr "Dezimalzahl"
 
-#: models.py:15
+#: defaults.py:9
 msgid "Yes/No"
 msgstr "Ja/Nein"
 
-#: models.py:16
+#: defaults.py:10
 msgid "Date"
 msgstr "Datum"
 
-#: models.py:17
+#: defaults.py:11
 msgid "Date & time"
 msgstr "Datum & Zeit"
 
-#: models.py:18
+#: defaults.py:12
 msgid "Time"
 msgstr "Zeit"
 
-#: models.py:19
+#: defaults.py:13
 msgid "Choice"
 msgstr "Auswahl"
 
-#: models.py:20
+#: defaults.py:14
 msgid "Multiple Choice"
 msgstr "Mehrfach-Auswahl"
 
-#: models.py:26
+#: defaults.py:16
+msgid "Captcha"
+msgstr "Captcha"
+
+#: defaults.py:20 defaults.py:27
+msgid "Default"
+msgstr "Voreinstellung"
+
+#: defaults.py:21
 msgid "Text area"
 msgstr "Textfeld"
 
-#: models.py:27
+#: defaults.py:22
 msgid "Password input"
 msgstr "Passwortfeld"
 
-#: models.py:28
+#: defaults.py:23
 msgid "Hidden input"
 msgstr "Versteckter Wert"
 
-#: models.py:34 models.py:104
+#: defaults.py:28
+msgid "as paragraphs"
+msgstr "als Absätze"
+
+#: defaults.py:29
+msgid "as table"
+msgstr "als Tabelle"
+
+#: models.py:18 models.py:88
 msgid "Name"
 msgstr "Name"
 
-#: models.py:35
+#: models.py:19
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:36
+#: models.py:20
 msgid "Target URL"
 msgstr "Ziel-URL"
 
-#: models.py:36
+#: models.py:20
 msgid ""
 "If you leave this empty, the page where the form resides will be requested, "
 "and you can use the mail form and logging features. However, you could also "
@@ -143,189 +160,185 @@ msgstr ""
 "werden. Es ist aber auch möglich, etwas wie \"http://www.google.ch/search\" "
 "einzugeben, um ein Suchformular zu erstellen."
 
-#: models.py:37
+#: models.py:21
 msgid "Send form data to e-mail address"
 msgstr "Formulardaten an E-Mail-Adresse senden"
 
-#: models.py:38
+#: models.py:22
 msgid "Sender address"
 msgstr "Absender-Adresse"
 
-#: models.py:39
+#: models.py:23
 msgid "e-Mail subject"
 msgstr "E-Mail-Betreff"
 
-#: models.py:40
+#: models.py:24
 msgid "Method"
 msgstr "Methode"
 
-#: models.py:41
+#: models.py:25
 msgid "Success message"
 msgstr "Erfolgsmeldung"
 
-#: models.py:42
+#: models.py:26
 msgid "Error message"
 msgstr "Fehlermeldung"
 
-#: models.py:43
+#: models.py:27
 msgid "Submit button label"
 msgstr "Beschriftung der Senden-Schaltfläche"
 
-#: models.py:44
+#: models.py:28
 msgid "Log form data"
 msgstr "Formulardaten loggen"
 
-#: models.py:44
+#: models.py:28
 msgid "Logs all form submissions to the database."
 msgstr "Speichert alle Formular-Übermittlungen in der Datenbank."
 
-#: models.py:45
+#: models.py:29
 msgid "Redirect after success"
 msgstr "Bei Erfolg weiterleiten"
 
-#: models.py:45
+#: models.py:29
 msgid "You should install django_notify if you want to enable this."
 msgstr "Um dies zu aktivieren, sollte django_notify installiert werden."
 
-#: models.py:46
+#: models.py:30
 msgid "Clear form after success"
 msgstr "Bei Erfolg Formular zurücksetzen"
 
-#: models.py:47
+#: models.py:31
 msgid "Allow initial values via URL"
 msgstr "Initialwerte via URL erlauben"
 
-#: models.py:47
+#: models.py:31
 msgid ""
 "If enabled, you can fill in form fields by adding them to the query string."
 msgstr ""
 "Falls aktiviert, können Formularfelder vorausgefüllt werden, indem sie dem "
 "Query-String hinzugefügt werden."
 
-#: models.py:48
+#: models.py:32
 msgid "Message template"
 msgstr "Nachrichten-Vorlage"
 
-#: models.py:48
+#: models.py:32
 msgid ""
 "Available context: \"data\" (a list containing a dictionary for each form "
 "field, each containing the elements \"name\", \"label\", \"value\")."
 msgstr ""
 
-#: models.py:49
+#: models.py:33
 msgid "Form template"
 msgstr "Formular-Vorlage"
 
-#: models.py:53
+#: models.py:37
 msgid "Forms"
 msgstr "Formulare"
 
-#: models.py:69 models.py:125 models.py:202
+#: models.py:58 models.py:109 models.py:186
 msgid "Fields"
 msgstr "Felder"
 
-#: models.py:85
-msgid "Created"
-msgstr "Erstellt"
-
-#: models.py:87 models.py:96
-msgid "Data"
-msgstr "Daten"
-
-#: models.py:90
+#: models.py:79
 msgid "Form log"
 msgstr "Formular-Log"
 
-#: models.py:91
+#: models.py:80
 msgid "Form logs"
 msgstr "Formular-Logs"
 
-#: models.py:101
+#: models.py:85
 msgid "Field class"
 msgstr "Feld-Klasse"
 
-#: models.py:102
+#: models.py:86
 msgid "Position"
 msgstr "Position"
 
-#: models.py:105
+#: models.py:89
 msgid "Label"
 msgstr "Beschriftung"
 
-#: models.py:106
+#: models.py:90
 msgid "Required"
 msgstr "Erforderlich"
 
-#: models.py:107
+#: models.py:91
 msgid "Widget"
 msgstr "Widget"
 
-#: models.py:108
+#: models.py:92
 msgid "Initial value"
 msgstr "Initialwert"
 
-#: models.py:109
+#: models.py:93
 msgid "Help text"
 msgstr "Hilfetext"
 
-#: models.py:111
+#: models.py:95
 msgid "Values"
 msgstr "Werte"
 
-#: models.py:111
+#: models.py:95
 msgid "One value per line"
 msgstr "Ein Wert pro Zeile"
 
-#: models.py:112
+#: models.py:96
 msgid "Labels"
 msgstr "Beschriftungen"
 
-#: models.py:112
+#: models.py:96
 msgid "One label per line"
 msgstr "Eine Beschriftung pro Zeile"
 
-#: models.py:114
+#: models.py:98
 msgid "Max. length"
 msgstr "Max. Länge"
 
-#: models.py:115
+#: models.py:99
 msgid "Min. length"
 msgstr "Min. Länge"
 
-#: models.py:116
+#: models.py:100
 msgid "Max. value"
 msgstr "Max. Wert"
 
-#: models.py:117
+#: models.py:101
 msgid "Min. value"
 msgstr "Min. Wert"
 
-#: models.py:118
+#: models.py:102
 msgid "Max. digits"
 msgstr "Max. Ziffern"
 
-#: models.py:119
+#: models.py:103
 msgid "Decimal places"
 msgstr "Dezimalstellen"
 
-#: models.py:121
+#: models.py:105
 msgid "Regular Expression"
 msgstr "Regulärer Ausdruck"
 
-#: models.py:124 models.py:201
+#: models.py:108 models.py:185
 msgid "Field"
 msgstr "Feld"
 
-#: views.py:18
+#: views.py:20
 msgid "Thank you, the data was submitted successfully."
 msgstr "Vielen Dank, die Daten wurden übermittelt."
 
-#: views.py:19
+#: views.py:21
 msgid "The data could not be submitted, please try again."
 msgstr ""
 "Die Daten konnten nicht übermittelt werden, bitte versuchen Sie es erneut."
 
-#: templates/html/form_definition/forms/as_p.html:10
-#: templates/html/form_definition/forms/as_table.html:10
+#: templates/admin/form_designer/formlog/change_list.html:9
+msgid "Export CSV"
+msgstr "CSV exportieren"
+
+#: templates/html/formdefinition/forms/as_p.html:10
+#: templates/html/formdefinition/forms/as_table.html:10
 msgid "Submit"
 msgstr "Absenden"

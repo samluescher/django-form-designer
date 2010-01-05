@@ -24,9 +24,23 @@ FORM_DESIGNER_WIDGET_CLASSES = (
 
 FORM_DESIGNER_FORM_TEMPLATES = (
     ('', _('Default')),
-    ('html/form_definition/forms/as_p.html', _('as paragraphs')),
-    ('html/form_definition/forms/as_table.html', _('as table')),
+    ('html/formdefinition/forms/as_p.html', _('as paragraphs')),
+    ('html/formdefinition/forms/as_table.html', _('as table')),
 )
 
-FORM_DESIGNER_DEFAULT_FORM_TEMPLATE = 'html/form_definition/forms/as_p.html'
+FORM_DESIGNER_DEFAULT_FORM_TEMPLATE = 'html/formdefinition/forms/as_p.html'
+
+# semicolon is Microsoft Excel default
+FORM_DESIGNER_CSV_EXPORT_DELIMITER = ';'
+
+# include log timestamp in export
+FORM_DESIGNER_CSV_EXPORT_INCLUDE_CREATED = True
+
+# include field labels/names in first row if exporting logs for one form only
+FORM_DESIGNER_CSV_EXPORT_INCLUDE_HEADER = True
+
+# include form title if exporting logs for more than one form
+FORM_DESIGNER_CSV_EXPORT_INCLUDE_FORM = True
+
+FORM_DESIGNER_CSV_EXPORT_FILENAME = 'export.csv'
 

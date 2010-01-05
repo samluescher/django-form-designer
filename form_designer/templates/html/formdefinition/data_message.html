@@ -1,0 +1,2 @@
+{% load friendly %}{% for item in data %}<strong>{% if item.label %}{{ item.label }}{% else %}{{ item.name }}{% endif %}</strong>: {{ item.value|friendly }}<br />
+{% endfor %}

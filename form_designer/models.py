@@ -5,6 +5,14 @@ from django.core.mail import send_mail
 from django.conf import settings
 from form_designer import app_settings
 import re
+from pickled_object_field import PickledObjectField
+
+class CsvDump(object):
+    lines = ''
+    def write(self, text):
+        self.lines += text
+    def __unicode__(self):
+        return self.lines
 
 class FormDefinition(models.Model):
     name = models.SlugField(_('Name'), max_length=255, unique=True)
@@ -28,17 +36,22 @@ class FormDefinition(models.Model):
         verbose_name = _('Form')
         verbose_name_plural = _('Forms')
 
-    def compile_message(self, form):
-        from django.template.loader import get_template
-        from django.template import Context, Template
+    def get_form_data(self, form):
         data = []
         for key in form.fields.keys():
             data.append({'name': key, 'label': form.fields[key].label, 'value': form.cleaned_data[key]})
-        if not self.message_template:
-            t = get_template('txt/form_definition/message.txt')
+        return data
+
+    def compile_message(self, form_data, template=None):
+        from django.template.loader import get_template
+        from django.template import Context, Template
+        if template:
+            t = get_template(template)
+        elif not self.message_template:
+            t = get_template('txt/formdefinition/data_message.txt')
         else:
             t = Template(self.message_template)
-        return t.render(Context({'data': data}))
+        return t.render(Context({'data': form_data}))
 
     def count_fields(self):
         return self.formdefinitionfield_set.count()
@@ -48,10 +61,10 @@ class FormDefinition(models.Model):
         return self.title or self.name
 
     def log(self, form):
-        FormLog(form_definition=self, data=self.compile_message(form)).save()
+        FormLog(form_definition=self, data=self.get_form_data(form)).save()
 
     def send_mail(self, form):
-        message = self.compile_message(form)
+        message = self.compile_message(self.get_form_data(form))
         import re 
         to = re.compile('[\s;]*').split(self.mail_to)
         from django.core.mail import send_mail
@@ -60,16 +73,11 @@ class FormDefinition(models.Model):
 class FormLog(models.Model):
     created = models.DateTimeField(_('Created'), auto_now=True)
     form_definition = models.ForeignKey(FormDefinition, verbose_name=_('Form'))
-    data = models.TextField(_('Data'), null=True, blank=True)
+    data = PickledObjectField(_('Data'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Form log')
         verbose_name_plural = _('Form logs')
-
-    def data_html(self):
-        return self.data.replace('\n', '<br />')
-    data_html.allow_tags = True
-    data_html.short_description = _('Data')
 
 class FormDefinitionField(models.Model):
 

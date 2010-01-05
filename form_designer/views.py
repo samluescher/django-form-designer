@@ -67,4 +67,4 @@ def detail(request, object_name):
         result.update({
             'form_template': form_definition.form_template_name or app_settings.get('FORM_DESIGNER_DEFAULT_FORM_TEMPLATE')
         })
-        return render_to_response('html/form_definition/detail.html', result, context_instance=RequestContext(request))
+        return render_to_response('html/formdefinition/detail.html', result, context_instance=RequestContext(request))

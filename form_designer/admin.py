@@ -1,7 +1,7 @@
 from django.contrib import admin
 from form_designer.models import FormDefinition, FormDefinitionField, FormLog
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.db import models
 from django.conf import settings
 
@@ -57,9 +57,35 @@ class FormDefinitionAdmin(admin.ModelAdmin):
     ]
 
 class FormLogAdmin(admin.ModelAdmin):
-    list_display = ('form_definition', 'created', 'data_html')
+    list_display = ('form_no_link', 'created', 'id', 'data_html')
     list_filter = ('form_definition',)
     list_display_links = ()
+    
+    # Disabling all edit links: Hack as found at http://stackoverflow.com/questions/1618728/disable-link-to-edit-object-in-djangos-admin-display-list-only
+    def form_no_link(self, obj):
+        return '<a>'+obj.form_definition.__unicode__()+'</a>'
+    form_no_link.admin_order_field = 'form_definition'
+    form_no_link.allow_tags = True
+    form_no_link.short_description = _('Form')
+
+    def data_html(self, obj):
+        return obj.form_definition.compile_message(obj.data, 'html/formdefinition/data_message.html')
+    data_html.allow_tags = True
+    data_html.short_description = _('Data')
+
+    def changelist_view(self, request, extra_context=None):
+        from django.core.urlresolvers import reverse, NoReverseMatch 
+        extra_context = extra_context or {}
+        try:
+            query_string = '?'+request.META['QUERY_STRING']
+        except KeyError:
+            query_string = ''
+        try:
+            extra_context['export_csv_url'] = reverse('form_designer_export_csv')+query_string
+        except NoReverseMatch:
+            request.user.message_set.create(message=_('CSV export is not enabled.'))
+        
+        return super(FormLogAdmin, self).changelist_view(request, extra_context)
 
 admin.site.register(FormDefinition, FormDefinitionAdmin)
 admin.site.register(FormLog, FormLogAdmin)

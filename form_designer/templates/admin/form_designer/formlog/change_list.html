@@ -1,0 +1,15 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block object-tools %}
+    <ul class="object-tools">
+      {% if export_csv_url %}
+      <li>
+        <a href="{{ export_csv_url }}" class="">
+          {% trans "Export CSV" %}
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+{% endblock %}
+
