@@ -6,7 +6,7 @@ A Django app for building many kinds of forms visually, without any programming 
 __Features__:
 
 * Design contact forms, search forms etc from the Django admin, without writing any code
-* Form data can be logged, sent via e-mail or forwarded to any web address
+* Form data can be logged and CSV-exported, sent via e-mail, or forwarded to any web address
 * Integration with [Django CMS](http://www.django-cms.org): Add forms to any page
 * Use drag & drop to change the position of your form fields
 * Fully collapsible admin interface for better overview over your form 
