@@ -18,15 +18,25 @@ Features:
 Installation
 ------------
 
-Add the form_designer app to your INSTALLED_APPS setting.
+This document assumes that you are familiar with python and django.
 
-    "form_designer",
+1. Make sure `form_designer` is on your `PYTHONPATH`.
+
+2. Add `form_designer` to your `INSTALLED_APPS` setting.
+
+    INSTALLED_APPS = (
+        ...
+        "form_designer",
+    )
     
-Add the form_designer URLs to your URL conf. For instance, in order to make a form "example-form" available under http://domain.com/forms/example-form, add the following line:
+3. Add the form_designer URLs to your URL conf. For instance, in order to make a form `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`:
 
-    (r'^forms/', include('form_designer.urls')),
+    urlpatterns = patterns('',
+        (r'^forms/', include('form_designer.urls')),
+        ...
+    )
 
-If you are using the form_designer plugin for Django CMS, this second step is not necessary.
+__Note__: If you are using the form_designer plugin for Django CMS, step 3 is __not__ necessary.
 
 Optional requirements
 ---------------------
