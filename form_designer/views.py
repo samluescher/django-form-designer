@@ -12,15 +12,14 @@ class DesignedForm(forms.Form):
     def __init__(self, definition_fields, *args, **kwargs):
         super(DesignedForm, self).__init__(*args, **kwargs)
         for field in definition_fields:
-            self.fields[field.name] = eval(field.field_class)(**field.get_init_args())
+            self.fields[field.name] = eval(field.field_class)(**field.get_form_field_init_args())
 
-def process_form(request, form_definition, context={}):
+def process_form(request, form_definition, context={}, is_cms_plugin=False):
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
     error_message = form_definition.error_message or _('The data could not be submitted, please try again.')
     definition_fields = form_definition.formdefinitionfield_set.all()
 
     message = None
-    # TODO enable template replacements in fields, for instance: mail_to = "{{ recipient_from_choice_field }}"
     if request.method == 'POST': # If the form has been submitted...
         form = DesignedForm(definition_fields, request.POST)
         if form.is_valid():
@@ -33,7 +32,7 @@ def process_form(request, form_definition, context={}):
                 form_definition.log(form)
             if form_definition.mail_to:
                 form_definition.send_mail(form)
-            if form_definition.success_redirect:
+            if form_definition.success_redirect and not is_cms_plugin:
                 # TODO Redirection does not work for cms plugin
                 return HttpResponseRedirect(form_definition.action or '?')
             if form_definition.success_clear:

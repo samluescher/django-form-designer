@@ -10,7 +10,7 @@ class FormDefinitionFieldInline(admin.StackedInline):
     extra = 8
     fieldsets = [
         (_('Basic'), {'fields': ['name', 'field_class', 'required', 'initial']}),
-        (_('Display'), {'fields': ['label', 'widget', 'help_text', 'position']}),
+        (_('Display'), {'fields': ['label', 'widget', 'help_text', 'position', 'include_result']}),
         (_('Text'), {'fields': ['max_length', 'min_length']}),
         (_('Numbers'), {'fields': ['max_value', 'min_value', 'max_digits', 'decimal_places']}),
         (_('Regex'), {'fields': ['regex']}),
@@ -42,6 +42,15 @@ class FormDefinitionForm(forms.ModelForm):
 
     def clean_message_template(self):
         return self.validate_template(self.cleaned_data['message_template'])
+
+    def clean_mail_to(self):
+        return self.validate_template(self.cleaned_data['mail_to'])
+
+    def clean_mail_from(self):
+        return self.validate_template(self.cleaned_data['mail_from'])
+
+    def clean_mail_subject(self):
+        return self.validate_template(self.cleaned_data['mail_subject'])
 
 class FormDefinitionAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -78,7 +87,7 @@ class FormLogAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         try:
             query_string = '?'+request.META['QUERY_STRING']
-        except KeyError:
+        except TypeError, KeyError:
             query_string = ''
         try:
             extra_context['export_csv_url'] = reverse('form_designer_export_csv')+query_string
