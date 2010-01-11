@@ -1,0 +1,3 @@
+[submodule "form_designer/media/form_designer/js/lib/django-admin-tweaks-js-lib"]
+	path = form_designer/media/form_designer/js/lib/django-admin-tweaks-js-lib
+	url = git@github.com:philomat/django-admin-tweaks-js-lib.git

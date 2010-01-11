@@ -11,8 +11,8 @@ from form_designer import app_settings
 class DesignedForm(forms.Form):
     def __init__(self, definition_fields, *args, **kwargs):
         super(DesignedForm, self).__init__(*args, **kwargs)
-        for field in definition_fields:
-            self.fields[field.name] = eval(field.field_class)(**field.get_form_field_init_args())
+        for def_field in definition_fields:
+            self.fields[def_field.name] = eval(def_field.field_class)(**def_field.get_form_field_init_args())
 
 def process_form(request, form_definition, context={}, is_cms_plugin=False):
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
