@@ -20,7 +20,7 @@ Installation
 
 This document assumes that you are familiar with Python and Django.
 
-1. Download and unzip the current release from http://github.com/philomat/django-form-designer/downloads, or install using `git` as shown below (the latter two commands are necessary to pull submodule dependencies):
+1. [Download and unzip the current release](http://github.com/philomat/django-form-designer/downloads/), or install using `git` as shown below (the latter two commands are necessary to pull submodule dependencies):
 
         $ git clone git://github.com/philomat/django-form-designer.git
         $ cd django-form-designer
