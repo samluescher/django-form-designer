@@ -20,22 +20,30 @@ Installation
 
 This document assumes that you are familiar with Python and Django.
 
-1. Make sure `form_designer` is on your `PYTHONPATH`.
-2. Make the directory `form_designer/media/form_designer` available under your `MEDIA_ROOT`.
-3. Add `form_designer` to your `INSTALLED_APPS` setting.
+1. Download and unzip the current release from http://github.com/philomat/django-form-designer/downloads, or install using `git` as shown below (the latter two commands are necessary to pull submodule dependencies):
+
+        $ git clone git@github.com:philomat/django-form-designer.git
+        $ cd django-form-designer
+        $ git submodule init
+        $ git submodule update
+
+2. Make sure `form_designer` is on your `PYTHONPATH`.
+3. Make the directory `form_designer/media/form_designer` available under your `MEDIA_ROOT`.
+4. Add `form_designer` to your `INSTALLED_APPS` setting.
 
         INSTALLED_APPS = (
             ...
             'form_designer',
         )
-4. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. __Note__: If you are using the form_designer plugin for Django CMS, step 4 is __not__ necessary:
+
+5. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, step 5 is not necessary__:
 
         urlpatterns = patterns('',
             (r'^forms/', include('form_designer.urls')),
             ...
         )
-   
-5. Add the form_designer admin URLs to your URL conf if you want to use CSV export. Add the following line to `urls.py` _before_ the admin URLs:
+
+6. Add the form_designer admin URLs to your URL conf if you want to use CSV export. Add the following line to `urls.py` _before_ the admin URLs:
 
         urlpatterns = patterns('',
             (r'^admin/form_designer/', include('form_designer.admin_urls')),

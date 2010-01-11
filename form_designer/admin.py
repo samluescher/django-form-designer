@@ -4,6 +4,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 from django.db import models
 from django.conf import settings
+import os
 
 class FormDefinitionFieldInline(admin.StackedInline):
     model = FormDefinitionField
@@ -21,16 +22,36 @@ class FormDefinitionForm(forms.ModelForm):
     class Meta:
         model = FormDefinition
     class Media:
-        # TODO use jQuery bundled with django_cms if installed  
+        js = ([
+                'form_designer/js/lib/jquery.js' if not hasattr(settings, 'JQUERY_JS') else settings.JQUERY_JS,
+            ] if hasattr(settings, 'JQUERY_JS') or not hasattr(settings, 'CMS_MEDIA_URL') else [os.path.join(settings.CMS_MEDIA_URL, path) for path in (
+                # Use jQuery bundled with django_cms if installed
+                'js/lib/jquery.js',
+                #'js/lib/jquery.query.js',
+                #'js/lib/ui.core.js',
+                #'js/lib/ui.dialog.js',
+            )])+[
+                'form_designer/js/lib/jquery-ui.js' if not hasattr(settings, 'JQUERY_UI_JS') else settings.JQUERY_UI_JS,
+            ]+[os.path.join('form_designer/js/lib/django-admin-tweaks-js-lib/js', basename) for basename in (
+                'jquery-inline-positioning.js',
+                'jquery-inline-rename.js',
+                'jquery-inline-collapsible.js',
+                'jquery-inline-fieldset-collapsible.js',
+                'jquery-inline-prepopulate-label.js',
+            )]
+        """
         js = (
             'form_designer/js/lib/jquery.js' if not hasattr(settings, 'JQUERY_JS') else settings.JQUERY_JS,
             'form_designer/js/lib/jquery-ui.js' if not hasattr(settings, 'JQUERY_UI_JS') else settings.JQUERY_UI_JS,
-            'form_designer/js/jquery-inline-rename.js',
-            'form_designer/js/jquery-inline-positioning.js',
-            'form_designer/js/jquery-inline-collapsible.js',
-            'form_designer/js/jquery-inline-fieldset-collapsible.js',
-            'form_designer/js/jquery-inline-prepopulate-label.js',
-        )
+            ]+([os.path.join('form_designer/js/lib/django-admin-tweaks-js-lib/js', path) for path in (
+                'jquery-inline-rename.js',
+                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-positioning.js',
+                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-collapsible.js',
+                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-fieldset-collapsible.js',
+                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-prepopulate-label.js',
+            )]
+            )
+        """
 
     def validate_template(self, text):
         from django.template import Template, TemplateSyntaxError
