@@ -6,14 +6,16 @@ from django.conf import settings
 from form_designer import app_settings
 import re
 from pickled_object_field import PickledObjectField
+from model_name_field import ModelNameField
+from template_field import TemplateTextField, TemplateCharField
 
 class FormDefinition(models.Model):
     name = models.SlugField(_('Name'), max_length=255, unique=True)
     title = models.CharField(_('Title'), max_length=255, blank=True, null=True)
     action = models.URLField(_('Target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
-    mail_to = models.CharField(_('Send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named "from_email".'), max_length=255, blank=True, null=True)
-    mail_from = models.CharField(_('Sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ firstname }} {{ lastname }} <{{ from_email }}>" if you have fields named "first_name", "last_name", "from_email".'), blank=True, null=True)
-    mail_subject = models.CharField(_('e-Mail subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named "subject".'), blank=True, null=True)
+    mail_to = TemplateCharField(_('Send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named "from_email".'), max_length=255, blank=True, null=True)
+    mail_from = TemplateCharField(_('Sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ firstname }} {{ lastname }} <{{ from_email }}>" if you have fields named "first_name", "last_name", "from_email".'), blank=True, null=True)
+    mail_subject = TemplateCharField(_('e-Mail subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named "subject".'), blank=True, null=True)
     method = models.CharField(_('Method'), max_length=10, default="POST", choices = (('POST', 'POST'), ('GET', 'GET')))
     success_message = models.CharField(_('Success message'), max_length=255, blank=True, null=True)
     error_message = models.CharField(_('Error message'), max_length=255, blank=True, null=True)
@@ -22,7 +24,7 @@ class FormDefinition(models.Model):
     success_redirect = models.BooleanField(_('Redirect after success'), help_text=_('You should install django_notify if you want to enable this.') if not 'django_notify' in settings.INSTALLED_APPS else None, default=False)
     success_clear = models.BooleanField(_('Clear form after success'), default=True)
     allow_get_initial = models.BooleanField(_('Allow initial values via URL'), help_text=_('If enabled, you can fill in form fields by adding them to the query string.'), default=True)
-    message_template = models.TextField(_('Message template'), help_text=_('Available context: "data" (a list containing a dictionary for each form field, each containing the elements "name", "label", "value").'), blank=True, null=True)
+    message_template = TemplateTextField(_('Message template'), help_text=_('Available context: "data" (a list containing a dictionary for each form field, each containing the elements "name", "label", "value").'), blank=True, null=True)
     form_template_name = models.CharField(_('Form template'), max_length=255, choices=app_settings.get('FORM_DESIGNER_FORM_TEMPLATES'), blank=True, null=True)
 
     class Meta:
@@ -136,6 +138,10 @@ class FormDefinitionField(models.Model):
 
     regex = models.CharField(_('Regular Expression'), max_length=255, blank=True, null=True)
 
+    choice_model_choices = app_settings.get('FORM_DESIGNER_CHOICE_MODEL_CHOICES')
+    choice_model = ModelNameField(_('Model'), max_length=255, blank=True, null=True, choices=choice_model_choices, help_text=('your_app.models.ModelName' if not choice_model_choices else None))
+    choice_model_empty_label = models.CharField(_('Empty label'), max_length=255, blank=True, null=True)
+
     class Meta:
         verbose_name = _('Field')
         verbose_name_plural = _('Fields')
@@ -155,12 +161,11 @@ class FormDefinitionField(models.Model):
         self.initial = initial
         self.help_text = help_text
 
-
     def get_form_field_init_args(self):
         args = {
             'required': self.required,
             'label': self.label if self.label else '',
-            'initial': self.initial,
+            'initial': self.initial if self.initial else None,
             'help_text': self.help_text,
         }
         
@@ -205,6 +210,16 @@ class FormDefinitionField(models.Model):
                 args.update({
                     'choices': tuple(choices)
                 })
+
+        if self.field_class in ('forms.ModelChoiceField', 'forms.ModelMultipleChoiceField'):
+            args.update({
+                'queryset': ModelNameField.get_model_from_string(self.choice_model).objects.all()
+            })
+        
+        if self.field_class == 'forms.ModelChoiceField':
+            args.update({
+                'empty_label': self.choice_model_empty_label
+            })
 
         if self.widget:
             args.update({

@@ -59,13 +59,7 @@ Optional requirements
 
         JQUERY_JS = 'jquery/jquery-latest.js'
 
-Known issues
-------------
-
-* Redirection after successful form submission currently doesn't work if used with Django CMS.
-* It should be possible to edit a form directly from the Django CMS page form.
-
 Missing features
 ----------------
   
-* File upload fields will be implemented
+* File upload fields should be implemented

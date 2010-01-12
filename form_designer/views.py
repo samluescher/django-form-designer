@@ -46,8 +46,11 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
         if form_definition.allow_get_initial:
             for field in definition_fields:
                 if field.name in request.GET.keys():
-                    field.initial = request.GET.get(field.name)
-        form = DesignedForm(definition_fields)
+                    if not field.field_class in ('forms.MultipleChoiceField', 'forms.ModelMultipleChoiceField'):
+                        field.initial = request.GET.get(field.name)
+                    else:
+                        field.initial = request.GET.getlist(field.name)
+        form = DesignedForm(definition_fields, request.GET)
 
     context.update({
         'message': message,

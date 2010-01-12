@@ -12,6 +12,8 @@ FORM_DESIGNER_FIELD_CLASSES = (
     ('forms.TimeField', _('Time')),
     ('forms.ChoiceField', _('Choice')),
     ('forms.MultipleChoiceField', _('Multiple Choice')),
+    ('forms.ModelChoiceField', _('Model Choice')),
+    ('forms.ModelMultipleChoiceField', _('Model Multiple Choice')),
     ('forms.RegexField', _('Regex')),
 )
 
@@ -27,6 +29,10 @@ FORM_DESIGNER_FORM_TEMPLATES = (
     ('html/formdefinition/forms/as_p.html', _('as paragraphs')),
     ('html/formdefinition/forms/as_table.html', _('as table')),
 )
+
+# Sequence of two-tuples like (('your_app.models.ModelName', 'My Model'), ...) for limiting the models available to ModelChoiceField and ModelMultipleChoiceField.
+# If None, any model can be chosen by entering it as a string
+FORM_DESIGNER_CHOICE_MODEL_CHOICES = None
 
 FORM_DESIGNER_DEFAULT_FORM_TEMPLATE = 'html/formdefinition/forms/as_p.html'
 

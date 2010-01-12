@@ -6,7 +6,17 @@ from django.db import models
 from django.conf import settings
 import os
 
+class FormDefinitionFieldInlineForm(forms.ModelForm):
+    class Meta:
+        model = FormDefinitionField
+        
+    def clean_choice_model(self):
+        if not self.cleaned_data['choice_model'] and self.cleaned_data['field_class'] in ('forms.ModelChoiceField', 'forms.ModelMultipleChoiceField'):
+            raise forms.ValidationError(_('This field class requires a model.'))
+        return self.cleaned_data['choice_model']
+
 class FormDefinitionFieldInline(admin.StackedInline):
+    form = FormDefinitionFieldInlineForm
     model = FormDefinitionField
     extra = 8
     fieldsets = [
@@ -16,6 +26,7 @@ class FormDefinitionFieldInline(admin.StackedInline):
         (_('Numbers'), {'fields': ['max_value', 'min_value', 'max_digits', 'decimal_places']}),
         (_('Regex'), {'fields': ['regex']}),
         (_('Choices'), {'fields': ['choice_values', 'choice_labels']}),
+        (_('Model Choices'), {'fields': ['choice_model', 'choice_model_empty_label']}),
     ]
 
 class FormDefinitionForm(forms.ModelForm):
@@ -52,26 +63,6 @@ class FormDefinitionForm(forms.ModelForm):
             )]
             )
         """
-
-    def validate_template(self, text):
-        from django.template import Template, TemplateSyntaxError
-        try:
-            Template(text)
-        except TemplateSyntaxError as error:
-            raise forms.ValidationError(error)
-        return text
-
-    def clean_message_template(self):
-        return self.validate_template(self.cleaned_data['message_template'])
-
-    def clean_mail_to(self):
-        return self.validate_template(self.cleaned_data['mail_to'])
-
-    def clean_mail_from(self):
-        return self.validate_template(self.cleaned_data['mail_from'])
-
-    def clean_mail_subject(self):
-        return self.validate_template(self.cleaned_data['mail_subject'])
 
 class FormDefinitionAdmin(admin.ModelAdmin):
     fieldsets = [

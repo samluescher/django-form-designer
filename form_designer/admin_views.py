@@ -3,6 +3,7 @@ from form_designer.models import FormLog
 from form_designer.admin import FormLogAdmin
 from form_designer import app_settings
 from django.utils.translation import ugettext as _
+from form_designer.templatetags.friendly import friendly
 import csv
 
 # Returns a QuerySet with the same ordering and filtering like the one that would be visible in Django admin
@@ -49,7 +50,7 @@ def export_csv(request):
         if include_pk:
             row.append(entry.pk)
         for field in entry.data:
-            row.append(field['value'])
+            row.append(friendly(field['value']))
         writer.writerow(row)
 
     return response
