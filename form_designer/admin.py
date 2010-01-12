@@ -11,7 +11,7 @@ class FormDefinitionFieldInlineForm(forms.ModelForm):
         model = FormDefinitionField
         
     def clean_choice_model(self):
-        if not self.cleaned_data['choice_model'] and self.cleaned_data['field_class'] in ('forms.ModelChoiceField', 'forms.ModelMultipleChoiceField'):
+        if not self.cleaned_data['choice_model'] and hasattr(self.cleaned_data, 'field_class') and self.cleaned_data['field_class'] in ('forms.ModelChoiceField', 'forms.ModelMultipleChoiceField'):
             raise forms.ValidationError(_('This field class requires a model.'))
         return self.cleaned_data['choice_model']
 
