@@ -24,6 +24,7 @@ def export_csv(request):
     distinct_forms = qs.aggregate(Count('form_definition', distinct=True))['form_definition__count']
     
     include_created = app_settings.get('FORM_DESIGNER_CSV_EXPORT_INCLUDE_CREATED')
+    include_pk = app_settings.get('FORM_DESIGNER_CSV_EXPORT_INCLUDE_PK')
     include_header = app_settings.get('FORM_DESIGNER_CSV_EXPORT_INCLUDE_HEADER') and distinct_forms == 1
     include_form = app_settings.get('FORM_DESIGNER_CSV_EXPORT_INCLUDE_FORM') and distinct_forms > 1
 
@@ -33,6 +34,8 @@ def export_csv(request):
             header.append(_('Form'))
         if include_created:
             header.append(_('Created'))
+        if include_pk:
+            header.append(_('ID'))
         for field in qs.all()[0].data:
             header.append(field['label'] if field['label'] else field['key'])
         writer.writerow(header)
@@ -43,6 +46,8 @@ def export_csv(request):
             row.append(entry.form_definition)
         if include_created:
             row.append(entry.created)
+        if include_pk:
+            row.append(entry.pk)
         for field in entry.data:
             row.append(field['value'])
         writer.writerow(row)

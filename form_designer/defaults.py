@@ -36,6 +36,8 @@ FORM_DESIGNER_CSV_EXPORT_DELIMITER = ';'
 # include log timestamp in export
 FORM_DESIGNER_CSV_EXPORT_INCLUDE_CREATED = True
 
+FORM_DESIGNER_CSV_EXPORT_INCLUDE_PK = True
+
 # include field labels/names in first row if exporting logs for one form only
 FORM_DESIGNER_CSV_EXPORT_INCLUDE_HEADER = True
 
