@@ -54,8 +54,8 @@ This document assumes that you are familiar with Python and Django.
 Optional requirements
 ---------------------
 
-* form_designer supports [django-notify](http://code.google.com/p/django-notify/) for error messages and success notifications. If it is installed in your project, it will be used automatically, and you need to output the {{ notifications }} variable in your templates.
-* The form_designer admin interface requires jQuery and the jQuery UI Sortable plugin to make building forms a lot more user-friendly. The two Javascript files are bundled with form_designer. If you want to use you own jquery-*.js and jquery-ui-*.js instead, define JQUERY_JS and JQUERY_UI_JS in your settings file. For instance:
+* form_designer supports [django-notify](http://code.google.com/p/django-notify/) for error messages and success notifications. If it is installed in your project, it will be used automatically, and you need to output the `{{ notifications }}` variable in your templates.
+* The form_designer admin interface requires jQuery and the jQuery UI Sortable plugin to make building forms a lot more user-friendly. The two Javascript files are bundled with form_designer. If you want to use you own jquery-\*.js and jquery-ui-\*.js instead, define JQUERY_JS and JQUERY_UI_JS in your settings file. For instance:
 
         JQUERY_JS = 'jquery/jquery-latest.js'
 
