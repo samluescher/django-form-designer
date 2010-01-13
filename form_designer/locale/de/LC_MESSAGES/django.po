@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-13 13:56+0100\n"
+"POT-Creation-Date: 2010-01-13 14:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: admin.py:15
 msgid "This field class requires a model."
-msgstr ""
+msgstr "Diese Feld-Klasse benötigt ein Modell."
 
 #: admin.py:23 admin.py:69
 msgid "Basic"
@@ -45,9 +45,8 @@ msgid "Choices"
 msgstr "Auswahl"
 
 #: admin.py:29
-#, fuzzy
 msgid "Model Choices"
-msgstr "Auswahl"
+msgstr "Modell-Auswahl"
 
 #: admin.py:70
 msgid "Mail form"
@@ -80,7 +79,7 @@ msgstr "Erstellt"
 
 #: admin_views.py:39
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: defaults.py:5
 msgid "E-mail address"
@@ -123,14 +122,12 @@ msgid "Multiple Choice"
 msgstr "Mehrfach-Auswahl"
 
 #: defaults.py:15
-#, fuzzy
 msgid "Model Choice"
-msgstr "Auswahl"
+msgstr "Modell-Auswahl"
 
 #: defaults.py:16
-#, fuzzy
 msgid "Model Multiple Choice"
-msgstr "Mehrfach-Auswahl"
+msgstr "Modell-Mehrfach-Auswahl"
 
 #: defaults.py:21 defaults.py:28
 msgid "Default"
@@ -346,12 +343,12 @@ msgid "Regular Expression"
 msgstr "Regulärer Ausdruck"
 
 #: models.py:142
-msgid "Model"
-msgstr ""
+msgid "Data model"
+msgstr "Datenmodell"
 
 #: models.py:143
 msgid "Empty label"
-msgstr ""
+msgstr "Beschriftung falls leer"
 
 #: models.py:146 models.py:232
 msgid "Field"

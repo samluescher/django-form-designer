@@ -139,7 +139,7 @@ class FormDefinitionField(models.Model):
     regex = models.CharField(_('Regular Expression'), max_length=255, blank=True, null=True)
 
     choice_model_choices = app_settings.get('FORM_DESIGNER_CHOICE_MODEL_CHOICES')
-    choice_model = ModelNameField(_('Model'), max_length=255, blank=True, null=True, choices=choice_model_choices, help_text=('your_app.models.ModelName' if not choice_model_choices else None))
+    choice_model = ModelNameField(_('Data model'), max_length=255, blank=True, null=True, choices=choice_model_choices, help_text=('your_app.models.ModelName' if not choice_model_choices else None))
     choice_model_empty_label = models.CharField(_('Empty label'), max_length=255, blank=True, null=True)
 
     class Meta:
