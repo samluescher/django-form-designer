@@ -50,7 +50,7 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
                         field.initial = request.GET.get(field.name)
                     else:
                         field.initial = request.GET.getlist(field.name)
-        form = DesignedForm(definition_fields, request.GET)
+        form = DesignedForm(definition_fields)
 
     context.update({
         'message': message,
