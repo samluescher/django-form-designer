@@ -40,8 +40,10 @@ class FormDefinition(models.Model):
     def get_form_data(self, form):
         data = []
         field_dict = self.get_field_dict()
-        for key in form.fields.keys():
-            if field_dict[key].include_result:
+        form_keys = form.fields.keys()
+        def_keys = field_dict.keys()
+        for key in form_keys:
+            if key in def_keys and field_dict[key].include_result:
                 data.append({'name': key, 'label': form.fields[key].label, 'value': form.cleaned_data[key]})
         return data
         
@@ -50,7 +52,7 @@ class FormDefinition(models.Model):
         for field in form_data:
             dict[field['name']] = field['value']
         return dict
-        
+
     def compile_message(self, form_data, template=None):
         from django.template.loader import get_template
         from django.template import Context, Template
@@ -101,6 +103,13 @@ class FormDefinition(models.Model):
         
         from django.core.mail import send_mail
         send_mail(mail_subject, message, mail_from or None, mail_to, fail_silently=False)
+
+    @property
+    def submit_flag_name(self):
+        name = app_settings.get('FORM_DESIGNER_SUBMIT_FLAG_NAME') % self.name
+        while self.formdefinitionfield_set.filter(name__exact=name).count() > 0:
+            name += '_'
+        return name
 
 class FormLog(models.Model):
     created = models.DateTimeField(_('Created'), auto_now=True)

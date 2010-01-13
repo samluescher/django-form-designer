@@ -4,24 +4,36 @@ from django.db import models
 from form_designer.models import FormDefinition
 from django.utils.translation import ugettext as _
 from django import forms
+from django.forms import widgets
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from form_designer import app_settings
 
 class DesignedForm(forms.Form):
-    def __init__(self, definition_fields, *args, **kwargs):
+    def __init__(self, form_definition, *args, **kwargs):
         super(DesignedForm, self).__init__(*args, **kwargs)
-        for def_field in definition_fields:
-            self.fields[def_field.name] = eval(def_field.field_class)(**def_field.get_form_field_init_args())
+        for def_field in form_definition.formdefinitionfield_set.all():
+            self.add_defined_field(def_field)
+        self.fields[form_definition.submit_flag_name] = forms.BooleanField(required=False, initial=1, widget=widgets.HiddenInput)
+
+    def add_defined_field(self, def_field):
+        self.fields[def_field.name] = eval(def_field.field_class)(**def_field.get_form_field_init_args())
 
 def process_form(request, form_definition, context={}, is_cms_plugin=False):
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
     error_message = form_definition.error_message or _('The data could not be submitted, please try again.')
-    definition_fields = form_definition.formdefinitionfield_set.all()
-
     message = None
-    if request.method == 'POST': # If the form has been submitted...
-        form = DesignedForm(definition_fields, request.POST)
+
+    is_submit = False
+    # If the form has been submitted...
+    if request.method == 'POST' and request.POST.get(form_definition.submit_flag_name):
+        form = DesignedForm(form_definition, request.POST)
+        is_submit = True
+    if request.method == 'GET' and request.GET.get(form_definition.submit_flag_name):
+        form = DesignedForm(form_definition, request.GET)
+        is_submit = True
+    
+    if is_submit:
         if form.is_valid():
             # Successful submission
             if 'django_notify' in settings.INSTALLED_APPS:
@@ -36,7 +48,7 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
                 # TODO Redirection does not work for cms plugin
                 return HttpResponseRedirect(form_definition.action or '?')
             if form_definition.success_clear:
-                form = DesignedForm(definition_fields) # clear form
+                form = DesignedForm(form_definition) # clear form
         else:
             if 'django_notify' in settings.INSTALLED_APPS:
                 request.notifications.error(error_message)
@@ -44,13 +56,13 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
                 message = error_message
     else:
         if form_definition.allow_get_initial:
-            for field in definition_fields:
+            for field in form_definition.formdefinitionfield_set.all():
                 if field.name in request.GET.keys():
                     if not field.field_class in ('forms.MultipleChoiceField', 'forms.ModelMultipleChoiceField'):
                         field.initial = request.GET.get(field.name)
                     else:
                         field.initial = request.GET.getlist(field.name)
-        form = DesignedForm(definition_fields)
+        form = DesignedForm(form_definition)
 
     context.update({
         'message': message,
