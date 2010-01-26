@@ -101,6 +101,9 @@ class FormDefinition(models.Model):
         else:
             mail_subject = self.title
         
+        import logging
+        logging.debug('Mail: '+repr(mail_from)+' --> '+repr(mail_to));
+        
         from django.core.mail import send_mail
         send_mail(mail_subject, message, mail_from or None, mail_to, fail_silently=False)
 

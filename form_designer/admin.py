@@ -11,7 +11,7 @@ class FormDefinitionFieldInlineForm(forms.ModelForm):
         model = FormDefinitionField
         
     def clean_choice_model(self):
-        if not self.cleaned_data['choice_model'] and hasattr(self.cleaned_data, 'field_class') and self.cleaned_data['field_class'] in ('forms.ModelChoiceField', 'forms.ModelMultipleChoiceField'):
+        if not self.cleaned_data['choice_model'] and self.cleaned_data.has_key('field_class') and self.cleaned_data['field_class'] in ('forms.ModelChoiceField', 'forms.ModelMultipleChoiceField'):
             raise forms.ValidationError(_('This field class requires a model.'))
         return self.cleaned_data['choice_model']
 
@@ -38,9 +38,6 @@ class FormDefinitionForm(forms.ModelForm):
             ] if hasattr(settings, 'JQUERY_JS') or not hasattr(settings, 'CMS_MEDIA_URL') else [os.path.join(settings.CMS_MEDIA_URL, path) for path in (
                 # Use jQuery bundled with django_cms if installed
                 'js/lib/jquery.js',
-                #'js/lib/jquery.query.js',
-                #'js/lib/ui.core.js',
-                #'js/lib/ui.dialog.js',
             )])+[
                 'form_designer/js/lib/jquery-ui.js' if not hasattr(settings, 'JQUERY_UI_JS') else settings.JQUERY_UI_JS,
             ]+[os.path.join('form_designer/js/lib/django-admin-tweaks-js-lib/js', basename) for basename in (

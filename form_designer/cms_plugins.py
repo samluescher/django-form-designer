@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 from views import process_form
 from form_designer import app_settings
 
-class CMSFormDesignerPlugin(CMSPluginBase):
+class FormDesignerPlugin(CMSPluginBase):
     model = CMSFormDefinition
     name = _("Form")
     admin_preview = False
@@ -17,4 +17,4 @@ class CMSFormDesignerPlugin(CMSPluginBase):
             self.render_template = app_settings.get('FORM_DESIGNER_DEFAULT_FORM_TEMPLATE')
         return process_form(context['request'], instance.form_definition, is_cms_plugin=True)
 
-plugin_pool.register_plugin(CMSFormDesignerPlugin)
+plugin_pool.register_plugin(FormDesignerPlugin)

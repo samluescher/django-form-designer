@@ -10,13 +10,18 @@ from django.conf import settings
 from form_designer import app_settings
 
 class DesignedForm(forms.Form):
-    def __init__(self, form_definition, *args, **kwargs):
+    def __init__(self, form_definition, initial_data=None, *args, **kwargs):
         super(DesignedForm, self).__init__(*args, **kwargs)
         for def_field in form_definition.formdefinitionfield_set.all():
-            self.add_defined_field(def_field)
+            self.add_defined_field(def_field, initial_data)
         self.fields[form_definition.submit_flag_name] = forms.BooleanField(required=False, initial=1, widget=widgets.HiddenInput)
 
-    def add_defined_field(self, def_field):
+    def add_defined_field(self, def_field, initial_data=None):
+        if initial_data and initial_data.has_key(def_field.name):
+            if not def_field.field_class in ('forms.MultipleChoiceField', 'forms.ModelMultipleChoiceField'):
+                def_field.initial = initial_data.get(def_field.name)
+            else:
+                def_field.initial = initial_data.getlist(def_field.name)
         self.fields[def_field.name] = eval(def_field.field_class)(**def_field.get_form_field_init_args())
 
 def process_form(request, form_definition, context={}, is_cms_plugin=False):
@@ -27,10 +32,10 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
     is_submit = False
     # If the form has been submitted...
     if request.method == 'POST' and request.POST.get(form_definition.submit_flag_name):
-        form = DesignedForm(form_definition, request.POST)
+        form = DesignedForm(form_definition, None, request.POST)
         is_submit = True
     if request.method == 'GET' and request.GET.get(form_definition.submit_flag_name):
-        form = DesignedForm(form_definition, request.GET)
+        form = DesignedForm(form_definition, None, request.GET)
         is_submit = True
     
     if is_submit:
@@ -56,13 +61,9 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
                 message = error_message
     else:
         if form_definition.allow_get_initial:
-            for field in form_definition.formdefinitionfield_set.all():
-                if field.name in request.GET.keys():
-                    if not field.field_class in ('forms.MultipleChoiceField', 'forms.ModelMultipleChoiceField'):
-                        field.initial = request.GET.get(field.name)
-                    else:
-                        field.initial = request.GET.getlist(field.name)
-        form = DesignedForm(form_definition)
+            form = DesignedForm(form_definition, initial_data=request.GET)
+        else:
+            form = DesignedForm(form_definition)
 
     context.update({
         'message': message,

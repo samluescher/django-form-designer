@@ -1,3 +1,4 @@
+# encoding=utf8
 from django.http import HttpResponse
 from form_designer.models import FormLog
 from form_designer.admin import FormLogAdmin
@@ -50,7 +51,11 @@ def export_csv(request):
         if include_pk:
             row.append(entry.pk)
         for field in entry.data:
-            row.append(friendly(field['value']))
+            value = friendly(field['value'])
+            if not isinstance(value, basestring):
+                value = unicode(value)
+            value = value.encode(app_settings.get('FORM_DESIGNER_CSV_EXPORT_ENCODING'))
+            row.append(value)
         writer.writerow(row)
 
     return response
