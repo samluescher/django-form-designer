@@ -6,6 +6,8 @@ from django.db import models
 from django.conf import settings
 import os
 
+MEDIA_SUBDIR = 'form_designer'
+
 class FormDefinitionFieldInlineForm(forms.ModelForm):
     class Meta:
         model = FormDefinitionField
@@ -34,32 +36,28 @@ class FormDefinitionForm(forms.ModelForm):
         model = FormDefinition
     class Media:
         js = ([
-                'form_designer/js/lib/jquery.js' if not hasattr(settings, 'JQUERY_JS') else settings.JQUERY_JS,
-            ] if hasattr(settings, 'JQUERY_JS') or not hasattr(settings, 'CMS_MEDIA_URL') else [os.path.join(settings.CMS_MEDIA_URL, path) for path in (
-                # Use jQuery bundled with django_cms if installed
-                'js/lib/jquery.js',
-            )])+[
-                'form_designer/js/lib/jquery-ui.js' if not hasattr(settings, 'JQUERY_UI_JS') else settings.JQUERY_UI_JS,
-            ]+[os.path.join('form_designer/js/lib/django-admin-tweaks-js-lib/js', basename) for basename in (
+                # Use central jQuery
+                settings.JQUERY_JS,
+                # and use jQuery UI bundled with this app
+                os.path.join(MEDIA_SUBDIR, 'lib/jquery/ui.core.js'),
+                os.path.join(MEDIA_SUBDIR, 'lib/jquery/ui.sortable.js'),
+            ] if hasattr(settings, 'JQUERY_JS') else [
+                # Use jQuery bundled with CMS
+                os.path.join(settings.CMS_MEDIA_URL, 'js/lib/jquery.js'),
+                os.path.join(settings.CMS_MEDIA_URL, 'js/lib/ui.core.js'),
+                os.path.join(settings.CMS_MEDIA_URL, 'js/lib/ui.sortable.js'),
+            ] if hasattr(settings, 'CMS_MEDIA_URL') else [
+                # or use jQuery bundled with this app
+                os.path.join(MEDIA_SUBDIR, 'lib/jquery/jquery.js'),
+                os.path.join(MEDIA_SUBDIR, 'lib/jquery/ui.core.js'),
+                os.path.join(MEDIA_SUBDIR, 'lib/jquery/ui.sortable.js'),
+            ])+[os.path.join(MEDIA_SUBDIR, 'js/lib/django-admin-tweaks-js-lib/js', basename) for basename in (
                 'jquery-inline-positioning.js',
                 'jquery-inline-rename.js',
                 'jquery-inline-collapsible.js',
                 'jquery-inline-fieldset-collapsible.js',
                 'jquery-inline-prepopulate-label.js',
             )]
-        """
-        js = (
-            'form_designer/js/lib/jquery.js' if not hasattr(settings, 'JQUERY_JS') else settings.JQUERY_JS,
-            'form_designer/js/lib/jquery-ui.js' if not hasattr(settings, 'JQUERY_UI_JS') else settings.JQUERY_UI_JS,
-            ]+([os.path.join('form_designer/js/lib/django-admin-tweaks-js-lib/js', path) for path in (
-                'jquery-inline-rename.js',
-                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-positioning.js',
-                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-collapsible.js',
-                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-fieldset-collapsible.js',
-                'form_designer/js/lib/django-admin-tweaks-js-lib/js/jquery-inline-prepopulate-label.js',
-            )]
-            )
-        """
 
 class FormDefinitionAdmin(admin.ModelAdmin):
     fieldsets = [

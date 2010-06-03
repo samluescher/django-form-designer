@@ -13,9 +13,9 @@ class FormDefinition(models.Model):
     name = models.SlugField(_('Name'), max_length=255, unique=True)
     title = models.CharField(_('Title'), max_length=255, blank=True, null=True)
     action = models.URLField(_('Target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
-    mail_to = TemplateCharField(_('Send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named "from_email".'), max_length=255, blank=True, null=True)
-    mail_from = TemplateCharField(_('Sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ firstname }} {{ lastname }} <{{ from_email }}>" if you have fields named "first_name", "last_name", "from_email".'), blank=True, null=True)
-    mail_subject = TemplateCharField(_('e-Mail subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named "subject".'), blank=True, null=True)
+    mail_to = TemplateCharField(_('Send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named `from_email`.'), max_length=255, blank=True, null=True)
+    mail_from = TemplateCharField(_('Sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ firstname }} {{ lastname }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
+    mail_subject = TemplateCharField(_('e-Mail subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named `subject`.'), blank=True, null=True)
     method = models.CharField(_('Method'), max_length=10, default="POST", choices = (('POST', 'POST'), ('GET', 'GET')))
     success_message = models.CharField(_('Success message'), max_length=255, blank=True, null=True)
     error_message = models.CharField(_('Error message'), max_length=255, blank=True, null=True)
@@ -24,7 +24,7 @@ class FormDefinition(models.Model):
     success_redirect = models.BooleanField(_('Redirect after success'), help_text=_('You should install django_notify if you want to enable this.') if not 'django_notify' in settings.INSTALLED_APPS else None, default=False)
     success_clear = models.BooleanField(_('Clear form after success'), default=True)
     allow_get_initial = models.BooleanField(_('Allow initial values via URL'), help_text=_('If enabled, you can fill in form fields by adding them to the query string.'), default=True)
-    message_template = TemplateTextField(_('Message template'), help_text=_('Available context: "data" (a list containing a dictionary for each form field, each containing the elements "name", "label", "value").'), blank=True, null=True)
+    message_template = TemplateTextField(_('Message template'), help_text=_('Your form fields are available as template context. Example: "{{ message }}" if you have a field named `message`. To iterate over all fields, use the variable `data` (a list containing a dictionary for each form field, each containing the elements `name`, `label`, `value`).'), blank=True, null=True)
     form_template_name = models.CharField(_('Form template'), max_length=255, choices=app_settings.get('FORM_DESIGNER_FORM_TEMPLATES'), blank=True, null=True)
 
     class Meta:
@@ -44,7 +44,10 @@ class FormDefinition(models.Model):
         def_keys = field_dict.keys()
         for key in form_keys:
             if key in def_keys and field_dict[key].include_result:
-                data.append({'name': key, 'label': form.fields[key].label, 'value': form.cleaned_data[key]})
+                value = form.cleaned_data[key]
+                if getattr(value, '__form_data__', False):
+                    value = value.__form_data__()
+                data.append({'name': key, 'label': form.fields[key].label, 'value': value})
         return data
         
     def get_form_data_dict(self, form_data):
@@ -62,7 +65,9 @@ class FormDefinition(models.Model):
             t = get_template('txt/formdefinition/data_message.txt')
         else:
             t = Template(self.message_template)
-        return t.render(Context({'data': form_data}))
+        context = Context(self.get_form_data_dict(form_data))
+        context['data'] = form_data
+        return t.render(context)
 
     def count_fields(self):
         return self.formdefinitionfield_set.count()
@@ -72,7 +77,10 @@ class FormDefinition(models.Model):
         return self.title or self.name
 
     def log(self, form):
-        FormLog(form_definition=self, data=self.get_form_data(form)).save()
+        form_data = self.get_form_data(form)
+        #if self.mail_to:
+        #    form_data.append({'name': 'mail', 'label': 'mail', 'value': self.compile_message(form_data)})
+        FormLog(form_definition=self, data=form_data).save()
 
     def string_template_replace(self, text, context_dict):
         from django.template import Context, Template, TemplateSyntaxError
@@ -135,7 +143,7 @@ class FormDefinitionField(models.Model):
     required = models.BooleanField(_('Required'), default=True)
     include_result = models.BooleanField(_('Include in result'), help_text=('If this is disabled, the field value will not be included in logs and e-mails generated from form data.'), default=True)
     widget = models.CharField(_('Widget'), default='', choices=app_settings.get('FORM_DESIGNER_WIDGET_CLASSES'), max_length=255, blank=True, null=True)
-    initial = models.CharField(_('Initial value'), max_length=255, blank=True, null=True)
+    initial = models.TextField(_('Initial value'), blank=True, null=True)
     help_text = models.CharField(_('Help text'), max_length=255, blank=True, null=True)
 
     choice_values = models.TextField(_('Values'), help_text=_('One value per line'), blank=True, null=True)

@@ -34,7 +34,7 @@ FORM_DESIGNER_FORM_TEMPLATES = (
 # If None, any model can be chosen by entering it as a string
 FORM_DESIGNER_CHOICE_MODEL_CHOICES = None
 
-FORM_DESIGNER_DEFAULT_FORM_TEMPLATE = 'html/formdefinition/forms/as_p.html'
+FORM_DESIGNER_DEFAULT_FORM_TEMPLATE = 'html/formdefinition/forms/default.html'
 
 # semicolon is Microsoft Excel default
 FORM_DESIGNER_CSV_EXPORT_DELIMITER = ';'
@@ -51,7 +51,5 @@ FORM_DESIGNER_CSV_EXPORT_INCLUDE_HEADER = True
 FORM_DESIGNER_CSV_EXPORT_INCLUDE_FORM = True
 
 FORM_DESIGNER_CSV_EXPORT_FILENAME = 'export.csv'
-
-FORM_DESIGNER_CSV_EXPORT_ENCODING = 'utf8'
 
 FORM_DESIGNER_SUBMIT_FLAG_NAME = 'submit__%s'
