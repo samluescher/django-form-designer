@@ -40,7 +40,7 @@ This document assumes that you are familiar with Python and Django.
             'form_designer',
         )
 
-6. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, step 5 is not necessary__:
+6. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, step 6 is not necessary__:
 
         urlpatterns = patterns('',
             (r'^forms/', include('form_designer.urls')),
