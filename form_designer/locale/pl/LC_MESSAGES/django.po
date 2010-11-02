@@ -1,0 +1,381 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-02 14:29+0100\n"
+"PO-Revision-Date: 2010-11-02 14:47+0100\n"
+"Last-Translator: Piotr Kilczuk <p.kilczuk@stylesheet.pl>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: admin.py:17
+msgid "This field class requires a model."
+msgstr "Ta klasa wymaga określenia modelu."
+
+#: admin.py:25
+#: admin.py:64
+msgid "Basic"
+msgstr "Postawowe"
+
+#: admin.py:26
+msgid "Display"
+msgstr "Prezentacja"
+
+#: admin.py:27
+#: defaults.py:4
+msgid "Text"
+msgstr "Tekst"
+
+#: admin.py:28
+msgid "Numbers"
+msgstr "Liczby"
+
+#: admin.py:29
+#: defaults.py:17
+msgid "Regex"
+msgstr "Wyrażenie regularne"
+
+#: admin.py:30
+msgid "Choices"
+msgstr "Lista wyboru"
+
+#: admin.py:31
+msgid "Model Choices"
+msgstr "Lista wyboru modelu powiązanego"
+
+#: admin.py:65
+msgid "Mail form"
+msgstr "Nadawca"
+
+#: admin.py:66
+msgid "Templates"
+msgstr "Szablony"
+
+#: admin.py:67
+msgid "Messages"
+msgstr "Wiadomości"
+
+#: admin.py:85
+#: admin_views.py:37
+#: cms_plugins.py:10
+#: models.py:31
+#: models.py:127
+#: models.py:263
+msgid "Form"
+msgstr "Formularz"
+
+#: admin.py:90
+#: models.py:128
+msgid "Data"
+msgstr "Dane"
+
+#: admin.py:102
+msgid "CSV export is not enabled."
+msgstr "Eksport do CSV nie jest włączony."
+
+#: admin_views.py:39
+#: models.py:126
+msgid "Created"
+msgstr "Utworzono"
+
+#: admin_views.py:41
+msgid "ID"
+msgstr "ID"
+
+#: defaults.py:5
+msgid "E-mail address"
+msgstr "Adres e-mail"
+
+#: defaults.py:6
+msgid "Web address"
+msgstr "Adres WWW"
+
+#: defaults.py:7
+msgid "Number"
+msgstr "Liczba"
+
+#: defaults.py:8
+msgid "Decimal number"
+msgstr "Liczba zmiennoprzecinkowa"
+
+#: defaults.py:9
+msgid "Yes/No"
+msgstr "Tak/Nie"
+
+#: defaults.py:10
+msgid "Date"
+msgstr "Data"
+
+#: defaults.py:11
+msgid "Date & time"
+msgstr "Data i czas"
+
+#: defaults.py:12
+msgid "Time"
+msgstr "Czas"
+
+#: defaults.py:13
+msgid "Choice"
+msgstr "Pole wyboru"
+
+#: defaults.py:14
+msgid "Multiple Choice"
+msgstr "Pole wielokrotnego wyboru"
+
+#: defaults.py:15
+msgid "Model Choice"
+msgstr "Pole wyboru modelu powiązanego"
+
+#: defaults.py:16
+msgid "Model Multiple Choice"
+msgstr "Pole wielokrotnego wyboru modelu powiązanego"
+
+#: defaults.py:21
+#: defaults.py:28
+msgid "Default"
+msgstr "Domyślnie"
+
+#: defaults.py:22
+msgid "Text area"
+msgstr "Pole textarea"
+
+#: defaults.py:23
+msgid "Password input"
+msgstr "Hasło"
+
+#: defaults.py:24
+msgid "Hidden input"
+msgstr "Pole ukryte"
+
+#: defaults.py:29
+msgid "as paragraphs"
+msgstr "jako paragrafy"
+
+#: defaults.py:30
+msgid "as table"
+msgstr "jako tabela"
+
+#: models.py:13
+#: models.py:141
+msgid "Name"
+msgstr "Nazwa"
+
+#: models.py:14
+msgid "Title"
+msgstr "Tytuł"
+
+#: models.py:15
+msgid "Target URL"
+msgstr "URL docelowy"
+
+#: models.py:15
+msgid "If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter \"http://www.google.ch/search\" to create a search form."
+msgstr "Jeśli pozostawisz to pole puste, zostanie wywołana strona, na której został osadzony formularz (wciąż będziesz mógł używać funkcji e-mail i logowania). Możesz również przesyłać dane do stron zewnętrznych - np. wpisanie \"http://www.google.pl/search\" spowoduje otwarcie strony wyszukiwania."
+
+#: models.py:16
+msgid "Send form data to e-mail address"
+msgstr "Wyślij dane z formularza na adres e-mail"
+
+#: models.py:17
+msgid "Sender address"
+msgstr "Nadawca"
+
+#: models.py:18
+msgid "e-Mail subject"
+msgstr "Temat wiadomości"
+
+#: models.py:19
+msgid "Method"
+msgstr "Metoda"
+
+#: models.py:20
+msgid "Success message"
+msgstr "Komunikat - powodzenie"
+
+#: models.py:21
+msgid "Error message"
+msgstr "Komunikat - błąd"
+
+#: models.py:22
+msgid "Submit button label"
+msgstr "Opis pola submit"
+
+#: models.py:23
+msgid "Log form data"
+msgstr "Rejestruj dane z formularza"
+
+#: models.py:23
+msgid "Logs all form submissions to the database."
+msgstr "Zapisuj dane z formularza do bazy danych."
+
+#: models.py:24
+msgid "Redirect after success"
+msgstr "Przekieruj po pozytywnym zatwierdzeniu."
+
+#: models.py:24
+msgid "You should install django_notify if you want to enable this."
+msgstr "Powinieneś zainstalować django_notify, zanim włączysz tę funkcję."
+
+#: models.py:25
+msgid "Clear form after success"
+msgstr "Wyczyść formularz po pozytywnym zatwierdzeniu."
+
+#: models.py:26
+msgid "Allow initial values via URL"
+msgstr "Dopuszczaj dane początkowe w URL."
+
+#: models.py:26
+msgid "If enabled, you can fill in form fields by adding them to the query string."
+msgstr "Jeśli włączone, możesz przekazywać dane początkowe w QUERY STRINGu."
+
+#: models.py:27
+msgid "Message template"
+msgstr "Szablon wiadomości"
+
+#: models.py:27
+msgid "Your form fields are available as template context. Example: \"{{ message }}\" if you have a field named `message`. To iterate over all fields, use the variable `data` (a list containing a dictionary for each form field, each containing the elements `name`, `label`, `value`)."
+msgstr "Twoje pola są dostępne w systemie szablonów jako context. Np. \"{{ message }}\" spowoduje wyświetlenie zawartości pola `message`. Aby przejść po wszystkich polach przesłanych z formularza, użyj zmiennej `data` (lista słowników zawierających następujące klucze: `name`, `label`, `value`)."
+
+#: models.py:28
+msgid "Form template"
+msgstr "Szablon formularza"
+
+#: models.py:32
+msgid "Forms"
+msgstr "Formularze"
+
+#: models.py:74
+#: models.py:167
+#: models.py:253
+msgid "Fields"
+msgstr "Pola"
+
+#: models.py:131
+msgid "Form log"
+msgstr "Dane formularza"
+
+#: models.py:132
+msgid "Form logs"
+msgstr "Rejestr danych z formularza"
+
+#: models.py:138
+msgid "Field class"
+msgstr "Klasa pola"
+
+#: models.py:139
+msgid "Position"
+msgstr "Pozycja"
+
+#: models.py:142
+msgid "Label"
+msgstr "Opis"
+
+#: models.py:143
+msgid "Required"
+msgstr "Wymagane"
+
+#: models.py:144
+msgid "Include in result"
+msgstr "Uwzględnij w wynikach"
+
+#: models.py:145
+msgid "Widget"
+msgstr "Widżet"
+
+#: models.py:146
+msgid "Initial value"
+msgstr "Wartość początkowa"
+
+#: models.py:147
+msgid "Help text"
+msgstr "Tekst pomocy"
+
+#: models.py:149
+msgid "Values"
+msgstr "Wartości"
+
+#: models.py:149
+msgid "One value per line"
+msgstr "Jedna wartość w linijce"
+
+#: models.py:150
+msgid "Labels"
+msgstr "Opisy"
+
+#: models.py:150
+msgid "One label per line"
+msgstr "Jeden opis w linijce"
+
+#: models.py:152
+msgid "Max. length"
+msgstr "Maksymalna długość"
+
+#: models.py:153
+msgid "Min. length"
+msgstr "Minimalna długość"
+
+#: models.py:154
+msgid "Max. value"
+msgstr "Maksymalna wartość"
+
+#: models.py:155
+msgid "Min. value"
+msgstr "Minimalna wartość"
+
+#: models.py:156
+msgid "Max. digits"
+msgstr "Maksymalna ilość cyfr"
+
+#: models.py:157
+msgid "Decimal places"
+msgstr "Miejsca po przecinku"
+
+#: models.py:159
+msgid "Regular Expression"
+msgstr "Wyrażenie regularne"
+
+#: models.py:162
+msgid "Data model"
+msgstr "Nazwa modelu"
+
+#: models.py:163
+msgid "Empty label"
+msgstr "Opis gdy puste"
+
+#: models.py:166
+#: models.py:252
+msgid "Field"
+msgstr "Pole"
+
+#: views.py:28
+msgid "Thank you, the data was submitted successfully."
+msgstr "Dziękujemy, dane zostały zapisane pomyślnie."
+
+#: views.py:29
+msgid "The data could not be submitted, please try again."
+msgstr "Dane nie mogły zostać zapisane - proszę, spróbuj jeszcze raz."
+
+#: templates/admin/form_designer/formlog/change_list.html:9
+msgid "Export CSV"
+msgstr "Eksport do CSV"
+
+#: templates/html/formdefinition/forms/default.html:28
+msgid "Submit"
+msgstr "Zatwierdź"
+
+#: templatetags/friendly.py:16
+msgid "yes"
+msgstr "tak"
+
+#: templatetags/friendly.py:16
+msgid "no"
+msgstr "nie"
+
