@@ -20,44 +20,46 @@ Installation
 
 This document assumes that you are familiar with Python and Django.
 
-1. [Download and unzip the current release](http://github.com/philomat/django-form-designer/downloads/), or install using `git` as shown below):
+1. [Download and unzip the current release](http://github.com/philomat/django-form-designer/downloads/), or install using `git` as shown below (the latter two commands are necessary to pull submodule dependencies):
 
         $ git clone git://github.com/philomat/django-form-designer.git
         $ cd django-form-designer
+        $ git submodule init
+        $ git submodule update
 
 2. Make sure `form_designer` is on your `PYTHONPATH`.
 3. Make the directory `form_designer/media/form_designer` available under your `MEDIA_ROOT`.
-4. Set up the database tables using 
-
-	$ manage.py syncdb
  
-5. Add `form_designer` to your `INSTALLED_APPS` setting.
+4. Add `form_designer` to your `INSTALLED_APPS` setting.
 
         INSTALLED_APPS = (
             ...
             'form_designer',
         )
 
-6. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, step 5 is not necessary__:
+5. Set up the database tables using 
+
+        $ manage.py syncdb
+
+6. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, this step is not necessary__:
 
         urlpatterns = patterns('',
             (r'^forms/', include('form_designer.urls')),
             ...
         )
 
+7. Add the form_designer admin URLs to your URL conf if you want to use CSV export. Add the following line to `urls.py` _before_ the admin URLs:
+
+        urlpatterns = patterns('',
+            (r'^admin/form_designer/', include('form_designer.admin_urls')),
+            ...
+            (r'^admin/', include(admin.site.urls)),
+        )
+
 Optional requirements
 ---------------------
 
+* form_designer supports [django-notify](http://code.google.com/p/django-notify/) for error messages and success notifications. If it is installed in your project, it will be used automatically, and you need to output the `{{ notifications }}` variable in your templates.
 * The form_designer admin interface requires jQuery and the jQuery UI Sortable plugin to make building forms a lot more user-friendly. The two Javascript files are bundled with form_designer. Optionally, if Django CMS is installed, the files bundled with that app will be used. If you want to use you own jquery.js instead because you're already including it anyway, define JQUERY_JS in your settings file. For instance:
 
-        JQUERY_URL = 'jquery/jquery-latest.js'
-
-Missing features
-----------------
-  
-* File upload fields should be implemented
-
-Dependencies
-------------
-
-django-picklefield
+        JQUERY_JS = 'jquery/jquery-latest.js'
