@@ -28,6 +28,11 @@ class FormDefinitionFieldInlineForm(forms.ModelForm):
     class Meta:
         model = FormDefinitionField
 
+    def clean_regex(self):
+        if not self.cleaned_data['regex'] and self.cleaned_data.has_key('field_class') and self.cleaned_data['field_class'] in ('django.forms.RegexField',):
+            raise forms.ValidationError(_('This field class requires a regular expression.'))
+        return self.cleaned_data['regex']
+
     def clean_choice_model(self):
         if not self.cleaned_data['choice_model'] and self.cleaned_data.has_key('field_class') and self.cleaned_data['field_class'] in ('django.forms.ModelChoiceField', 'django.forms.ModelMultipleChoiceField'):
             raise forms.ValidationError(_('This field class requires a model.'))

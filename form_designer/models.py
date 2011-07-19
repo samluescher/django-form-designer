@@ -10,7 +10,7 @@ from django.utils.importlib import import_module
 
 from picklefield.fields import PickledObjectField
 
-from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField
+from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
 from form_designer import settings
 
 def get_class(import_path):
@@ -188,7 +188,7 @@ class FormDefinitionField(models.Model):
     max_digits = models.IntegerField(_('Max. digits'), blank=True, null=True)
     decimal_places = models.IntegerField(_('Decimal places'), blank=True, null=True)
 
-    regex = models.CharField(_('Regular Expression'), max_length=255, blank=True, null=True)
+    regex = RegexpExpressionField(_('Regular Expression'), max_length=255, blank=True, null=True)
 
     choice_model_choices = settings.CHOICE_MODEL_CHOICES
     choice_model = ModelNameField(_('Data model'), max_length=255, blank=True, null=True, choices=choice_model_choices, help_text=('your_app.models.ModelName' if not choice_model_choices else None))

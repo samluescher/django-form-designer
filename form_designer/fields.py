@@ -67,3 +67,26 @@ class TemplateTextField(models.TextField):
         defaults = {'form_class': TemplateFormField}
         defaults.update(kwargs)
         return super(TemplateTextField, self).formfield(**defaults)
+
+class RegexpExpressionFormField(forms.CharField):
+
+    def clean(self, value):
+        """
+        Validates that the input can be compiled as a Regular Expression.
+        """
+        value = super(RegexpExpressionFormField, self).clean(value)
+        import re
+        try:
+            re.compile(value)
+        except Exception, error:
+            raise forms.ValidationError(error)
+        return value
+
+class RegexpExpressionField(models.CharField):
+
+    def formfield(self, **kwargs):
+        # This is a fairly standard way to set up some defaults
+        # while letting the caller override them.
+        defaults = {'form_class': RegexpExpressionFormField}
+        defaults.update(kwargs)
+        return super(RegexpExpressionField, self).formfield(**defaults)
