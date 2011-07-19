@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-28 14:41+0200\n"
+"POT-Creation-Date: 2011-07-19 23:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,16 +56,16 @@ msgstr "Vorlagen"
 msgid "Messages"
 msgstr "Meldungen"
 
-#: admin.py:62 admin.py:101 admin.py:146 cms_plugins.py:12 models.py:52
-#: models.py:148 models.py:284
+#: admin.py:62 admin.py:101 admin.py:146 cms_plugins.py:12 models.py:54
+#: models.py:159 models.py:295
 msgid "Form"
 msgstr "Formular"
 
-#: admin.py:77 models.py:149
+#: admin.py:77 models.py:160
 msgid "Data"
 msgstr "Daten"
 
-#: admin.py:103 admin.py:148 models.py:147
+#: admin.py:103 admin.py:148 models.py:158
 msgid "Created"
 msgstr "Erstellt"
 
@@ -95,7 +95,7 @@ msgstr "XLS-Export ist nicht aktiviert."
 msgid "This field class requires a model."
 msgstr "Diese Feld-Klasse benötigt ein Modell."
 
-#: models.py:34 models.py:162
+#: models.py:34 models.py:173
 msgid "Name"
 msgstr "Name"
 
@@ -104,10 +104,14 @@ msgid "Title"
 msgstr "Titel"
 
 #: models.py:36
+msgid "Body"
+msgstr "Text"
+
+#: models.py:37
 msgid "Target URL"
 msgstr "Ziel-URL"
 
-#: models.py:36
+#: models.py:37
 msgid ""
 "If you leave this empty, the page where the form resides will be requested, "
 "and you can use the mail form and logging features. You can also send data "
@@ -119,182 +123,182 @@ msgstr ""
 "werden. Es ist auch möglich, Daten an externe Sites zu senden: Beispielweise "
 "\"http://www.google.ch/search\" eingeben, um ein Suchformular zu erstellen."
 
-#: models.py:37
+#: models.py:38
 msgid "Send form data to e-mail address"
 msgstr "Formulardaten an E-Mail-Adresse senden"
 
-#: models.py:38
+#: models.py:39
 msgid "Sender address"
 msgstr "Absender-Adresse"
 
-#: models.py:39
+#: models.py:40
 msgid "e-Mail subject"
 msgstr "E-Mail-Betreff"
 
-#: models.py:40
+#: models.py:41
 msgid "Method"
 msgstr "Methode"
 
-#: models.py:41
+#: models.py:42
 msgid "Success message"
 msgstr "Erfolgsmeldung"
 
-#: models.py:42
+#: models.py:43
 msgid "Error message"
 msgstr "Fehlermeldung"
 
-#: models.py:43
+#: models.py:44
 msgid "Submit button label"
 msgstr "Beschriftung der Senden-Schaltfläche"
 
-#: models.py:44
+#: models.py:45
 msgid "Log form data"
 msgstr "Formulardaten loggen"
 
-#: models.py:44
+#: models.py:45
 msgid "Logs all form submissions to the database."
 msgstr "Speichert alle Formular-Übermittlungen in der Datenbank."
 
-#: models.py:45
-msgid "Redirect after success"
-msgstr "Bei Erfolg weiterleiten"
-
 #: models.py:46
-msgid "Clear form after success"
-msgstr "Bei Erfolg Formular zurücksetzen"
+msgid "HTTP redirect after successful submission"
+msgstr "HTTP-Weiterleitung nach erfolgreicher Übermittlung"
 
 #: models.py:47
+msgid "Clear form after successful submission"
+msgstr "Formular zurücksetzen nach erfolgreicher Übermittlung"
+
+#: models.py:48
 msgid "Allow initial values via URL"
 msgstr "Initialwerte via URL erlauben"
 
-#: models.py:47
+#: models.py:48
 msgid ""
 "If enabled, you can fill in form fields by adding them to the query string."
 msgstr ""
 "Falls aktiviert, ist es möglich, Formularfelder vorauszufüllen, indem sie "
 "dem Query-String hinzugefügt werden."
 
-#: models.py:48
+#: models.py:49
 msgid "Message template"
 msgstr "Nachrichten-Vorlage"
 
-#: models.py:48
-#, fuzzy
+#: models.py:49
 msgid ""
 "Your form fields are available as template context. Example: \"{{ message }}"
 "\" if you have a field named `message`. To iterate over all fields, use the "
 "variable `data` (a list containing a dictionary for each form field, each "
 "containing the elements `name`, `label`, `value`)."
 msgstr ""
-"Verfügbarer Kontext: \"data\" (Eine List mit Dictionaries für jedes Formular "
-"und Feld, jeweils mit den folgenden Elementen: \"name\", \"label\", \"value"
-"\")."
 
-#: models.py:49
+#: models.py:50
 msgid "Form template"
 msgstr "Formular-Vorlage"
 
-#: models.py:53
+#: models.py:51
+msgid "Display logged submissions with form"
+msgstr "Geloggte Formulardaten mit Formular anzeigen"
+
+#: models.py:55
 msgid "Forms"
 msgstr "Formulare"
 
-#: models.py:95 models.py:188 models.py:274
+#: models.py:101 models.py:199 models.py:285
 msgid "Fields"
 msgstr "Felder"
 
-#: models.py:152
+#: models.py:163
 msgid "Form log"
 msgstr "Formular-Log"
 
-#: models.py:153
+#: models.py:164
 msgid "Form logs"
 msgstr "Formular-Logs"
 
-#: models.py:159
+#: models.py:170
 msgid "Field class"
 msgstr "Feld-Klasse"
 
-#: models.py:160
+#: models.py:171
 msgid "Position"
 msgstr "Position"
 
-#: models.py:163
+#: models.py:174
 msgid "Label"
 msgstr "Beschriftung"
 
-#: models.py:164
+#: models.py:175
 msgid "Required"
 msgstr "Erforderlich"
 
-#: models.py:165
+#: models.py:176
 msgid "Include in result"
 msgstr "In Resultat einbeziehen"
 
-#: models.py:166
+#: models.py:177
 msgid "Widget"
 msgstr "Widget"
 
-#: models.py:167
+#: models.py:178
 msgid "Initial value"
 msgstr "Initialwert"
 
-#: models.py:168
+#: models.py:179
 msgid "Help text"
 msgstr "Hilfetext"
 
-#: models.py:170
+#: models.py:181
 msgid "Values"
 msgstr "Werte"
 
-#: models.py:170
+#: models.py:181
 msgid "One value per line"
 msgstr "Ein Wert pro Zeile"
 
-#: models.py:171
+#: models.py:182
 msgid "Labels"
 msgstr "Beschriftungen"
 
-#: models.py:171
+#: models.py:182
 msgid "One label per line"
 msgstr "Eine Beschriftung pro Zeile"
 
-#: models.py:173
+#: models.py:184
 msgid "Max. length"
 msgstr "Max. Länge"
 
-#: models.py:174
+#: models.py:185
 msgid "Min. length"
 msgstr "Min. Länge"
 
-#: models.py:175
+#: models.py:186
 msgid "Max. value"
 msgstr "Max. Wert"
 
-#: models.py:176
+#: models.py:187
 msgid "Min. value"
 msgstr "Min. Wert"
 
-#: models.py:177
+#: models.py:188
 msgid "Max. digits"
 msgstr "Max. Ziffern"
 
-#: models.py:178
+#: models.py:189
 msgid "Decimal places"
 msgstr "Dezimalstellen"
 
-#: models.py:180
+#: models.py:191
 msgid "Regular Expression"
 msgstr "Regulärer Ausdruck"
 
-#: models.py:183
+#: models.py:194
 msgid "Data model"
 msgstr "Datenmodell"
 
-#: models.py:184
+#: models.py:195
 msgid "Empty label"
 msgstr "Beschriftung falls leer"
 
-#: models.py:187 models.py:273
+#: models.py:198 models.py:284
 msgid "Field"
 msgstr "Feld"
 
@@ -346,71 +350,75 @@ msgstr "Modell-Auswahl"
 msgid "Model Multiple Choice"
 msgstr "Modell-Mehrfach-Auswahl"
 
-#: settings.py:25 settings.py:33
+#: settings.py:21
+msgid "File"
+msgstr "Datei"
+
+#: settings.py:26 settings.py:34
 msgid "Default"
 msgstr "Voreinstellung"
 
-#: settings.py:26
+#: settings.py:27
 msgid "Text area"
 msgstr "Textfeld"
 
-#: settings.py:27
+#: settings.py:28
 msgid "Password input"
 msgstr "Passwortfeld"
 
-#: settings.py:28
+#: settings.py:29
 msgid "Hidden input"
 msgstr "Versteckter Wert"
 
-#: settings.py:29
+#: settings.py:30
 msgid "Radio button"
 msgstr "Radio-Buttons"
 
-#: settings.py:34
+#: settings.py:35
 msgid "as paragraphs"
 msgstr "als Absätze"
 
-#: settings.py:35
+#: settings.py:36
 msgid "as table"
 msgstr "als Tabelle"
 
-#: settings.py:36
+#: settings.py:37
+msgid "as table (horizontal)"
+msgstr "als Tabelle (horizontal)"
+
+#: settings.py:38
 msgid "as unordered list"
 msgstr "als unsortierte Liste"
 
-#: settings.py:37
+#: settings.py:39
 msgid "custom implementation"
 msgstr "eigene Implementierung"
 
-#: views.py:13
+#: views.py:18
 msgid "Thank you, the data was submitted successfully."
 msgstr "Vielen Dank, die Daten wurden übermittelt."
 
-#: views.py:14
+#: views.py:19
 msgid "The data could not be submitted, please try again."
 msgstr ""
-"Die Daten konnten nicht übermittelt werden, bitte versuchen Sie es erneut."
+"Die Daten konnten nicht übermittelt werden, bitte erneut versuchen."
 
 #: templates/admin/form_designer/formlog/change_list.html:9
 msgid "Export CSV"
 msgstr "CSV exportieren"
 
 #: templates/admin/form_designer/formlog/change_list.html:16
-#, fuzzy
 msgid "Export XLS"
 msgstr "XLS exportieren"
 
-#: templates/html/formdefinition/forms/as_p.html:11
-#: templates/html/formdefinition/forms/as_table.html:11
-#: templates/html/formdefinition/forms/as_u.html:11
-#: templates/html/formdefinition/forms/custom.html:40
+#: templates/html/formdefinition/forms/includes/submit.html:2
 msgid "Submit"
 msgstr "Absenden"
 
-#: templatetags/friendly.py:16
+#: templatetags/friendly.py:18
 msgid "yes"
 msgstr "ja"
 
-#: templatetags/friendly.py:16
+#: templatetags/friendly.py:18
 msgid "no"
 msgstr "nein"
