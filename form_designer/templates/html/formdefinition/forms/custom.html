@@ -1,0 +1,42 @@
+{% load i18n %}
+{% load widget_type %}
+
+{% if message %}
+<ul class="notifications">
+  <li>{{ message }}</li>
+</ul>
+{% endif %}
+
+
+<form name="{{ form_definition.name }}" action="{% if form_definition.action %}{{ form_definition.action }}{% else %}.{% endif %}" method="{{ form_definition.method }}" enctype="multipart/form-data">
+{% csrf_token %}
+<fieldset>	
+	{% if form_definition.title %}
+		<legend>{{ form_definition.title }}</legend>
+	{% endif %}
+	
+	{% for item in form.visible_fields %}
+		
+		{% if forloop.first %}
+			{% for hidden in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+		{% endif %}
+    
+		<label class="{% spaceless %}
+			{% if item.field.widget|field_type == "TextInput" or item.field.widget|field_type == "Textarea" %}
+			texfield
+			{% endif %}
+			
+			{% if item.errors %}
+			error
+			{% endif %}{% endspaceless %}">
+				
+			{{ item.label }} {% if item.field.required %}<span class="required">*</span>{% endif %}
+			{{ item }}
+		</label>
+	    
+	{% endfor %}	
+	<input type="submit" id="submit" value="{% if form_definition.submit_label %}{{ form_definition.submit_label }}{% else %}{% trans "Submit" %}{% endif %}" />
+</fieldset>
+</form>

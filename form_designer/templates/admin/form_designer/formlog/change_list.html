@@ -10,6 +10,13 @@
         </a>
       </li>
       {% endif %}
+      {% if export_xls_url %}
+      <li>
+        <a href="{{ export_xls_url }}" class="">
+          {% trans "Export XLS" %}
+        </a>
+      </li>
+      {% endif %}
     </ul>
 {% endblock %}
 

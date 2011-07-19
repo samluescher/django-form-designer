@@ -29,18 +29,19 @@ This document assumes that you are familiar with Python and Django.
 
 2. Make sure `form_designer` is on your `PYTHONPATH`.
 3. Make the directory `form_designer/media/form_designer` available under your `MEDIA_ROOT`.
-4. Set up the database tables using 
-
-	$ manage.py syncdb
  
-5. Add `form_designer` to your `INSTALLED_APPS` setting.
+4. Add `form_designer` to your `INSTALLED_APPS` setting.
 
         INSTALLED_APPS = (
             ...
             'form_designer',
         )
 
-6. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, step 5 is not necessary__:
+5. Set up the database tables using 
+
+        $ manage.py syncdb
+
+6. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, this step is not necessary__:
 
         urlpatterns = patterns('',
             (r'^forms/', include('form_designer.urls')),
@@ -62,8 +63,3 @@ Optional requirements
 * The form_designer admin interface requires jQuery and the jQuery UI Sortable plugin to make building forms a lot more user-friendly. The two Javascript files are bundled with form_designer. Optionally, if Django CMS is installed, the files bundled with that app will be used. If you want to use you own jquery.js instead because you're already including it anyway, define JQUERY_JS in your settings file. For instance:
 
         JQUERY_JS = 'jquery/jquery-latest.js'
-
-Missing features
-----------------
-  
-* File upload fields should be implemented

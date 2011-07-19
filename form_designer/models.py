@@ -1,13 +1,34 @@
+import re
+
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.forms import widgets
 from django.core.mail import send_mail
-from django.conf import settings
-from form_designer import app_settings
-import re
-from pickled_object_field import PickledObjectField
-from model_name_field import ModelNameField
-from template_field import TemplateTextField, TemplateCharField
+from django.conf import settings as django_settings
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.importlib import import_module
+
+from picklefield.fields import PickledObjectField
+
+from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField
+from form_designer import settings
+
+def get_class(import_path):
+    try:
+        dot = import_path.rindex('.')
+    except ValueError:
+        raise ImproperlyConfigured("%s isn't a Python path." % import_path)
+    module, classname = import_path[:dot], import_path[dot + 1:]
+    try:
+        mod = import_module(module)
+    except ImportError, e:
+        raise ImproperlyConfigured('Error importing module %s: "%s"' %
+                                   (module, e))
+    try:
+        return getattr(mod, classname)
+    except AttributeError:
+        raise ImproperlyConfigured('Module "%s" does not define a "%s" '
+                                   'class.' % (module, classname))
 
 class FormDefinition(models.Model):
     name = models.SlugField(_('Name'), max_length=255, unique=True)
@@ -21,11 +42,11 @@ class FormDefinition(models.Model):
     error_message = models.CharField(_('Error message'), max_length=255, blank=True, null=True)
     submit_label = models.CharField(_('Submit button label'), max_length=255, blank=True, null=True)
     log_data = models.BooleanField(_('Log form data'), help_text=_('Logs all form submissions to the database.'), default=True)
-    success_redirect = models.BooleanField(_('Redirect after success'), help_text=_('You should install django_notify if you want to enable this.') if not 'django_notify' in settings.INSTALLED_APPS else None, default=False)
+    success_redirect = models.BooleanField(_('Redirect after success'), default=False)
     success_clear = models.BooleanField(_('Clear form after success'), default=True)
     allow_get_initial = models.BooleanField(_('Allow initial values via URL'), help_text=_('If enabled, you can fill in form fields by adding them to the query string.'), default=True)
     message_template = TemplateTextField(_('Message template'), help_text=_('Your form fields are available as template context. Example: "{{ message }}" if you have a field named `message`. To iterate over all fields, use the variable `data` (a list containing a dictionary for each form field, each containing the elements `name`, `label`, `value`).'), blank=True, null=True)
-    form_template_name = models.CharField(_('Form template'), max_length=255, choices=app_settings.get('FORM_DESIGNER_FORM_TEMPLATES'), blank=True, null=True)
+    form_template_name = models.CharField(_('Form template'), max_length=255, choices=settings.FORM_TEMPLATES, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Form')
@@ -36,7 +57,7 @@ class FormDefinition(models.Model):
         for field in self.formdefinitionfield_set.all():
             dict[field.name] = field
         return dict
-        
+
     def get_form_data(self, form):
         data = []
         field_dict = self.get_field_dict()
@@ -49,7 +70,7 @@ class FormDefinition(models.Model):
                     value = value.__form_data__()
                 data.append({'name': key, 'label': form.fields[key].label, 'value': value})
         return data
-        
+
     def get_form_data_dict(self, form_data):
         dict = {}
         for field in form_data:
@@ -90,34 +111,39 @@ class FormDefinition(models.Model):
         except TemplateSyntaxError:
             return text
 
-    def send_mail(self, form):
+    def send_mail(self, form, files=[]):
         form_data = self.get_form_data(form)
         message = self.compile_message(form_data)
         context_dict = self.get_form_data_dict(form_data)
 
-        import re 
+        import re
         mail_to = re.compile('\s*[,;]+\s*').split(self.mail_to)
         for key, email in enumerate(mail_to):
             mail_to[key] = self.string_template_replace(email, context_dict)
-        
+
         mail_from = self.mail_from or None
         if mail_from:
             mail_from = self.string_template_replace(mail_from, context_dict)
-        
+
         if self.mail_subject:
             mail_subject = self.string_template_replace(self.mail_subject, context_dict)
         else:
             mail_subject = self.title
-        
+
         import logging
         logging.debug('Mail: '+repr(mail_from)+' --> '+repr(mail_to));
-        
-        from django.core.mail import send_mail
-        send_mail(mail_subject, message, mail_from or None, mail_to, fail_silently=False)
+
+        from django.core.mail import EmailMessage
+        message = EmailMessage(mail_subject, message, mail_from or None, mail_to)
+
+        for file_path in files:
+            message.attach_file(file_path)
+
+        message.send(fail_silently=False)
 
     @property
     def submit_flag_name(self):
-        name = app_settings.get('FORM_DESIGNER_SUBMIT_FLAG_NAME') % self.name
+        name = settings.SUBMIT_FLAG_NAME % self.name
         while self.formdefinitionfield_set.filter(name__exact=name).count() > 0:
             name += '_'
         return name
@@ -135,14 +161,14 @@ class FormLog(models.Model):
 class FormDefinitionField(models.Model):
 
     form_definition = models.ForeignKey(FormDefinition)
-    field_class = models.CharField(_('Field class'), choices=app_settings.get('FORM_DESIGNER_FIELD_CLASSES'), max_length=32)
+    field_class = models.CharField(_('Field class'), choices=settings.FIELD_CLASSES, max_length=32)
     position = models.IntegerField(_('Position'), blank=True, null=True)
 
     name = models.SlugField(_('Name'), max_length=255)
     label = models.CharField(_('Label'), max_length=255, blank=True, null=True)
     required = models.BooleanField(_('Required'), default=True)
     include_result = models.BooleanField(_('Include in result'), help_text=('If this is disabled, the field value will not be included in logs and e-mails generated from form data.'), default=True)
-    widget = models.CharField(_('Widget'), default='', choices=app_settings.get('FORM_DESIGNER_WIDGET_CLASSES'), max_length=255, blank=True, null=True)
+    widget = models.CharField(_('Widget'), default='', choices=settings.WIDGET_CLASSES, max_length=255, blank=True, null=True)
     initial = models.TextField(_('Initial value'), blank=True, null=True)
     help_text = models.CharField(_('Help text'), max_length=255, blank=True, null=True)
 
@@ -158,7 +184,7 @@ class FormDefinitionField(models.Model):
 
     regex = models.CharField(_('Regular Expression'), max_length=255, blank=True, null=True)
 
-    choice_model_choices = app_settings.get('FORM_DESIGNER_CHOICE_MODEL_CHOICES')
+    choice_model_choices = settings.CHOICE_MODEL_CHOICES
     choice_model = ModelNameField(_('Data model'), max_length=255, blank=True, null=True, choices=choice_model_choices, help_text=('your_app.models.ModelName' if not choice_model_choices else None))
     choice_model_empty_label = models.CharField(_('Empty label'), max_length=255, blank=True, null=True)
 
@@ -174,7 +200,7 @@ class FormDefinitionField(models.Model):
     def ____init__(self, field_class=None, name=None, required=None, widget=None, label=None, initial=None, help_text=None, *args, **kwargs):
         super(FormDefinitionField, self).__init__(*args, **kwargs)
         self.name = name
-        self.field_class = field_class
+        self.field_class = field_class  
         self.required = required
         self.widget = widget
         self.label = label
@@ -188,20 +214,20 @@ class FormDefinitionField(models.Model):
             'initial': self.initial if self.initial else None,
             'help_text': self.help_text,
         }
-        
-        if self.field_class in ('forms.CharField', 'forms.EmailField', 'forms.RegexField'):
+
+        if self.field_class in ('django.forms.CharField', 'django.forms.EmailField', 'django.forms.RegexField'):
             args.update({
                 'max_length': self.max_length,
                 'min_length': self.min_length,
             })
 
-        if self.field_class in ('forms.IntegerField', 'forms.DecimalField'):
+        if self.field_class in ('django.forms.IntegerField', 'django.forms.DecimalField'):
             args.update({
                 'max_value': int(self.max_value) if self.max_value != None else None,
                 'min_value': int(self.min_value) if self.min_value != None else None,
             })
 
-        if self.field_class == 'forms.DecimalField':
+        if self.field_class == 'django.forms.DecimalField':
             args.update({
                 'max_value': self.max_value,
                 'min_value': self.min_value,
@@ -209,13 +235,13 @@ class FormDefinitionField(models.Model):
                 'decimal_places': self.decimal_places,
             })
 
-        if self.field_class == 'forms.RegexField':
+        if self.field_class == 'django.forms.RegexField':
             if self.regex:
                 args.update({
                     'regex': self.regex
                 })
 
-        if self.field_class in ('forms.ChoiceField', 'forms.MultipleChoiceField'):
+        if self.field_class in ('django.forms.ChoiceField', 'django.forms.MultipleChoiceField'):
             if self.choice_values:
                 choices = []
                 regex = re.compile('[\s]*\n[\s]*')
@@ -231,21 +257,21 @@ class FormDefinitionField(models.Model):
                     'choices': tuple(choices)
                 })
 
-        if self.field_class in ('forms.ModelChoiceField', 'forms.ModelMultipleChoiceField'):
+        if self.field_class in ('django.forms.ModelChoiceField', 'django.forms.ModelMultipleChoiceField'):
             args.update({
                 'queryset': ModelNameField.get_model_from_string(self.choice_model).objects.all()
             })
-        
-        if self.field_class == 'forms.ModelChoiceField':
+
+        if self.field_class == 'django.forms.ModelChoiceField':
             args.update({
                 'empty_label': self.choice_model_empty_label
             })
 
         if self.widget:
             args.update({
-                'widget': eval(self.widget)()
+                'widget': get_class(self.widget)()
             })
-        
+
         return args
 
     class Meta:
@@ -256,7 +282,7 @@ class FormDefinitionField(models.Model):
     def __unicode__(self):
         return self.label if self.label else self.name
 
-if 'cms' in settings.INSTALLED_APPS:
+if 'cms' in django_settings.INSTALLED_APPS:
     from cms.models import CMSPlugin
 
     class CMSFormDefinition(CMSPlugin):
@@ -264,3 +290,7 @@ if 'cms' in settings.INSTALLED_APPS:
 
         def __unicode__(self):
             return self.form_definition.__unicode__()
+
+if 'south' in django_settings.INSTALLED_APPS:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^form_designer\.fields\..*"])
