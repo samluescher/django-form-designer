@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-MEDIA_URL = getattr(settings, 'FORM_DESIGNER_MEDIA_URL', '%sform_designer/' % settings.MEDIA_URL)
+STATIC_URL = getattr(settings, 'STATIC_URL', settings.MEDIA_URL) + '/form_designer/'
 
 FIELD_CLASSES = getattr(settings, 'FORM_DESIGNER_FIELD_CLASSES', (
     ('django.forms.CharField', _('Text')),

@@ -22,7 +22,7 @@ from form_designer.templatetags.friendly import friendly
 class FormDefinitionFieldInline(admin.StackedInline):
     form = FormDefinitionFieldInlineForm
     model = FormDefinitionField
-    extra = 8
+    extra = 1
     fieldsets = [
         (_('Basic'), {'fields': ['name', 'field_class', 'required', 'initial']}),
         (_('Display'), {'fields': ['label', 'widget', 'help_text', 'position', 'include_result']}),

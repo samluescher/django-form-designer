@@ -44,9 +44,11 @@ class FormDefinitionForm(forms.ModelForm):
             # Use jQuery bundled with django_cms if installed
             js.append(os.path.join(django_settings.CMS_MEDIA_URL, 'js/lib/jquery.js'))
         elif hasattr(django_settings, 'JQUERY_URL'):
-            js.append(settings.MEDIA_URL + 'js/jquery.js')
+            js.append(django_settings.JQUERY_URL)
+        else:
+            js.append('%s%s' % (settings.STATIC_URL, 'js/jquery.js'))
         js.extend(
-            ['%s%s' % (settings.MEDIA_URL, path) for path in (
+            ['%s%s' % (settings.STATIC_URL, path) for path in (
                 'js/jquery-ui.js',
                 'js/jquery-inline-positioning.js',
                 'js/jquery-inline-rename.js',
