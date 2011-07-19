@@ -1,4 +1,5 @@
 import re
+import hashlib, uuid
 
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -32,6 +33,9 @@ def get_class(import_path):
 
 class FormDefinition(models.Model):
     name = models.SlugField(_('Name'), max_length=255, unique=True)
+    require_hash = models.BooleanField(_('Obfuscate URL to this form'), default=False, help_text=_('If enabled, the form can only be reached via a secret URL.'))
+    private_hash = models.CharField(editable=False, max_length=40, default='')
+    public_hash = models.CharField(editable=False, max_length=40, default='')
     title = models.CharField(_('Title'), max_length=255, blank=True, null=True)
     body = models.TextField(_('Body'), blank=True, null=True)
     action = models.URLField(_('Target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
@@ -54,6 +58,13 @@ class FormDefinition(models.Model):
         verbose_name = _('Form')
         verbose_name_plural = _('Forms')
 
+    def save(self, *args, **kwargs):
+        if not self.private_hash:
+            self.private_hash = hashlib.sha1(str(uuid.uuid4())).hexdigest()
+        if not self.public_hash:
+            self.public_hash = hashlib.sha1(str(uuid.uuid4())).hexdigest()
+        super(FormDefinition, self).save()
+
     def get_field_dict(self):
         dict = {}
         for field in self.formdefinitionfield_set.all():
@@ -62,6 +73,8 @@ class FormDefinition(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        if self.require_hash:
+            return ('form_designer.views.detail_by_hash', [str(self.public_hash)])
         return ('form_designer.views.detail', [str(self.name)])
 
     def get_form_data(self, form):
@@ -198,10 +211,10 @@ class FormDefinitionField(models.Model):
         verbose_name = _('Field')
         verbose_name_plural = _('Fields')
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.position == None:
             self.position = 0
-        super(FormDefinitionField, self).save()
+        super(FormDefinitionField, self).save(*args, **kwargs)
 
     def ____init__(self, field_class=None, name=None, required=None, widget=None, label=None, initial=None, help_text=None, *args, **kwargs):
         super(FormDefinitionField, self).__init__(*args, **kwargs)

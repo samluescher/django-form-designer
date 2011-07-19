@@ -86,8 +86,7 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
         
     return context
 
-def detail(request, object_name):
-    form_definition = get_object_or_404(FormDefinition, name=object_name)
+def _form_detail_view(request, form_definition):
     result = process_form(request, form_definition)
     if isinstance(result, HttpResponseRedirect):
         return result
@@ -96,3 +95,11 @@ def detail(request, object_name):
     })
     return render_to_response('html/formdefinition/detail.html', result,
         context_instance=RequestContext(request))
+
+def detail(request, object_name):
+    form_definition = get_object_or_404(FormDefinition, name=object_name, require_hash=False)
+    return _form_detail_view(request, form_definition) 
+
+def detail_by_hash(request, public_hash):
+    form_definition = get_object_or_404(FormDefinition, public_hash=public_hash)
+    return _form_detail_view(request, form_definition) 
