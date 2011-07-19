@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from form_designer import settings as app_settings
 from django.contrib import messages
 from django.core.context_processors import csrf
 
@@ -91,7 +92,7 @@ def detail(request, object_name):
     if isinstance(result, HttpResponseRedirect):
         return result
     result.update({
-        'form_template': form_definition.form_template_name or settings.DEFAULT_FORM_TEMPLATE
+        'form_template': form_definition.form_template_name or app_settings.DEFAULT_FORM_TEMPLATE
     })
     return render_to_response('html/formdefinition/detail.html', result,
         context_instance=RequestContext(request))
