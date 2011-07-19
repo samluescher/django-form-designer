@@ -12,7 +12,7 @@
             {% endfor %}
             {% for field in form %}
                 {% if not field.is_hidden %}
-                <tr class="{% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
+                <tr class="field {% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
                     <th>
                         <label for="{{ field.auto_id }}">{{ field.label }}</label>
                     </th>
@@ -23,7 +23,7 @@
                 </tr>
                 {% endif %}
             {% endfor %}
-            <tr>
+            <tr class="buttons">
                 <td>&nbsp;</td>
                 <th>{% include "html/formdefinition/forms/includes/submit.html" %}</th>
             <tr>

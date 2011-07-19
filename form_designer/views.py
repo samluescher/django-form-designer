@@ -82,7 +82,7 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
     context.update(csrf(request))
     
     if form_definition.display_logged:
-        context.update({'logs': form_definition.formlog_set.all().order_by('created')})
+        context.update({'logs': form_definition.formlog_set.filter(form_definition=form_definition).order_by('created')})
         
     return context
 

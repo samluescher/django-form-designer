@@ -1,49 +1,46 @@
+{% example base template, replace with your own %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>{{ form_definition.title}}</title>
+    <style type="text/css">
 
-<style type="text/css">
-
-    .error, .errorlist li {
-        color: red;
-    }
+        .error, .errorlist li {
+            color: red;
+        }
     
-    .success {
-        color: green;
-    }
+        .success {
+            color: green;
+        }
 
-    td, th {
-        border: 1px gray solid;
-        vertical-align: top;
-    }
+        td, th {
+            border: 1px gray solid;
+            vertical-align: top;
+        }
 
-    label {
-        color: gray;
-    }
+        label {
+            color: gray;
+        }
     
-    p label {
-        display: inline-block;
-        min-width: 5em;
-    }
+        p label {
+            display: inline-block;
+            min-width: 5em;
+        }
     
-    .required label {
-        font-weight: bold;
-    }
+        .required label {
+            font-weight: bold;
+        }
 
-    .required label:after {
-        content: "*";
-    }
+        .required label:after {
+            content: "*";
+        }
   
-</style>
-
+    </style>
 </head>
-
 <body>
     {% block content %}
     {% endblock %}
 </body>
-<html>
 </html>

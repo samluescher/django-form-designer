@@ -21,7 +21,7 @@
             <tr>
             {% for field in form %}
                 {% if not field.is_hidden %}
-                    <td class="{% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
+                    <td class="field {% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
                         {{ field.errors }}
                         {{ field }}
                     </td>
@@ -30,7 +30,9 @@
             </tr>
         </tbody>
     </table>
+    <p class="buttons">
     {% include "html/formdefinition/forms/includes/submit.html" %}
+    </p>
     {% for field in form.hidden_fields %}
         {{ field }}
     {% endfor %}

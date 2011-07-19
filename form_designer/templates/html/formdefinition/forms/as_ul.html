@@ -11,7 +11,7 @@
     {% endfor %}
     {% for field in form %}
         {% if not field.is_hidden %}
-            <li class="{% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
+            <li class="field {% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
                 {{ field.errors }}
                 <label for="{{ field.auto_id }}">{{ field.label }}</label>
                 {{ field }}
@@ -19,7 +19,9 @@
         {% endif %}
     {% endfor %}
     </ul>
+    <p class="button">
     {% include "html/formdefinition/forms/includes/submit.html" %}
+    </p>
     {% for field in form.hidden_fields %}
         {{ field }}
     {% endfor %}

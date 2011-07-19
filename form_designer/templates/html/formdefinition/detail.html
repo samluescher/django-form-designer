@@ -10,4 +10,12 @@
 </ul>
 {% endif %}
 {% include form_template %}
+
+
+<script type="text/javascript">
+    var inputs = document.getElementsByTagName('input');
+    if (inputs.length) {
+        inputs[0].focus();
+    }
+</script>
 {% endblock %}
