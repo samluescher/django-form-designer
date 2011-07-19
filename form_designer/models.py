@@ -73,7 +73,7 @@ class FormDefinition(models.Model):
 
     def get_form_data_dict(self, form_data):
         dict = {}
-        for field in form_data:
+        for field in form_data.all:
             dict[field['name']] = field['value']
         return dict
 
