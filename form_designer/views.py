@@ -17,7 +17,6 @@ from form_designer.models import FormDefinition
 def process_form(request, form_definition, context={}, is_cms_plugin=False):
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
     error_message = form_definition.error_message or _('The data could not be submitted, please try again.')
-    message = None
     form_error = False
     form_success = False
     is_submit = False
@@ -55,7 +54,6 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
 
             # Successful submission
             messages.success(request, success_message)
-            message = success_message
             form_success = True
             if form_definition.log_data:
                 form_definition.log(form)
@@ -69,7 +67,6 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
         else:
             form_error = True
             messages.error(request, error_message)
-            message = error_message
     else:
         if form_definition.allow_get_initial:
             form = DesignedForm(form_definition, initial_data=request.GET)
@@ -77,13 +74,16 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
             form = DesignedForm(form_definition)
 
     context.update({
-        'message': message,
         'form_error': form_error,
         'form_success': form_success,
         'form': form,
         'form_definition': form_definition
     })
     context.update(csrf(request))
+    
+    if form_definition.display_logged:
+        context.update({'logs': form_definition.formlog_set.all().order_by('created')})
+        
     return context
 
 def detail(request, object_name):

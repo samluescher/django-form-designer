@@ -1,30 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>{{ form_definition.title}}</title>
-
-<style type="text/css">
-  .error, .errorlist li {
-    color: red;
-  }
-  .success {
-    color: green;
-  }
-</style>
-
-</head>
-
-<body>
-  <h1>Form Designer</h1>
-  {% if notifications %}
-  <ul class="notifications">
-    {% for message in notifications %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {% include form_template %}
-</body>
-</html>
+{% extends "html/formdefinition/base.html" %}
+{% block content %}
+{% if form_definition.title %}<h2>{{ form_definition.title }}</h2>{% endif %}
+{% if form_definition.body %}<p>{{ form_definition.body|linebreaksbr }}</p>{% endif %}
+{% if messages %}
+<ul class="messages">
+{% for message in messages %}
+<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% include form_template %}
+{% endblock %}

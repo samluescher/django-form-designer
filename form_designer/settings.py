@@ -34,6 +34,7 @@ FORM_TEMPLATES = getattr(settings, 'FORM_DESIGNER_FORM_TEMPLATES', (
     ('', _('Default')),
     ('html/formdefinition/forms/as_p.html', _('as paragraphs')),
     ('html/formdefinition/forms/as_table.html', _('as table')),
+    ('html/formdefinition/forms/as_table_h.html', _('as table (horizontal)')),
     ('html/formdefinition/forms/as_ul.html', _('as unordered list')),
     ('html/formdefinition/forms/custom.html', _('custom implementation')),
 ))

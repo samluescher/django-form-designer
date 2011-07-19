@@ -33,6 +33,7 @@ def get_class(import_path):
 class FormDefinition(models.Model):
     name = models.SlugField(_('Name'), max_length=255, unique=True)
     title = models.CharField(_('Title'), max_length=255, blank=True, null=True)
+    body = models.TextField(_('Body'), blank=True, null=True)
     action = models.URLField(_('Target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
     mail_to = TemplateCharField(_('Send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named `from_email`.'), max_length=255, blank=True, null=True)
     mail_from = TemplateCharField(_('Sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ firstname }} {{ lastname }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
@@ -42,11 +43,12 @@ class FormDefinition(models.Model):
     error_message = models.CharField(_('Error message'), max_length=255, blank=True, null=True)
     submit_label = models.CharField(_('Submit button label'), max_length=255, blank=True, null=True)
     log_data = models.BooleanField(_('Log form data'), help_text=_('Logs all form submissions to the database.'), default=True)
-    success_redirect = models.BooleanField(_('Redirect after success'), default=False)
-    success_clear = models.BooleanField(_('Clear form after success'), default=True)
+    success_redirect = models.BooleanField(_('HTTP redirect after successful submission'), default=True)
+    success_clear = models.BooleanField(_('Clear form after successful submission'), default=True)
     allow_get_initial = models.BooleanField(_('Allow initial values via URL'), help_text=_('If enabled, you can fill in form fields by adding them to the query string.'), default=True)
     message_template = TemplateTextField(_('Message template'), help_text=_('Your form fields are available as template context. Example: "{{ message }}" if you have a field named `message`. To iterate over all fields, use the variable `data` (a list containing a dictionary for each form field, each containing the elements `name`, `label`, `value`).'), blank=True, null=True)
     form_template_name = models.CharField(_('Form template'), max_length=255, choices=settings.FORM_TEMPLATES, blank=True, null=True)
+    display_logged = models.BooleanField(_('Display logged submissions with form'), default=False)
 
     class Meta:
         verbose_name = _('Form')
@@ -57,6 +59,10 @@ class FormDefinition(models.Model):
         for field in self.formdefinitionfield_set.all():
             dict[field.name] = field
         return dict
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('form_designer.views.detail', [str(self.name)])
 
     def get_form_data(self, form):
         data = []

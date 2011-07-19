@@ -1,0 +1,2 @@
+{% load i18n %}
+<input type="submit" value="{% if form_definition.submit_label %}{{ form_definition.submit_label }}{% else %}{% trans "Submit" %}{% endif %}" />

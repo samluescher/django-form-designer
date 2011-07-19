@@ -1,0 +1,38 @@
+{% load friendly %}
+<form name="{{ form_definition.name }}" action="{{ form_definition.action }}" method="{{ form_definition.method }}" enctype="multipart/form-data">
+    <table>
+        <thead>
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    <th class="{% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
+                        <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                    </th>
+                {% endif %}
+            {% endfor %}
+        </thead>
+        <tbody>
+            {% for entry in logs %}
+                <tr>
+                {% for field in entry.data %}
+                    <td>{{ field.value|friendly }}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            <tr>
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    <td class="{% if field.errors %}errors{% endif %}{% if field.field.required %}{% if field.errors %} {% endif %}required{% endif %}">
+                        {{ field.errors }}
+                        {{ field }}
+                    </td>
+                {% endif %}
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    {% include "html/formdefinition/forms/includes/submit.html" %}
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+    {% csrf_token %}
+</form>
