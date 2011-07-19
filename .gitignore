@@ -1,0 +1,6 @@
+.settings/*
+.pydevproject
+dist/*
+build/*
+RELEASE-VERSION
+MANIFEST

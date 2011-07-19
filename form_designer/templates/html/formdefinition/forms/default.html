@@ -6,7 +6,7 @@
 </ul>
 {% endif %}
 <form name="{{ form_definition.name }}" action="{{ form_definition.action }}" method="{{ form_definition.method }}">
-
+{% csrf_token %}
     {% for field in form %}
     {% if not field.is_hidden %}
     {{ field.errors }}

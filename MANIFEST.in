@@ -1,0 +1,6 @@
+recursive-include form_designer/locale *.mo
+graft form_designer/media
+graft form_designer/templates
+include LICENSE
+include README.md
+include RELEASE-VERSION
