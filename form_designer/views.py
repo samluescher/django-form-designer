@@ -12,9 +12,12 @@ import random
 from datetime import datetime
 
 from form_designer.forms import DesignedForm
-from form_designer.models import FormDefinition
+from form_designer.models import FormDefinition, FormLog
 
-def process_form(request, form_definition, context={}, is_cms_plugin=False):
+def process_form(request, form_definition, extra_context={}, is_cms_plugin=False):
+    context = {}
+    if extra_context:
+        context.update(extra_context)
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
     error_message = form_definition.error_message or _('The data could not be submitted, please try again.')
     form_error = False
@@ -82,7 +85,8 @@ def process_form(request, form_definition, context={}, is_cms_plugin=False):
     context.update(csrf(request))
     
     if form_definition.display_logged:
-        context.update({'logs': form_definition.formlog_set.filter(form_definition=form_definition).order_by('created')})
+        logs = form_definition.formlog_set.all().order_by('created')
+        context.update({'logs': logs})
         
     return context
 
