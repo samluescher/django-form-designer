@@ -24,7 +24,7 @@ setup(
     ],
     package_data = {
         'form_designer': [
-            'media/form_designer/js/*.js',
+            'static/form_designer/js/*.js',
             'templates/admin/form_designer/formlog/change_list.html',
             'templates/html/formdefinition/*.html',
             'templates/html/formdefinition/forms/*.html',
