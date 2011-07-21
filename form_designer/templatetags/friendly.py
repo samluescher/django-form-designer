@@ -16,6 +16,8 @@ def friendly(value):
         value = ", ".join(value)
     if type(value) is bool:
         value = yesno(value, u"%s,%s" % (_('yes'), _('no')),)
+    if hasattr(value, 'url'):
+        value = value.url
     if not isinstance(value, basestring):
         value = unicode(value)
     return value
