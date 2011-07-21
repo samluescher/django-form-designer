@@ -2,6 +2,7 @@ from form_designer import settings as app_settings
 from django.core.files.base import File
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.fields.files import FieldFile
+from django.template.defaultfilters import filesizeformat
 import os
 import hashlib, uuid
 
@@ -13,10 +14,16 @@ def get_storage():
 def clean_files(form):
     for field in form.file_fields:
         uploaded_file = form.cleaned_data[field.name]
+        msg = None
         if not os.path.splitext(uploaded_file.name)[1].lstrip('.').lower() in  \
             app_settings.ALLOWED_FILE_TYPES:
                 msg = _('This file type is not allowed.')
-                form._errors[field.name] = form.error_class([msg])
+        elif uploaded_file._size > app_settings.MAX_UPLOAD_SIZE:
+            msg = _('Please keep file size under %s. Current size is %s.') %  \
+                (filesizeformat(app_settings.MAX_UPLOAD_SIZE), filesizeformat(uploaded_file._size))
+        if msg:
+            form._errors[field.name] = form.error_class([msg])
+
     return form.cleaned_data
     
 

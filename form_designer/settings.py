@@ -72,9 +72,10 @@ FILE_STORAGE_DIR = 'form_uploads'
 
 ALLOWED_FILE_TYPES = getattr(settings, 'FORM_DESIGNER_ALLOWED_FILE_TYPES', (
     'aac', 'ace', 'ai', 'aiff', 'avi', 'bmp', 'dir', 'doc', 'docx', 'dmg', 'eps', 'fla', 'flv', 
-    'gif', 'gz', 'hqx', 'htm', 'html', 'ico', 'indd', 'inx', 'jpg', 'jar', 'jpeg', 'md', 'mov', 
+    'gif', 'gz', 'hqx', 'ico', 'indd', 'inx', 'jpg', 'jar', 'jpeg', 'md', 'mov', 
     'mp3', 'mp4', 'mpc', 'mkv', 'mpg', 'mpeg', 'ogg', 'odg', 'odf', 'odp', 'ods', 'odt', 'otf', 
     'pdf', 'png', 'pps', 'ppsx', 'ps', 'psd', 'rar', 'rm', 'rtf', 'sit', 'swf', 'tar', 'tga', 
     'tif', 'tiff', 'ttf', 'txt', 'wav', 'wma', 'wmv', 'xls', 'xlsx', 'xml', 'zip'
 ))
 
+MAX_UPLOAD_SIZE = getattr(settings, 'MAX_UPLOAD_SIZE', 5242880) # 5M
