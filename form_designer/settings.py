@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.core.files.storage import get_storage_class
 
 STATIC_URL = getattr(settings, 'STATIC_URL', settings.MEDIA_URL) + '/form_designer/'
 
@@ -64,3 +65,16 @@ CSV_EXPORT_FILENAME = getattr(settings, 'FORM_DESIGNER_CSV_EXPORT_FILENAME', 'ex
 CSV_EXPORT_ENCODING = getattr(settings, 'FORM_DESIGNER_CSV_EXPORT_ENCODING', 'utf-8')
 
 SUBMIT_FLAG_NAME = getattr(settings, 'FORM_DESIGNER_SUBMIT_FLAG_NAME', 'submit__%s')
+
+FILE_STORAGE_CLASS = getattr(settings, 'FORM_DESIGNER_FILE_STORAGE_CLASS', get_storage_class())
+
+FILE_STORAGE_DIR = 'form_uploads'
+
+ALLOWED_FILE_TYPES = getattr(settings, 'FORM_DESIGNER_ALLOWED_FILE_TYPES', (
+    'aac', 'ace', 'ai', 'aiff', 'avi', 'bmp', 'dir', 'doc', 'docx', 'dmg', 'eps', 'fla', 'flv', 
+    'gif', 'gz', 'hqx', 'htm', 'html', 'ico', 'indd', 'inx', 'jpg', 'jar', 'jpeg', 'md', 'mov', 
+    'mp3', 'mp4', 'mpc', 'mkv', 'mpg', 'mpeg', 'ogg', 'odg', 'odf', 'odp', 'ods', 'odt', 'otf', 
+    'pdf', 'png', 'pps', 'ppsx', 'ps', 'psd', 'rar', 'rm', 'rtf', 'sit', 'swf', 'tar', 'tga', 
+    'tif', 'tiff', 'ttf', 'txt', 'wav', 'wma', 'wmv', 'xls', 'xlsx', 'xml', 'zip'
+))
+

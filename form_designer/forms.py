@@ -7,10 +7,14 @@ from django.utils.translation import ugettext as _
 
 from form_designer import settings
 from form_designer.models import get_class, FormDefinitionField, FormDefinition
+from form_designer.uploads import clean_files
+
 
 class DesignedForm(forms.Form):
+
     def __init__(self, form_definition, initial_data=None, *args, **kwargs):
         super(DesignedForm, self).__init__(*args, **kwargs)
+        self.file_fields = []
         for def_field in form_definition.formdefinitionfield_set.all():
             self.add_defined_field(def_field, initial_data)
         self.fields[form_definition.submit_flag_name] = forms.BooleanField(required=False, initial=1, widget=widgets.HiddenInput)
@@ -21,8 +25,14 @@ class DesignedForm(forms.Form):
                 def_field.initial = initial_data.get(def_field.name)
             else:
                 def_field.initial = initial_data.getlist(def_field.name)
-        self.fields[def_field.name] = get_class(def_field.field_class)(**def_field.get_form_field_init_args())
+        field = get_class(def_field.field_class)(**def_field.get_form_field_init_args())
+        self.fields[def_field.name] = field
+        if isinstance(field, forms.FileField):
+            self.file_fields.append(def_field)
 
+    def clean(self):
+        return clean_files(self)
+        
 
 class FormDefinitionFieldInlineForm(forms.ModelForm):
     class Meta:

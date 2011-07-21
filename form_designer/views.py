@@ -13,6 +13,8 @@ from datetime import datetime
 
 from form_designer.forms import DesignedForm
 from form_designer.models import FormDefinition, FormLog
+from form_designer.uploads import handle_uploaded_files
+
 
 def process_form(request, form_definition, extra_context={}, is_cms_plugin=False):
     context = {}
@@ -33,27 +35,8 @@ def process_form(request, form_definition, extra_context={}, is_cms_plugin=False
 
     if is_submit:
         if form.is_valid():
-            # Handle file uploads
-            files = []
-            if hasattr(request, 'FILES'):
-                for file_key in request.FILES:
-                    file_obj = request.FILES[file_key]
-                    file_name = '%s.%s_%s' % (
-                        datetime.now().strftime('%Y%m%d'),
-                        random.randrange(0, 10000),
-                        file_obj.name,
-                    )
-
-                    if not os.path.exists(os.path.join(settings.MEDIA_ROOT, 'contact_form')):
-                        os.mkdir(os.path.join(settings.MEDIA_ROOT, 'contact_form'))
-
-                    destination = open(os.path.join(settings.MEDIA_ROOT, 'contact_form', file_name), 'wb+')
-                    for chunk in file_obj.chunks():
-                        destination.write(chunk)
-                    destination.close()
-
-                    form.cleaned_data[file_key] = os.path.join(settings.MEDIA_URL, 'contact_form', file_name)
-                    files.append(os.path.join(settings.MEDIA_ROOT, 'contact_form', file_name))
+            # Handle file uploads using storage object
+            files = handle_uploaded_files(form_definition, form)
 
             # Successful submission
             messages.success(request, success_message)
