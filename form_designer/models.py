@@ -42,6 +42,7 @@ class FormDefinition(models.Model):
     mail_to = TemplateCharField(_('Send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named `from_email`.'), max_length=255, blank=True, null=True)
     mail_from = TemplateCharField(_('Sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ first_name }} {{ last_name }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
     mail_subject = TemplateCharField(_('e-Mail subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named `subject`.'), blank=True, null=True)
+    mail_uploaded_files  = models.BooleanField(_('Send uploaded files as email attachments'), default=True)
     method = models.CharField(_('Method'), max_length=10, default="POST", choices = (('POST', 'POST'), ('GET', 'GET')))
     success_message = models.CharField(_('Success message'), max_length=255, blank=True, null=True)
     error_message = models.CharField(_('Error message'), max_length=255, blank=True, null=True)
@@ -154,8 +155,9 @@ class FormDefinition(models.Model):
         from django.core.mail import EmailMessage
         message = EmailMessage(mail_subject, message, mail_from or None, mail_to)
 
-        for file_path in files:
-            message.attach_file(file_path)
+        if self.mail_uploaded_files:
+            for file_path in files:
+                message.attach_file(file_path)
 
         message.send(fail_silently=False)
 
