@@ -28,6 +28,7 @@ setup(
             'templates/admin/form_designer/formlog/change_list.html',
             'templates/html/formdefinition/*.html',
             'templates/html/formdefinition/forms/*.html',
+            'templates/html/formdefinition/forms/includes/*.html',
             'templates/txt/formdefinition/*.txt',
             'locale/*/LC_MESSAGES/*',
         ],
