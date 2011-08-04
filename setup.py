@@ -15,7 +15,7 @@ setup(
     description = "Design contact forms, search forms etc from the Django admin, without writing any code. Integrates with Django CMS.",
     long_description = README,
 
-    author = u'Samuel Lüscher',
+    author = 'Samuel Lüscher',
     author_email = 'philomat@popkultur.net',
     packages = [
         'form_designer',
@@ -40,5 +40,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
-    ]
+    ],
+    install_requires = [
+        'django-picklefield',
+    ],
 )
