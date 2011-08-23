@@ -1,0 +1,460 @@
+# django-form-designer locale.
+# This file is distributed under the same license as the django-form-designer package.
+# SIMON CHARETTE <scharette@reptiletech.com>, 2011.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-23 10:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: SIMON CHARETTE <scharette@reptiletech.com>\n"
+"Language-Team: fr\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.py:27 admin.py:38
+msgid "Basic"
+msgstr "Base"
+
+#: admin.py:28
+msgid "Display"
+msgstr "Affichage"
+
+#: admin.py:29 settings.py:8
+msgid "Text"
+msgstr "Texte"
+
+#: admin.py:30
+msgid "Numbers"
+msgstr "Nombres"
+
+#: admin.py:31 settings.py:21
+msgid "Regex"
+msgstr "Expression régulière"
+
+#: admin.py:32
+msgid "Choices"
+msgstr "Choix"
+
+#: admin.py:33
+msgid "Model Choices"
+msgstr "Choix de Modèles"
+
+#: admin.py:39
+msgid "Settings"
+msgstr "Réglages"
+
+#: admin.py:40
+msgid "Mail form"
+msgstr "Envoi de courriels"
+
+#: admin.py:41
+msgid "Templates"
+msgstr "Gabarits"
+
+#: admin.py:42
+msgid "Messages"
+msgstr "Messages"
+
+#: admin.py:63 admin.py:102 admin.py:147 cms_plugins.py:12 models.py:60
+#: models.py:173 models.py:309
+msgid "Form"
+msgstr "Formulaire"
+
+#: admin.py:78 models.py:174
+msgid "Data"
+msgstr "Données"
+
+#: admin.py:104 admin.py:149 models.py:172
+msgid "Created"
+msgstr "Créé"
+
+#: admin.py:106 admin.py:151
+msgid "ID"
+msgstr "ID"
+
+#: admin.py:125
+#, python-format
+msgid "Export selected %(verbose_name_plural)s as CSV"
+msgstr "Exporter les %(verbose_name_plural)s en CSV"
+
+#: admin.py:173
+#, python-format
+msgid "Export selected %(verbose_name_plural)s as XLS"
+msgstr "Exporter les %(verbose_name_plural)s en XLS"
+
+#: admin.py:185
+msgid "CSV export is not enabled."
+msgstr "L'exportation en CSV n'est pas activé."
+
+#: admin.py:190
+msgid "XLS export is not enabled."
+msgstr "L'exportation en XLS n'est pas activé"
+
+#: forms.py:43
+msgid "This field class requires a regular expression."
+msgstr "Ce type de champ necessite une expression régulière."
+
+#: forms.py:48
+msgid "This field class requires a model."
+msgstr "Cette classe de champ nécessite un modèle."
+
+#: models.py:35 models.py:187
+msgid "Name"
+msgstr "Nom"
+
+#: models.py:36
+msgid "Obfuscate URL to this form"
+msgstr "Obscurcir l'URL vers ce formulaire"
+
+#: models.py:36
+msgid "If enabled, the form can only be reached via a secret URL."
+msgstr "Si activé, il sera seulement possible d'atteindre le formulaire via une URL secrète."
+
+#: models.py:39
+msgid "Title"
+msgstr "Titre"
+
+#: models.py:40
+msgid "Body"
+msgstr "Corps"
+
+#: models.py:41
+msgid "Target URL"
+msgstr "URL cible"
+
+#: models.py:41
+msgid ""
+"If you leave this empty, the page where the form resides will be requested, "
+"and you can use the mail form and logging features. You can also send data "
+"to external sites: For instance, enter \"http://www.google.ch/search\" to "
+"create a search form."
+msgstr ""
+"Si vous laisser ce champs vide, le formulaire sera envoyé vers la page où il "
+"se trouve et vous pourrez utiliser les fonctionnalités de courriel et de "
+"sauvegarde. Vous pouvez aussi envoyer les données saisies vers un site "
+"externe: Par exemple, entrez \"http://www.google.fr/search\" pour créer un "
+"formulaire de recherche."
+
+#: models.py:42
+msgid "Send form data to e-mail address"
+msgstr "Envoyer les données saisies aux adresses courriels."
+
+#: models.py:43
+msgid "Sender address"
+msgstr "Addresse de l'expéditeur"
+
+#: models.py:44
+msgid "e-Mail subject"
+msgstr "Sujet du courriel"
+
+#: models.py:45
+msgid "Send uploaded files as email attachments"
+msgstr "Joindre les fichiers téléversés aux courriels."
+
+#: models.py:46
+msgid "Method"
+msgstr "Méthode"
+
+#: models.py:47
+msgid "Success message"
+msgstr "Message de succès"
+
+#: models.py:48
+msgid "Error message"
+msgstr "Message d'erreur"
+
+#: models.py:49
+msgid "Submit button label"
+msgstr "Libellé du bouton d'envoi"
+
+#: models.py:50
+msgid "Log form data"
+msgstr "Sauver les données"
+
+#: models.py:50
+msgid "Logs all form submissions to the database."
+msgstr "Sauver les données saisies dans la base de données."
+
+#: models.py:51
+msgid "Save uploaded files"
+msgstr "Sauver les fichiers téléversés"
+
+#: models.py:51
+msgid "Saves all uploaded files using server storage."
+msgstr "Sauve tous les fichiers téléversés en utilisant la mécanique de stockage du serveur."
+
+#: models.py:52
+msgid "HTTP redirect after successful submission"
+msgstr "Redirection HTTP après une soumission réussie "
+
+#: models.py:53
+msgid "Clear form after successful submission"
+msgstr "Vider les champs après une soumission réussie"
+
+#: models.py:54
+msgid "Allow initial values via URL"
+msgstr "Permettre l'assignation de valeurs via l'URL"
+
+#: models.py:54
+msgid ""
+"If enabled, you can fill in form fields by adding them to the query string."
+msgstr ""
+"Si activé, vous pouvez populer les champs du formulaire en les ajoutants à "
+"la chaîne de requête: Par exemple \"http://chemin.vers/mon/formulaire?"
+"prenom=Serge"
+
+#: models.py:55
+msgid "Message template"
+msgstr "Gabarit de message de courriel"
+
+#: models.py:55
+msgid ""
+"Your form fields are available as template context. Example: "
+"\"{{ message }}\" if you have a field named `message`. To iterate over all "
+"fields, use the variable `data` (a list containing a dictionary for each "
+"form field, each containing the elements `name`, `label`, `value`)."
+msgstr ""
+"Vos champs de formulaire sont accessibles sous forme de variables de "
+"gabarits.Par exemple: \"{{ message }}\" si vous avez un champ nommé &laquo;"
+"&thinsp;message&thinsp;&raquo;.Pour itérer sur l'ensemble des champs, "
+"utilisez la variables &laquo;&thinsp;data&thinsp;&raquo; (&thinsp;une liste "
+"de dictionnaires associé à chaque champ avec les clefs &laquo;&thinsp;"
+"name&thinsp;&raquo;, &laquo;&thinsp;label&thinsp;&raquo;, &laquo;&thinsp;"
+"value&thinsp;&raquo;&thinsp;)"
+
+#: models.py:56
+msgid "Form template"
+msgstr "Gabarit de formulaire"
+
+#: models.py:57
+msgid "Display logged submissions with form"
+msgstr "Afficher les données soumises avec le formulaire"
+
+#: models.py:61
+msgid "Forms"
+msgstr "Formulaires"
+
+#: models.py:116 models.py:213 models.py:299
+msgid "Fields"
+msgstr "Champs"
+
+#: models.py:177
+msgid "Form log"
+msgstr "Entrée de formulaire"
+
+#: models.py:178
+msgid "Form logs"
+msgstr "Entrées de formulaire"
+
+#: models.py:184
+msgid "Field class"
+msgstr "Type de champ"
+
+#: models.py:185
+msgid "Position"
+msgstr "Position"
+
+#: models.py:188
+msgid "Label"
+msgstr "Libellé"
+
+#: models.py:189
+msgid "Required"
+msgstr "Obligatoire"
+
+#: models.py:190
+msgid "Include in result"
+msgstr "Inclure dans le résultat"
+
+#: models.py:191
+msgid "Widget"
+msgstr "Widget"
+
+#: models.py:192
+msgid "Initial value"
+msgstr "Valeur initiale"
+
+#: models.py:193
+msgid "Help text"
+msgstr "Texte d'aide"
+
+#: models.py:195
+msgid "Values"
+msgstr "Valeurs"
+
+#: models.py:195
+msgid "One value per line"
+msgstr "Une valeur par ligne"
+
+#: models.py:196
+msgid "Labels"
+msgstr "Libellés"
+
+#: models.py:196
+msgid "One label per line"
+msgstr "Un libellé par ligne"
+
+#: models.py:198
+msgid "Max. length"
+msgstr "Longueur maximale"
+
+#: models.py:199
+msgid "Min. length"
+msgstr "Longueur minimale"
+
+#: models.py:200
+msgid "Max. value"
+msgstr "Valeur maximale"
+
+#: models.py:201
+msgid "Min. value"
+msgstr "Valeur minimale"
+
+#: models.py:202
+msgid "Max. digits"
+msgstr "Nombre de chiffres maximum"
+
+#: models.py:203
+msgid "Decimal places"
+msgstr "Nombre de décimales"
+
+#: models.py:205
+msgid "Regular Expression"
+msgstr "Expression régulière"
+
+#: models.py:208
+msgid "Data model"
+msgstr "Modèle de données"
+
+#: models.py:209
+msgid "Empty label"
+msgstr "Libellé vide"
+
+#: models.py:212 models.py:298
+msgid "Field"
+msgstr "Champ"
+
+#: settings.py:9
+msgid "E-mail address"
+msgstr "Adresse courriel"
+
+#: settings.py:10
+msgid "Web address"
+msgstr "Adresse Web"
+
+#: settings.py:11
+msgid "Number"
+msgstr "Nombre"
+
+#: settings.py:12
+msgid "Decimal number"
+msgstr "Nombre décimal"
+
+#: settings.py:13
+msgid "Yes/No"
+msgstr "Oui/Non"
+
+#: settings.py:14
+msgid "Date"
+msgstr "Date"
+
+#: settings.py:15
+msgid "Date & time"
+msgstr "Date et temps"
+
+#: settings.py:16
+msgid "Time"
+msgstr "Temps"
+
+#: settings.py:17
+msgid "Choice"
+msgstr "Choix"
+
+#: settings.py:18
+msgid "Multiple Choice"
+msgstr "Choix Multiple"
+
+#: settings.py:19
+msgid "Model Choice"
+msgstr "Choix de Modèle"
+
+#: settings.py:20
+msgid "Model Multiple Choice"
+msgstr "Choix Multiple de Modèle"
+
+#: settings.py:22
+msgid "File"
+msgstr "Fichier"
+
+#: settings.py:27 settings.py:35
+msgid "Default"
+msgstr "Défaut"
+
+#: settings.py:28
+msgid "Text area"
+msgstr "Zone de texte"
+
+#: settings.py:29
+msgid "Password input"
+msgstr "Champ de saisie de mot de passe"
+
+#: settings.py:30
+msgid "Hidden input"
+msgstr "Champ caché"
+
+#: settings.py:31
+msgid "Radio button"
+msgstr "Bouton radio"
+
+#: settings.py:36
+msgid "as paragraphs"
+msgstr "en paragraphes"
+
+#: settings.py:37
+msgid "as table"
+msgstr "en table"
+
+#: settings.py:38
+msgid "as table (horizontal)"
+msgstr "en table (horizontale)"
+
+#: settings.py:39
+msgid "as unordered list"
+msgstr "en liste non ordonnée (ul)"
+
+#: settings.py:40
+msgid "custom implementation"
+msgstr "implémentation personnalisée"
+
+#: views.py:23
+msgid "Thank you, the data was submitted successfully."
+msgstr "Merci, les données ont été soumises avec succès."
+
+#: views.py:24
+msgid "The data could not be submitted, please try again."
+msgstr "Les données n'ont pas pu être soumises, veuillez essayer de nouveau."
+
+#: templates/admin/form_designer/formlog/change_list.html:9
+msgid "Export CSV"
+msgstr "Exporter en CSV"
+
+#: templates/admin/form_designer/formlog/change_list.html:16
+msgid "Export XLS"
+msgstr "Exporter en XML"
+
+#: templates/html/formdefinition/forms/includes/submit.html:2
+msgid "Submit"
+msgstr "Envoyer"
+
+#: templatetags/friendly.py:18
+msgid "yes"
+msgstr "oui"
+
+#: templatetags/friendly.py:18
+msgid "no"
+msgstr "non"
