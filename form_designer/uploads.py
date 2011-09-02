@@ -13,9 +13,14 @@ def get_storage():
 
 def clean_files(form):
     for field in form.file_fields:
-        uploaded_file = form.cleaned_data[field.name]
+        uploaded_file = form.cleaned_data.get(field.name, None)
         msg = None
-        if not os.path.splitext(uploaded_file.name)[1].lstrip('.').lower() in  \
+        if uploaded_file is None:
+            if field.required:
+                msg = _('This field is required.')
+            else:
+                continue
+        elif not os.path.splitext(uploaded_file.name)[1].lstrip('.').lower() in  \
             app_settings.ALLOWED_FILE_TYPES:
                 msg = _('This file type is not allowed.')
         elif uploaded_file._size > app_settings.MAX_UPLOAD_SIZE:
@@ -33,14 +38,15 @@ def handle_uploaded_files(form_definition, form):
         storage = get_storage()
         secret_hash = hashlib.sha1(str(uuid.uuid4())).hexdigest()[:10]
         for field in form.file_fields:
-            uploaded_file = form.cleaned_data[field.name]
+            uploaded_file = form.cleaned_data.get(field.name, None)
+            if uploaded_file is None:
+                continue
             root, ext = os.path.splitext(uploaded_file.name)
             filename = storage.get_available_name(
                 os.path.join(app_settings.FILE_STORAGE_DIR, 
                 form_definition.name, 
                 '%s_%s%s' % (root, secret_hash, ext)))
             storage.save(filename, uploaded_file)
-            file_obj = StoredUploadedFile(filename)
             form.cleaned_data[field.name] = StoredUploadedFile(filename)
             files.append(storage.path(filename))
     return files
