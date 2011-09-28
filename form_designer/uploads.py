@@ -61,7 +61,6 @@ class StoredUploadedFile(FieldFile):
     def __init__(self, name):
         File.__init__(self, None, name)
         self.field = self
-        self.is_icon = True
 
     @property
     def storage(self):
