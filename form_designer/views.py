@@ -17,9 +17,7 @@ from form_designer.uploads import handle_uploaded_files
 
 
 def process_form(request, form_definition, extra_context={}, is_cms_plugin=False):
-    context = {}
-    if extra_context:
-        context.update(extra_context)
+    context = extra_context
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
     error_message = form_definition.error_message or _('The data could not be submitted, please try again.')
     form_error = False
