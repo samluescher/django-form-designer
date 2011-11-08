@@ -41,14 +41,14 @@ This document assumes that you are familiar with Python and Django.
 
         $ manage.py syncdb
 
-6. Add the form_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form_designer plugin for Django CMS, this step is not necessary__:
+6. Add the form\_designer URLs to your URL conf. For instance, in order to make a form named `example-form` available under `http://domain.com/forms/example-form`, add the following line to `urls.py`. Note: __If you are using the form\_designer plugin for Django CMS, this step is not necessary__:
 
         urlpatterns = patterns('',
             (r'^forms/', include('form_designer.urls')),
             ...
         )
 
-7. Add the form_designer admin URLs to your URL conf if you want to use CSV export. Add the following line to `urls.py` _before_ the admin URLs:
+7. Add the form\_designer admin URLs to your URL conf if you want to use CSV export. Add the following line to `urls.py` _before_ the admin URLs:
 
         urlpatterns = patterns('',
             (r'^admin/form_designer/', include('form_designer.admin_urls')),
@@ -60,6 +60,6 @@ Optional requirements
 ---------------------
 
 * form_designer supports [django-notify](http://code.google.com/p/django-notify/) for error messages and success notifications. If it is installed in your project, it will be used automatically, and you need to output the `{{ notifications }}` variable in your templates.
-* The form_designer admin interface requires jQuery and the jQuery UI Sortable plugin to make building forms a lot more user-friendly. The two Javascript files are bundled with form_designer. Optionally, if Django CMS is installed, the files bundled with that app will be used. If you want to use you own jquery.js instead because you're already including it anyway, define JQUERY_JS in your settings file. For instance:
+* The form\_designer admin interface requires jQuery and the jQuery UI Sortable plugin to make building forms a lot more user-friendly. The two Javascript files are bundled with form_designer. If you want to use you own jquery.js instead because you're already including it anyway, define JQUERY\_JS in your settings file. For instance:
 
         JQUERY_JS = 'jquery/jquery-latest.js'
