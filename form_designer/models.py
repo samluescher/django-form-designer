@@ -302,14 +302,6 @@ class FormDefinitionField(models.Model):
     def __unicode__(self):
         return self.label if self.label else self.name
 
-if 'cms' in django_settings.INSTALLED_APPS:
-    from cms.models import CMSPlugin
-
-    class CMSFormDefinition(CMSPlugin):
-        form_definition = models.ForeignKey(FormDefinition, verbose_name=_('Form'))
-
-        def __unicode__(self):
-            return self.form_definition.__unicode__()
 
 if 'south' in django_settings.INSTALLED_APPS:
     from south.modelsinspector import add_introspection_rules

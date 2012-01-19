@@ -16,7 +16,7 @@ from form_designer.models import FormDefinition, FormLog
 from form_designer.uploads import handle_uploaded_files
 
 
-def process_form(request, form_definition, extra_context={}, is_cms_plugin=False):
+def process_form(request, form_definition, extra_context={}, disable_redirection=False):
     context = extra_context
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
     error_message = form_definition.error_message or _('The data could not be submitted, please try again.')
@@ -43,8 +43,7 @@ def process_form(request, form_definition, extra_context={}, is_cms_plugin=False
                 form_definition.log(form)
             if form_definition.mail_to:
                 form_definition.send_mail(form, files)
-            if form_definition.success_redirect and not is_cms_plugin:
-                # TODO Redirection does not work for cms plugin
+            if form_definition.success_redirect and not disable_redirection:
                 return HttpResponseRedirect(form_definition.action or '?')
             if form_definition.success_clear:
                 form = DesignedForm(form_definition) # clear form
