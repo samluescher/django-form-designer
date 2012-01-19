@@ -15,8 +15,8 @@ setup(
     description = "Design contact forms, search forms etc from the Django admin, without writing any code. Integrates with Django CMS.",
     long_description = README,
 
-    author = 'Samuel Lüscher',
-    author_email = 'philomat@popkultur.net',
+    author = 'Samuel Luescher',
+    author_email = 'sam at luescher dot org',
     packages = [
         'form_designer',
         'form_designer.migrations',
