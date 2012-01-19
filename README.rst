@@ -35,7 +35,7 @@ This install guide assumes that you are familiar with Python and Django.
 Basic setup
 ===========
 
-- Add `form_designer` to your `INSTALLED_APPS` setting::
+- Add ``form_designer`` to your ``INSTALLED_APPS`` setting::
 
         INSTALLED_APPS = (
             ...
@@ -81,7 +81,7 @@ Basic setup
 Using Django Form Designer with Django CMS 
 ==========================================
 
-- Add `form_designer.contrib.cms_plugins.form_designer_form` to your `INSTALLED_APPS` 
+- Add ``form_designer.contrib.cms_plugins.form_designer_form`` to your ``INSTALLED_APPS`` 
   setting::
 
         INSTALLED_APPS = (
