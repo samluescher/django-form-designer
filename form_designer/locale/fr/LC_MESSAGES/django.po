@@ -2,19 +2,18 @@
 # This file is distributed under the same license as the django-form-designer package.
 # SIMON CHARETTE <scharette@reptiletech.com>, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-23 10:26-0400\n"
+"POT-Creation-Date: 2012-01-19 18:08-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: SIMON CHARETTE <scharette@reptiletech.com>\n"
 "Language-Team: fr\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
 #: admin.py:27 admin.py:38
 msgid "Basic"
@@ -24,7 +23,7 @@ msgstr "Base"
 msgid "Display"
 msgstr "Affichage"
 
-#: admin.py:29 settings.py:8
+#: admin.py:29 settings.py:10
 msgid "Text"
 msgstr "Texte"
 
@@ -32,7 +31,7 @@ msgstr "Texte"
 msgid "Numbers"
 msgstr "Nombres"
 
-#: admin.py:31 settings.py:21
+#: admin.py:31 settings.py:23
 msgid "Regex"
 msgstr "Expression régulière"
 
@@ -60,8 +59,8 @@ msgstr "Gabarits"
 msgid "Messages"
 msgstr "Messages"
 
-#: admin.py:63 admin.py:102 admin.py:147 cms_plugins.py:12 models.py:60
-#: models.py:173 models.py:309
+#: admin.py:63 admin.py:102 admin.py:147 models.py:60 models.py:173
+#: contrib/cms_plugins/form_designer_form/cms_plugins.py:14
 msgid "Form"
 msgstr "Formulaire"
 
@@ -104,27 +103,29 @@ msgid "This field class requires a model."
 msgstr "Cette classe de champ nécessite un modèle."
 
 #: models.py:35 models.py:187
-msgid "Name"
+msgid "name"
 msgstr "Nom"
 
 #: models.py:36
-msgid "Obfuscate URL to this form"
+msgid "obfuscate URL to this form"
 msgstr "Obscurcir l'URL vers ce formulaire"
 
 #: models.py:36
 msgid "If enabled, the form can only be reached via a secret URL."
-msgstr "Si activé, il sera seulement possible d'atteindre le formulaire via une URL secrète."
+msgstr ""
+"Si activé, il sera seulement possible d'atteindre le formulaire via une URL "
+"secrète."
 
 #: models.py:39
-msgid "Title"
+msgid "title"
 msgstr "Titre"
 
 #: models.py:40
-msgid "Body"
+msgid "body"
 msgstr "Corps"
 
 #: models.py:41
-msgid "Target URL"
+msgid "target URL"
 msgstr "URL cible"
 
 #: models.py:41
@@ -141,15 +142,15 @@ msgstr ""
 "formulaire de recherche."
 
 #: models.py:42
-msgid "Send form data to e-mail address"
+msgid "send form data to e-mail address"
 msgstr "Envoyer les données saisies aux adresses courriels."
 
 #: models.py:43
-msgid "Sender address"
+msgid "sender address"
 msgstr "Addresse de l'expéditeur"
 
 #: models.py:44
-msgid "e-Mail subject"
+msgid "email subject"
 msgstr "Sujet du courriel"
 
 #: models.py:45
@@ -157,23 +158,23 @@ msgid "Send uploaded files as email attachments"
 msgstr "Joindre les fichiers téléversés aux courriels."
 
 #: models.py:46
-msgid "Method"
+msgid "method"
 msgstr "Méthode"
 
 #: models.py:47
-msgid "Success message"
+msgid "success message"
 msgstr "Message de succès"
 
 #: models.py:48
-msgid "Error message"
+msgid "error message"
 msgstr "Message d'erreur"
 
 #: models.py:49
-msgid "Submit button label"
+msgid "submit button label"
 msgstr "Libellé du bouton d'envoi"
 
 #: models.py:50
-msgid "Log form data"
+msgid "log form data"
 msgstr "Sauver les données"
 
 #: models.py:50
@@ -181,23 +182,25 @@ msgid "Logs all form submissions to the database."
 msgstr "Sauver les données saisies dans la base de données."
 
 #: models.py:51
-msgid "Save uploaded files"
+msgid "save uploaded files"
 msgstr "Sauver les fichiers téléversés"
 
 #: models.py:51
 msgid "Saves all uploaded files using server storage."
-msgstr "Sauve tous les fichiers téléversés en utilisant la mécanique de stockage du serveur."
+msgstr ""
+"Sauve tous les fichiers téléversés en utilisant la mécanique de stockage du "
+"serveur."
 
 #: models.py:52
 msgid "HTTP redirect after successful submission"
 msgstr "Redirection HTTP après une soumission réussie "
 
 #: models.py:53
-msgid "Clear form after successful submission"
+msgid "clear form after successful submission"
 msgstr "Vider les champs après une soumission réussie"
 
 #: models.py:54
-msgid "Allow initial values via URL"
+msgid "allow initial values via URL"
 msgstr "Permettre l'assignation de valeurs via l'URL"
 
 #: models.py:54
@@ -209,15 +212,15 @@ msgstr ""
 "prenom=Serge"
 
 #: models.py:55
-msgid "Message template"
+msgid "message template"
 msgstr "Gabarit de message de courriel"
 
 #: models.py:55
 msgid ""
-"Your form fields are available as template context. Example: "
-"\"{{ message }}\" if you have a field named `message`. To iterate over all "
-"fields, use the variable `data` (a list containing a dictionary for each "
-"form field, each containing the elements `name`, `label`, `value`)."
+"Your form fields are available as template context. Example: \"{{ message }}"
+"\" if you have a field named `message`. To iterate over all fields, use the "
+"variable `data` (a list containing a dictionary for each form field, each "
+"containing the elements `name`, `label`, `value`)."
 msgstr ""
 "Vos champs de formulaire sont accessibles sous forme de variables de "
 "gabarits.Par exemple: \"{{ message }}\" si vous avez un champ nommé &laquo;"
@@ -228,18 +231,18 @@ msgstr ""
 "value&thinsp;&raquo;&thinsp;)"
 
 #: models.py:56
-msgid "Form template"
+msgid "form template"
 msgstr "Gabarit de formulaire"
 
 #: models.py:57
-msgid "Display logged submissions with form"
+msgid "display logged submissions with form"
 msgstr "Afficher les données soumises avec le formulaire"
 
 #: models.py:61
 msgid "Forms"
 msgstr "Formulaires"
 
-#: models.py:116 models.py:213 models.py:299
+#: models.py:116
 msgid "Fields"
 msgstr "Champs"
 
@@ -252,39 +255,39 @@ msgid "Form logs"
 msgstr "Entrées de formulaire"
 
 #: models.py:184
-msgid "Field class"
+msgid "field class"
 msgstr "Type de champ"
 
 #: models.py:185
-msgid "Position"
+msgid "position"
 msgstr "Position"
 
 #: models.py:188
-msgid "Label"
+msgid "label"
 msgstr "Libellé"
 
 #: models.py:189
-msgid "Required"
+msgid "required"
 msgstr "Obligatoire"
 
 #: models.py:190
-msgid "Include in result"
+msgid "include in result"
 msgstr "Inclure dans le résultat"
 
 #: models.py:191
-msgid "Widget"
+msgid "widget"
 msgstr "Widget"
 
 #: models.py:192
-msgid "Initial value"
+msgid "initial value"
 msgstr "Valeur initiale"
 
 #: models.py:193
-msgid "Help text"
+msgid "help text"
 msgstr "Texte d'aide"
 
 #: models.py:195
-msgid "Values"
+msgid "values"
 msgstr "Valeurs"
 
 #: models.py:195
@@ -292,7 +295,7 @@ msgid "One value per line"
 msgstr "Une valeur par ligne"
 
 #: models.py:196
-msgid "Labels"
+msgid "labels"
 msgstr "Libellés"
 
 #: models.py:196
@@ -300,144 +303,169 @@ msgid "One label per line"
 msgstr "Un libellé par ligne"
 
 #: models.py:198
-msgid "Max. length"
+msgid "max. length"
 msgstr "Longueur maximale"
 
 #: models.py:199
-msgid "Min. length"
+msgid "min. length"
 msgstr "Longueur minimale"
 
 #: models.py:200
-msgid "Max. value"
+msgid "max. value"
 msgstr "Valeur maximale"
 
 #: models.py:201
-msgid "Min. value"
+msgid "min. value"
 msgstr "Valeur minimale"
 
 #: models.py:202
-msgid "Max. digits"
+msgid "max. digits"
 msgstr "Nombre de chiffres maximum"
 
 #: models.py:203
-msgid "Decimal places"
+msgid "decimal places"
 msgstr "Nombre de décimales"
 
 #: models.py:205
-msgid "Regular Expression"
+msgid "regular Expression"
 msgstr "Expression régulière"
 
 #: models.py:208
-msgid "Data model"
+msgid "data model"
 msgstr "Modèle de données"
 
 #: models.py:209
-msgid "Empty label"
+msgid "empty label"
 msgstr "Libellé vide"
 
-#: models.py:212 models.py:298
-msgid "Field"
+#: models.py:212
+msgid "field"
 msgstr "Champ"
 
-#: settings.py:9
+#: models.py:213
+msgid "fields"
+msgstr "Champs"
+
+#: settings.py:11
 msgid "E-mail address"
 msgstr "Adresse courriel"
 
-#: settings.py:10
+#: settings.py:12
 msgid "Web address"
 msgstr "Adresse Web"
 
-#: settings.py:11
+#: settings.py:13
 msgid "Number"
 msgstr "Nombre"
 
-#: settings.py:12
+#: settings.py:14
 msgid "Decimal number"
 msgstr "Nombre décimal"
 
-#: settings.py:13
+#: settings.py:15
 msgid "Yes/No"
 msgstr "Oui/Non"
 
-#: settings.py:14
+#: settings.py:16
 msgid "Date"
 msgstr "Date"
 
-#: settings.py:15
+#: settings.py:17
 msgid "Date & time"
 msgstr "Date et temps"
 
-#: settings.py:16
+#: settings.py:18
 msgid "Time"
 msgstr "Temps"
 
-#: settings.py:17
+#: settings.py:19
 msgid "Choice"
 msgstr "Choix"
 
-#: settings.py:18
+#: settings.py:20
 msgid "Multiple Choice"
 msgstr "Choix Multiple"
 
-#: settings.py:19
+#: settings.py:21
 msgid "Model Choice"
 msgstr "Choix de Modèle"
 
-#: settings.py:20
+#: settings.py:22
 msgid "Model Multiple Choice"
 msgstr "Choix Multiple de Modèle"
 
-#: settings.py:22
+#: settings.py:24
 msgid "File"
 msgstr "Fichier"
 
-#: settings.py:27 settings.py:35
+#: settings.py:29 settings.py:37
 msgid "Default"
 msgstr "Défaut"
 
-#: settings.py:28
+#: settings.py:30
 msgid "Text area"
 msgstr "Zone de texte"
 
-#: settings.py:29
+#: settings.py:31
 msgid "Password input"
 msgstr "Champ de saisie de mot de passe"
 
-#: settings.py:30
+#: settings.py:32
 msgid "Hidden input"
 msgstr "Champ caché"
 
-#: settings.py:31
+#: settings.py:33
 msgid "Radio button"
 msgstr "Bouton radio"
 
-#: settings.py:36
+#: settings.py:38
 msgid "as paragraphs"
 msgstr "en paragraphes"
 
-#: settings.py:37
+#: settings.py:39
 msgid "as table"
 msgstr "en table"
 
-#: settings.py:38
+#: settings.py:40
 msgid "as table (horizontal)"
 msgstr "en table (horizontale)"
 
-#: settings.py:39
+#: settings.py:41
 msgid "as unordered list"
 msgstr "en liste non ordonnée (ul)"
 
-#: settings.py:40
+#: settings.py:42
 msgid "custom implementation"
 msgstr "implémentation personnalisée"
 
-#: views.py:23
+#: uploads.py:20
+msgid "This field is required."
+msgstr "Cette classe de champ nécessite un modèle."
+
+#: uploads.py:25
+msgid "This file type is not allowed."
+msgstr ""
+
+#: uploads.py:27
+#, python-format
+msgid "Please keep file size under %(max_size)s. Current size is %(size)s."
+msgstr ""
+
+#: views.py:21
 msgid "Thank you, the data was submitted successfully."
 msgstr "Merci, les données ont été soumises avec succès."
 
-#: views.py:24
+#: views.py:22
 msgid "The data could not be submitted, please try again."
 msgstr "Les données n'ont pas pu être soumises, veuillez essayer de nouveau."
+
+#: contrib/cms_plugins/form_designer_form/cms_plugins.py:13
+msgid "Media Tree"
+msgstr ""
+
+#: contrib/cms_plugins/form_designer_form/models.py:8
+msgid "form"
+msgstr "Formulaire"
 
 #: templates/admin/form_designer/formlog/change_list.html:9
 msgid "Export CSV"

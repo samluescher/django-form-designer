@@ -32,29 +32,29 @@ def get_class(import_path):
                                    'class.' % (module, classname))
 
 class FormDefinition(models.Model):
-    name = models.SlugField(_('Name'), max_length=255, unique=True)
-    require_hash = models.BooleanField(_('Obfuscate URL to this form'), default=False, help_text=_('If enabled, the form can only be reached via a secret URL.'))
+    name = models.SlugField(_('name'), max_length=255, unique=True)
+    require_hash = models.BooleanField(_('obfuscate URL to this form'), default=False, help_text=_('If enabled, the form can only be reached via a secret URL.'))
     private_hash = models.CharField(editable=False, max_length=40, default='')
     public_hash = models.CharField(editable=False, max_length=40, default='')
-    title = models.CharField(_('Title'), max_length=255, blank=True, null=True)
-    body = models.TextField(_('Body'), blank=True, null=True)
-    action = models.URLField(_('Target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
-    mail_to = TemplateCharField(_('Send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named `from_email`.'), max_length=255, blank=True, null=True)
-    mail_from = TemplateCharField(_('Sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ first_name }} {{ last_name }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
-    mail_subject = TemplateCharField(_('e-Mail subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named `subject`.'), blank=True, null=True)
+    title = models.CharField(_('title'), max_length=255, blank=True, null=True)
+    body = models.TextField(_('body'), blank=True, null=True)
+    action = models.URLField(_('target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
+    mail_to = TemplateCharField(_('send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named `from_email`.'), max_length=255, blank=True, null=True)
+    mail_from = TemplateCharField(_('sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ first_name }} {{ last_name }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
+    mail_subject = TemplateCharField(_('email subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named `subject`.'), blank=True, null=True)
     mail_uploaded_files  = models.BooleanField(_('Send uploaded files as email attachments'), default=True)
-    method = models.CharField(_('Method'), max_length=10, default="POST", choices = (('POST', 'POST'), ('GET', 'GET')))
-    success_message = models.CharField(_('Success message'), max_length=255, blank=True, null=True)
-    error_message = models.CharField(_('Error message'), max_length=255, blank=True, null=True)
-    submit_label = models.CharField(_('Submit button label'), max_length=255, blank=True, null=True)
-    log_data = models.BooleanField(_('Log form data'), help_text=_('Logs all form submissions to the database.'), default=True)
-    save_uploaded_files  = models.BooleanField(_('Save uploaded files'), help_text=_('Saves all uploaded files using server storage.'), default=True)
+    method = models.CharField(_('method'), max_length=10, default="POST", choices = (('POST', 'POST'), ('GET', 'GET')))
+    success_message = models.CharField(_('success message'), max_length=255, blank=True, null=True)
+    error_message = models.CharField(_('error message'), max_length=255, blank=True, null=True)
+    submit_label = models.CharField(_('submit button label'), max_length=255, blank=True, null=True)
+    log_data = models.BooleanField(_('log form data'), help_text=_('Logs all form submissions to the database.'), default=True)
+    save_uploaded_files  = models.BooleanField(_('save uploaded files'), help_text=_('Saves all uploaded files using server storage.'), default=True)
     success_redirect = models.BooleanField(_('HTTP redirect after successful submission'), default=True)
-    success_clear = models.BooleanField(_('Clear form after successful submission'), default=True)
-    allow_get_initial = models.BooleanField(_('Allow initial values via URL'), help_text=_('If enabled, you can fill in form fields by adding them to the query string.'), default=True)
-    message_template = TemplateTextField(_('Message template'), help_text=_('Your form fields are available as template context. Example: "{{ message }}" if you have a field named `message`. To iterate over all fields, use the variable `data` (a list containing a dictionary for each form field, each containing the elements `name`, `label`, `value`).'), blank=True, null=True)
-    form_template_name = models.CharField(_('Form template'), max_length=255, choices=settings.FORM_TEMPLATES, blank=True, null=True)
-    display_logged = models.BooleanField(_('Display logged submissions with form'), default=False)
+    success_clear = models.BooleanField(_('clear form after successful submission'), default=True)
+    allow_get_initial = models.BooleanField(_('allow initial values via URL'), help_text=_('If enabled, you can fill in form fields by adding them to the query string.'), default=True)
+    message_template = TemplateTextField(_('message template'), help_text=_('Your form fields are available as template context. Example: "{{ message }}" if you have a field named `message`. To iterate over all fields, use the variable `data` (a list containing a dictionary for each form field, each containing the elements `name`, `label`, `value`).'), blank=True, null=True)
+    form_template_name = models.CharField(_('form template'), max_length=255, choices=settings.FORM_TEMPLATES, blank=True, null=True)
+    display_logged = models.BooleanField(_('display logged submissions with form'), default=False)
 
     class Meta:
         verbose_name = _('Form')
@@ -181,36 +181,37 @@ class FormLog(models.Model):
 class FormDefinitionField(models.Model):
 
     form_definition = models.ForeignKey(FormDefinition)
-    field_class = models.CharField(_('Field class'), choices=settings.FIELD_CLASSES, max_length=32)
-    position = models.IntegerField(_('Position'), blank=True, null=True)
+    field_class = models.CharField(_('field class'), choices=settings.FIELD_CLASSES, max_length=32)
+    position = models.IntegerField(_('position'), blank=True, null=True)
 
-    name = models.SlugField(_('Name'), max_length=255)
-    label = models.CharField(_('Label'), max_length=255, blank=True, null=True)
-    required = models.BooleanField(_('Required'), default=True)
-    include_result = models.BooleanField(_('Include in result'), help_text=('If this is disabled, the field value will not be included in logs and e-mails generated from form data.'), default=True)
-    widget = models.CharField(_('Widget'), default='', choices=settings.WIDGET_CLASSES, max_length=255, blank=True, null=True)
-    initial = models.TextField(_('Initial value'), blank=True, null=True)
-    help_text = models.CharField(_('Help text'), max_length=255, blank=True, null=True)
+    name = models.SlugField(_('name'), max_length=255)
+    label = models.CharField(_('label'), max_length=255, blank=True, null=True)
+    required = models.BooleanField(_('required'), default=True)
+    include_result = models.BooleanField(_('include in result'), help_text=('If this is disabled, the field value will not be included in logs and e-mails generated from form data.'), default=True)
+    widget = models.CharField(_('widget'), default='', choices=settings.WIDGET_CLASSES, max_length=255, blank=True, null=True)
+    initial = models.TextField(_('initial value'), blank=True, null=True)
+    help_text = models.CharField(_('help text'), max_length=255, blank=True, null=True)
 
-    choice_values = models.TextField(_('Values'), help_text=_('One value per line'), blank=True, null=True)
-    choice_labels = models.TextField(_('Labels'), help_text=_('One label per line'), blank=True, null=True)
+    choice_values = models.TextField(_('values'), help_text=_('One value per line'), blank=True, null=True)
+    choice_labels = models.TextField(_('labels'), help_text=_('One label per line'), blank=True, null=True)
 
-    max_length = models.IntegerField(_('Max. length'), blank=True, null=True)
-    min_length = models.IntegerField(_('Min. length'), blank=True, null=True)
-    max_value = models.FloatField(_('Max. value'), blank=True, null=True)
-    min_value = models.FloatField(_('Min. value'), blank=True, null=True)
-    max_digits = models.IntegerField(_('Max. digits'), blank=True, null=True)
-    decimal_places = models.IntegerField(_('Decimal places'), blank=True, null=True)
+    max_length = models.IntegerField(_('max. length'), blank=True, null=True)
+    min_length = models.IntegerField(_('min. length'), blank=True, null=True)
+    max_value = models.FloatField(_('max. value'), blank=True, null=True)
+    min_value = models.FloatField(_('min. value'), blank=True, null=True)
+    max_digits = models.IntegerField(_('max. digits'), blank=True, null=True)
+    decimal_places = models.IntegerField(_('decimal places'), blank=True, null=True)
 
-    regex = RegexpExpressionField(_('Regular Expression'), max_length=255, blank=True, null=True)
+    regex = RegexpExpressionField(_('regular Expression'), max_length=255, blank=True, null=True)
 
     choice_model_choices = settings.CHOICE_MODEL_CHOICES
-    choice_model = ModelNameField(_('Data model'), max_length=255, blank=True, null=True, choices=choice_model_choices, help_text=('your_app.models.ModelName' if not choice_model_choices else None))
-    choice_model_empty_label = models.CharField(_('Empty label'), max_length=255, blank=True, null=True)
+    choice_model = ModelNameField(_('data model'), max_length=255, blank=True, null=True, choices=choice_model_choices, help_text=('your_app.models.ModelName' if not choice_model_choices else None))
+    choice_model_empty_label = models.CharField(_('empty label'), max_length=255, blank=True, null=True)
 
     class Meta:
-        verbose_name = _('Field')
-        verbose_name_plural = _('Fields')
+        verbose_name = _('field')
+        verbose_name_plural = _('fields')
+        ordering = ['position']
 
     def save(self, *args, **kwargs):
         if self.position == None:
@@ -293,11 +294,6 @@ class FormDefinitionField(models.Model):
             })
 
         return args
-
-    class Meta:
-        verbose_name = _('Field')
-        verbose_name_plural = _('Fields')
-        ordering = ['position']
 
     def __unicode__(self):
         return self.label if self.label else self.name

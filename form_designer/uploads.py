@@ -24,8 +24,9 @@ def clean_files(form):
             app_settings.ALLOWED_FILE_TYPES:
                 msg = _('This file type is not allowed.')
         elif uploaded_file._size > app_settings.MAX_UPLOAD_SIZE:
-            msg = _('Please keep file size under %s. Current size is %s.') %  \
-                (filesizeformat(app_settings.MAX_UPLOAD_SIZE), filesizeformat(uploaded_file._size))
+            msg = _('Please keep file size under %(max_size)s. Current size is %(size)s.') %  \
+                {'max_size': filesizeformat(app_settings.MAX_UPLOAD_SIZE), 
+                'size': filesizeformat(uploaded_file._size)}
         if msg:
             form._errors[field.name] = form.error_class([msg])
 
