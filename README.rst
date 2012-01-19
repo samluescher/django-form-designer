@@ -20,7 +20,7 @@ A Django app for building many kinds of forms visually, without any programming 
 Installation
 ============
 
-This document assumes that you are familiar with Python and Django.
+This install guide assumes that you are familiar with Python and Django.
 
 - Install the module using pip::
 
@@ -34,20 +34,6 @@ This document assumes that you are familiar with Python and Django.
 
 Basic setup
 ===========
-
-- If you are using ``django.contrib.staticfiles`` (recommended), just run the
-  usual command to collect static files::
-
-    $ python manage.py collectstatic
-
-  .. Note::
-     Please refer to the Django documentation on how to `set up the static files
-     app <https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/>`_ if
-     you have not done that yet.
-
-  If you are **not** going to use the ``staticfiles`` app, you will have to copy
-  the contents of the ``static`` folder to the location you are serving static
-  files from.
 
 - Add `form_designer` to your `INSTALLED_APPS` setting::
 
@@ -64,6 +50,20 @@ Basic setup
 
     $ manage.py migrate form_designer
 
+- If you are using ``django.contrib.staticfiles`` (recommended), just run the
+  usual command to collect static files::
+
+    $ python manage.py collectstatic
+
+  .. Note::
+     Please refer to the Django documentation on how to `set up the static files
+     app <https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/>`_ if
+     you have not done that yet.
+
+  If you are **not** going to use the ``staticfiles`` app, you will have to copy
+  the contents of the ``static`` folder to the location you are serving static
+  files from.
+
 - Add the URLs to your URL conf. For instance, in order to make a form named
   ``example-form``   available under ``http://domain.com/forms/example-form``,
   add the following line to your    project's ``urls.py``::
@@ -74,8 +74,26 @@ Basic setup
     )
 
   .. Note::
-     If you are using the form\_designer plugin for Django CMS, this step is not 
-     necessary.
+     If you are using the form_designer plugin for Django CMS for making forms
+     public, this step is not necessary.
+
+
+Using Django Form Designer with Django CMS 
+==========================================
+
+- Add `form_designer.contrib.cms_plugins.form_designer_form` to your `INSTALLED_APPS` 
+  setting::
+
+        INSTALLED_APPS = (
+            ...
+            'form_designer.contrib.cms_plugins.form_designer_form',
+        )
+
+- Set up the database tables using::
+
+    $ manage.py syncdb
+
+You can now add forms to pages created with Django CMS. 
 
 
 Optional requirements
