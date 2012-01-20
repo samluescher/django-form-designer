@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-19 18:08-0500\n"
+"POT-Creation-Date: 2012-01-19 20:56-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Erik Romijn <erik@erik.io>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -446,7 +446,7 @@ msgid "The data could not be submitted, please try again."
 msgstr "De gegevens konden niet opgestuurd worden, probeert u het opnieuw."
 
 #: contrib/cms_plugins/form_designer_form/cms_plugins.py:13
-msgid "Media Tree"
+msgid "Form Designer"
 msgstr ""
 
 #: contrib/cms_plugins/form_designer_form/models.py:8

@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 class FormDesignerPlugin(CMSPluginBase):
     model = CMSFormDefinition
-    module = _('Media Tree')
+    module = _('Form Designer')
     name = _('Form')
     admin_preview = False
 
