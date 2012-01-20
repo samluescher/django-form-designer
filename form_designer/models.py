@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.conf import settings as django_settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
+from django.contrib.auth.models import User
 
 from picklefield.fields import PickledObjectField
 
@@ -313,6 +314,7 @@ class FormDefinitionField(models.Model):
 class FormSubmission(models.Model):
     form = models.ForeignKey(FormDefinition, related_name='submissions')
     created = models.DateTimeField(_('Created'), auto_now=True)
+    created_by = models.ForeignKey(User)
 
     def __unicode__(self):
         return "%s (%s)" % (self.form.title or self.form.name, self.created) 
