@@ -15,7 +15,7 @@ else:
     xlwt_installed = True
 
 from form_designer.forms import FormDefinitionForm, FormDefinitionFieldInlineForm
-from form_designer.models import FormDefinition, FormDefinitionField, FormLog, FormSubmission, FormValue
+from form_designer.models import FormDefinition, FormDefinitionField, FormLog, FormValue
 from form_designer import settings
 from form_designer.templatetags.friendly import friendly
 
@@ -104,6 +104,7 @@ class FormLogAdmin(admin.ModelAdmin):
                 header.append(_('Created'))
             if include_pk:
                 header.append(_('ID'))
+            # todo add actual form fields instead
             for field in queryset[0].data:
                 header.append(field['label'] if field['label'] else field['key'])
             writer.writerow([smart_str(cell, encoding=settings.CSV_EXPORT_ENCODING) for cell in header])
@@ -116,6 +117,7 @@ class FormLogAdmin(admin.ModelAdmin):
                 row.append(entry.created)
             if include_pk:
                 row.append(entry.pk)
+            # todo add with correct keys in order
             for field in entry.data:
                 value = friendly(field['value'])
                 row.append(smart_str(
@@ -149,6 +151,7 @@ class FormLogAdmin(admin.ModelAdmin):
                 header.append(_('Created'))
             if include_pk:
                 header.append(_('ID'))
+            # todo add actual form fields instead
             for field in queryset[0].data:
                 header.append(field['label'] if field['label'] else field['key'])
             for i, f in enumerate(header):
@@ -164,6 +167,7 @@ class FormLogAdmin(admin.ModelAdmin):
                 row.append(entry.pk)
             for field in entry.data:
                 value = friendly(field['value'])
+                # todo add with correct keys in order
                 row.append(smart_unicode(
                     value, encoding=settings.CSV_EXPORT_ENCODING))
             for j, cell in enumerate(row):
@@ -194,5 +198,5 @@ admin.site.register(FormDefinition, FormDefinitionAdmin)
 admin.site.register(FormLog, FormLogAdmin)
 
 
-admin.site.register(FormSubmission, admin.ModelAdmin)
+#admin.site.register(FormSubmission, admin.ModelAdmin)
 admin.site.register(FormValue, admin.ModelAdmin)

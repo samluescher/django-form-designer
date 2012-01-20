@@ -10,10 +10,11 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
 from django.contrib.auth.models import User
 
-from picklefield.fields import PickledObjectField
-
 from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
 from form_designer import settings
+
+
+
 
 def get_class(import_path):
     try:
@@ -31,6 +32,15 @@ def get_class(import_path):
     except AttributeError:
         raise ImproperlyConfigured('Module "%s" does not define a "%s" '
                                    'class.' % (module, classname))
+
+
+class FormValueDict(dict):
+    def __init__(self, name, value, label):
+        self['name'] = name
+        self['value'] = value
+        self['label'] = label
+        super(FormValueDict, self).__init__()
+        
 
 class FormDefinition(models.Model):
     name = models.SlugField(_('name'), max_length=255, unique=True)
@@ -90,10 +100,10 @@ class FormDefinition(models.Model):
                 value = form.cleaned_data[key]
                 if getattr(value, '__form_data__', False):
                     value = value.__form_data__()
-                data.append({'name': key, 'label': form.fields[key].label, 'value': value})
+                data.append(FormValueDict(key, value, form.fields[key].label))
         return data
 
-    def get_form_data_dict(self, form_data):
+    def get_form_data_context(self, form_data):
         dict = {}
         for field in form_data:
             dict[field['name']] = field['value']
@@ -108,7 +118,7 @@ class FormDefinition(models.Model):
             t = get_template('txt/formdefinition/data_message.txt')
         else:
             t = Template(self.message_template)
-        context = Context(self.get_form_data_dict(form_data))
+        context = Context(self.get_form_data_context(form_data))
         context['data'] = form_data
         return t.render(context)
 
@@ -122,17 +132,6 @@ class FormDefinition(models.Model):
     def log(self, form):
         form_data = self.get_form_data(form)
         FormLog(form_definition=self, data=form_data).save()
-        
-        submission = FormSubmission()
-        self.submissions.add(submission)
-
-        for item in form_data:
-            value = FormValue()
-            value.field_name = item['name']
-            value.value = item['value']
-            submission.values.add(value)
-
-
 
     def string_template_replace(self, text, context_dict):
         from django.template import Context, Template, TemplateSyntaxError
@@ -145,7 +144,7 @@ class FormDefinition(models.Model):
     def send_mail(self, form, files=[]):
         form_data = self.get_form_data(form)
         message = self.compile_message(form_data)
-        context_dict = self.get_form_data_dict(form_data)
+        context_dict = self.get_form_data_context(form_data)
 
         import re
         mail_to = re.compile('\s*[,;]+\s*').split(self.mail_to)
@@ -161,9 +160,6 @@ class FormDefinition(models.Model):
         else:
             mail_subject = self.title
 
-        import logging
-        logging.debug('Mail: '+repr(mail_from)+' --> '+repr(mail_to));
-
         from django.core.mail import EmailMessage
         message = EmailMessage(mail_subject, message, mail_from or None, mail_to)
 
@@ -176,19 +172,11 @@ class FormDefinition(models.Model):
     @property
     def submit_flag_name(self):
         name = settings.SUBMIT_FLAG_NAME % self.name
+        # make sure we are not overriding one of the actual form fields 
         while self.formdefinitionfield_set.filter(name__exact=name).count() > 0:
             name += '_'
         return name
 
-class FormLog(models.Model):
-    created = models.DateTimeField(_('Created'), auto_now=True)
-    form_definition = models.ForeignKey(FormDefinition, verbose_name=_('Form'))
-    data = PickledObjectField(_('Data'), null=True, blank=True)
-
-    class Meta:
-        verbose_name = _('Form log')
-        verbose_name_plural = _('Form logs')
-        ordering = ['-created']
 
 class FormDefinitionField(models.Model):
 
@@ -311,19 +299,68 @@ class FormDefinitionField(models.Model):
         return self.label if self.label else self.name
 
 
-class FormSubmission(models.Model):
-    form = models.ForeignKey(FormDefinition, related_name='submissions')
+"""
+from picklefield.fields import PickledObjectField
+
+class FormLog(models.Model):
     created = models.DateTimeField(_('Created'), auto_now=True)
-    created_by = models.ForeignKey(User)
+    form_definition = models.ForeignKey(FormDefinition, verbose_name=_('Form'))
+    #data = PickledObjectField(_('Data'), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _('Form log')
+        verbose_name_plural = _('Form logs')
+        ordering = ['-created']
+"""
+
+class FormLog(models.Model):
+    form_definition = models.ForeignKey(FormDefinition, related_name='logs')
+    created = models.DateTimeField(_('Created'), auto_now=True)
+    created_by = models.ForeignKey(User, null=True)
+    _data = None
 
     def __unicode__(self):
-        return "%s (%s)" % (self.form.title or self.form.name, self.created) 
+        return "%s (%s)" % (self.form_definition.title or  \
+            self.form_definition.name, self.created) 
 
+    def get_data(self):
+        if self._data:
+            return self._data
+        data = []
+        for item in self.values.all():
+            #field_name = form.fields[key].label
+            # TODO: use label
+            data.append(FormValueDict(item.field_name, item.value,
+                item.field_name))
+        return data
+
+    def set_data(self, form_data):
+        self._data = form_data
+
+    data = property(get_data, set_data)
+
+    def save(self, *args, **kwargs):
+        super(FormLog, self).save(*args, **kwargs)
+        if self._data: 
+            for item in self._data:
+                value = FormValue()
+                value.field_name = item['name']
+                value.value = item['value']
+                self.values.add(value)
+            self._data = None
+
+
+# TODO: Use pickled 
+#from picklefield.fields import PickledObjectField
 
 class FormValue(models.Model):
-    submission = models.ForeignKey(FormSubmission, related_name='values')
+    form_log = models.ForeignKey(FormLog, related_name='values')
     field_name = models.SlugField(_('field name'), max_length=255)
-    value = models.TextField(_('value'))
+    value = models.TextField(_('value'), null=True, blank=True)
+    #value = PickledObjectField(_('value'), null=True, blank=True)
+
+    def __unicode__(self):
+        return u'%s = %s' % (self.field_name, self.value)
 
 
 if 'south' in django_settings.INSTALLED_APPS:
