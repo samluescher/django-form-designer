@@ -20,8 +20,6 @@ jQuery(function($) {
             if ($(this).find(positionInput).val() != '') {
                 $(this).find(positionInput).val(pos);
                 pos++;
-            } else {
-                $(this).find('.inline_label').text('skip');
             }
         });
     };
