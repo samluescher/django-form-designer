@@ -121,6 +121,17 @@ class FormDefinition(models.Model):
     def log(self, form):
         form_data = self.get_form_data(form)
         FormLog(form_definition=self, data=form_data).save()
+        
+        submission = FormSubmission()
+        self.submissions.add(submission)
+
+        for item in form_data:
+            value = FormValue()
+            value.field_name = item['name']
+            value.value = item['value']
+            submission.values.add(value)
+
+
 
     def string_template_replace(self, text, context_dict):
         from django.template import Context, Template, TemplateSyntaxError
@@ -299,6 +310,22 @@ class FormDefinitionField(models.Model):
         return self.label if self.label else self.name
 
 
+class FormSubmission(models.Model):
+    form = models.ForeignKey(FormDefinition, related_name='submissions')
+    created = models.DateTimeField(_('Created'), auto_now=True)
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.form.title or self.form.name, self.created) 
+
+
+class FormValue(models.Model):
+    submission = models.ForeignKey(FormSubmission, related_name='values')
+    field_name = models.SlugField(_('field name'), max_length=255)
+    value = models.TextField(_('value'))
+
+
 if 'south' in django_settings.INSTALLED_APPS:
     from south.modelsinspector import add_introspection_rules
     add_introspection_rules([], ["^form_designer\.fields\..*"])
+
+

@@ -15,7 +15,7 @@ else:
     xlwt_installed = True
 
 from form_designer.forms import FormDefinitionForm, FormDefinitionFieldInlineForm
-from form_designer.models import FormDefinition, FormDefinitionField, FormLog
+from form_designer.models import FormDefinition, FormDefinitionField, FormLog, FormSubmission, FormValue
 from form_designer import settings
 from form_designer.templatetags.friendly import friendly
 
@@ -192,3 +192,7 @@ class FormLogAdmin(admin.ModelAdmin):
 
 admin.site.register(FormDefinition, FormDefinitionAdmin)
 admin.site.register(FormLog, FormLogAdmin)
+
+
+admin.site.register(FormSubmission, admin.ModelAdmin)
+admin.site.register(FormValue, admin.ModelAdmin)
