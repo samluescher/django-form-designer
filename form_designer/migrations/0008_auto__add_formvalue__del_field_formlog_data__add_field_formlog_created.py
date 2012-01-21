@@ -17,6 +17,9 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('form_designer', ['FormValue'])
 
+        # Adding field 'FormLog.created_by'
+        db.add_column('form_designer_formlog', 'created_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True), keep_default=False)
+
         from form_designer.models import FormLog
         for log in FormLog.objects.all():
             log.set_data(log.data)
@@ -24,9 +27,6 @@ class Migration(SchemaMigration):
 
         # Deleting field 'FormLog.data'
         db.delete_column('form_designer_formlog', 'data')
-
-        # Adding field 'FormLog.created_by'
-        db.add_column('form_designer_formlog', 'created_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True), keep_default=False)
 
 
     def backwards(self, orm):
