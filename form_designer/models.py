@@ -11,6 +11,12 @@ from django.contrib.auth.models import User
 from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
 from form_designer import settings
 
+try:
+    from picklefield.fields import PickledObjectField
+    PICKLEFIELD_INSTALLED = True
+except ImportError:
+    PICKLEFIELD_INSTALLED = False
+
 
 class FormValueDict(dict):
     def __init__(self, name, value, label):
@@ -328,14 +334,17 @@ class FormLog(models.Model):
             self._data = None
 
 
-# TODO: Use pickled 
-#from picklefield.fields import PickledObjectField
-
 class FormValue(models.Model):
     form_log = models.ForeignKey(FormLog, related_name='values')
     field_name = models.SlugField(_('field name'), max_length=255)
-    value = models.TextField(_('value'), null=True, blank=True)
-    #value = PickledObjectField(_('value'), null=True, blank=True)
+    if PICKLEFIELD_INSTALLED:
+        # use PickledObjectField if available because it preserves the
+        # original data type
+        value = PickledObjectField(_('value'), null=True, blank=True)
+    else:
+        # otherwise just use a TextField, with the drawback that
+        # all values will just be stored as unicode strings.
+        value = models.TextField(_('value'), null=True, blank=True)
 
     def __unicode__(self):
         return u'%s = %s' % (self.field_name, self.value)
