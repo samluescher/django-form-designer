@@ -65,7 +65,7 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
     context.update(csrf(request))
     
     if form_definition.display_logged:
-        logs = form_definition.formlog_set.all().order_by('created')
+        logs = form_definition.logs.all().order_by('created')
         context.update({'logs': logs})
         
     return context
