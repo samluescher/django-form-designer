@@ -16,7 +16,8 @@ class CsvExporter(FormLogExporterBase):
 
     def init_response(self):
         self.response = HttpResponse(mimetype='text/csv')
-        self.response['Content-Disposition'] = 'attachment; filename=' + settings.CSV_EXPORT_FILENAME
+        self.response['Content-Disposition'] = 'attachment; filename=%s.csv' %  \
+            unicode(self.model._meta.verbose_name_plural)
 
     def writerow(self, row):
         self.writer.writerow(row)

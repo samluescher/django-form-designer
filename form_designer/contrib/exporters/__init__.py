@@ -63,7 +63,7 @@ class FormLogExporterBase(ExporterBase):
                     header.append(_('Created'))
                 if include_pk:
                     header.append(_('ID'))
-                # TODO: Form fields might have been changed and not match 
+                # Form fields might have been changed and not match 
                 # existing form logs anymore.
                 # Hence, use current form definition for header.
                 # for field in queryset[0].data:
@@ -82,7 +82,7 @@ class FormLogExporterBase(ExporterBase):
                 if include_pk:
                     row.append(entry.pk)
 
-                # TODO: Form fields might have been changed and not match 
+                # Form fields might have been changed and not match 
                 # existing form logs anymore.
                 # Hence, add known named columns first, then add orphaned
                 # values.
