@@ -43,9 +43,15 @@ class Migration(SchemaMigration):
         # Adding field 'FormLog.data'
         db.add_column('form_designer_formlog', 'data', self.gf('picklefield.fields.PickledObjectField')(null=True, blank=True), keep_default=False)
 
-        # TODO: Since we can't access the data field because data is actually
-        # a property now, we cant convert formlog.values.all() back to pickled
-        # formlog.data
+        from form_designer.models import FormLog
+        from picklefield import PickledObjectField  
+        tmp_data = PickledObjectField(null=True, blank=True)
+        tmp_data.contribute_to_class(FormLog, 'data')
+
+        for log in FormLog.objects.all():
+            log.data = log.get_data()
+            raise Exception(log.data)
+            log.save()
 
         # Deleting field 'FormLog.created_by'
         db.delete_column('form_designer_formlog', 'created_by_id')
