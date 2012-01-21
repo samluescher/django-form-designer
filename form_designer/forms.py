@@ -6,8 +6,9 @@ from django.conf import settings as django_settings
 from django.utils.translation import ugettext as _
 
 from form_designer import settings
-from form_designer.models import get_class, FormDefinitionField, FormDefinition
+from form_designer.models import FormDefinitionField, FormDefinition
 from form_designer.uploads import clean_files
+from form_designer.utils import get_class
 
 
 class DesignedForm(forms.Form):

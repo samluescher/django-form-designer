@@ -40,7 +40,7 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
             messages.success(request, success_message)
             form_success = True
             if form_definition.log_data:
-                form_definition.log(form)
+                form_definition.log(form, request.user)
             if form_definition.mail_to:
                 form_definition.send_mail(form, files)
             if form_definition.success_redirect and not disable_redirection:
@@ -65,7 +65,7 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
     context.update(csrf(request))
     
     if form_definition.display_logged:
-        logs = form_definition.formlog_set.all().order_by('created')
+        logs = form_definition.logs.all().order_by('created')
         context.update({'logs': logs})
         
     return context
