@@ -82,24 +82,10 @@ class FormLogExporterBase(ExporterBase):
                 if include_pk:
                     row.append(entry.pk)
 
-                # Form fields might have been changed and not match 
-                # existing form logs anymore.
-                # Hence, add known named columns first, then add orphaned
-                # values.
-                values_with_header = {}
-                values_without_header = []
                 for item in entry.data:
-                    value = friendly(item['value'])
+                    value = friendly(item['value'], null_value=settings.CSV_EXPORT_NULL_VALUE)
                     value = smart_str(
                         value, encoding=settings.CSV_EXPORT_ENCODING)
-                    if item['name'] in fields:
-                        values_with_header[item['name']] = value
-                    else:
-                        values_without_header.append(value)
-                for field_name in fields:
-                    if field_name in values_with_header:
-                        row.append(values_with_header[field_name])
-                for value in values_without_header:
                     row.append(value)
 
                 self.writerow(row)

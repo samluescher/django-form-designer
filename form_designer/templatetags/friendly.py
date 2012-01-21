@@ -6,7 +6,9 @@ from django.template.defaultfilters import yesno
 register = template.Library()
 
 # Returns a more "human-friendly" representation of value than repr()
-def friendly(value): 
+def friendly(value, null_value=None): 
+    if value is None and not (null_value is None):
+        return null_value
     if type(value) is QuerySet:
         qs = value
         value = []        

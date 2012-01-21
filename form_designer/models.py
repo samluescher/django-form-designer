@@ -7,6 +7,7 @@ from django.forms import widgets
 from django.core.mail import send_mail
 from django.conf import settings as django_settings
 from django.contrib.auth.models import User
+from django.utils.datastructures import SortedDict
 
 from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
 from form_designer import settings
@@ -63,10 +64,11 @@ class FormDefinition(models.Model):
         super(FormDefinition, self).save()
 
     def get_field_dict(self):
-        dict = {}
+        field_dict = SortedDict()
+        names = []
         for field in self.formdefinitionfield_set.all():
-            dict[field.name] = field
-        return dict
+            field_dict[field.name] = field
+        return field_dict
 
     @models.permalink
     def get_absolute_url(self):
@@ -317,6 +319,8 @@ class FormLog(models.Model):
             return self._data
         data = []
         fields = self.form_definition.get_field_dict()
+        values_with_header = {}
+        values_without_header = []
         for item in self.values.all():
             field = fields.get(item.field_name, None)
             if field:
@@ -324,9 +328,24 @@ class FormLog(models.Model):
                 label = field.label
             else:
                 # field may have been removed
-                label = None            
-            data.append(FormValueDict(item.field_name, item.value,
-                label))
+                label = None
+
+            value_dict = FormValueDict(item.field_name, item.value,
+                label)
+
+            if item.field_name in fields:
+                values_with_header[item.field_name] = value_dict
+            else:
+                values_without_header.append(value_dict)
+
+        for field_name, field in fields.items():
+            if field_name in values_with_header:
+                data.append(values_with_header[field_name])
+            else:
+                data.append(FormValueDict(field.name, None, field.label))
+        for value in values_without_header:
+            data.append(value)
+
         return data
 
     def set_data(self, form_data):
