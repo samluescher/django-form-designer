@@ -51,10 +51,7 @@ class FormLogExporterBase(ExporterBase):
         include_form = settings.CSV_EXPORT_INCLUDE_FORM and distinct_forms > 1
 
         if queryset.count():
-
-            # TODO: Fields should be returned ordered by position.
             fields = queryset[0].form_definition.get_field_dict()
-
             if include_header:
                 header = []
                 if include_form:
