@@ -113,9 +113,12 @@ class FormDefinition(models.Model):
     def __unicode__(self):
         return self.title or self.name
 
-    def log(self, form):
+    def log(self, form, user=None):
         form_data = self.get_form_data(form)
-        FormLog(form_definition=self, data=form_data).save()
+        created_by = None
+        if user and user.is_authenticated():
+            created_by = user
+        FormLog(form_definition=self, data=form_data, created_by=created_by).save()
 
     def string_template_replace(self, text, context_dict):
         from django.template import Context, Template, TemplateSyntaxError
@@ -300,7 +303,7 @@ class FormLog(models.Model):
 class FormLog(models.Model):
     form_definition = models.ForeignKey(FormDefinition, related_name='logs')
     created = models.DateTimeField(_('Created'), auto_now=True)
-    created_by = models.ForeignKey(User, null=True)
+    created_by = models.ForeignKey(User, null=True, blank=True)
     _data = None
 
     def __unicode__(self):
@@ -309,6 +312,7 @@ class FormLog(models.Model):
 
     def get_data(self):
         if self._data:
+            # before instance is saved
             return self._data
         data = []
         for item in self.values.all():
@@ -319,6 +323,8 @@ class FormLog(models.Model):
         return data
 
     def set_data(self, form_data):
+        # keep form data in temporary variable since instance must
+        # be saved before saving values
         self._data = form_data
 
     data = property(get_data, set_data)
@@ -326,6 +332,9 @@ class FormLog(models.Model):
     def save(self, *args, **kwargs):
         super(FormLog, self).save(*args, **kwargs)
         if self._data: 
+            # safe form data and then clear temporary variable
+            for value in self.values.all():
+                value.delete()
             for item in self._data:
                 value = FormValue()
                 value.field_name = item['name']

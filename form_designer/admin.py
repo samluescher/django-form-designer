@@ -39,7 +39,7 @@ class FormDefinitionAdmin(admin.ModelAdmin):
     ]
 
 class FormLogAdmin(admin.ModelAdmin):
-    list_display = ('form_no_link', 'created', 'id', 'data_html')
+    list_display = ('form_no_link', 'created', 'id', 'created_by', 'data_html')
     list_filter = ('form_definition',)
     list_display_links = ()
 
