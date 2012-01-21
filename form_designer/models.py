@@ -316,11 +316,17 @@ class FormLog(models.Model):
             # before instance is saved
             return self._data
         data = []
+        fields = self.form_definition.get_field_dict()
         for item in self.values.all():
-            #field_name = form.fields[key].label
-            # TODO: use label
+            field = fields.get(item.field_name, None)
+            if field:
+                # get field label if field definition still exists
+                label = field.label
+            else:
+                # field may have been removed
+                label = None            
             data.append(FormValueDict(item.field_name, item.value,
-                item.field_name))
+                label))
         return data
 
     def set_data(self, form_data):
