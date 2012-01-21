@@ -20,9 +20,14 @@ class Migration(SchemaMigration):
         # Adding field 'FormLog.created_by'
         db.add_column('form_designer_formlog', 'created_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True), keep_default=False)
 
+        db.rename_column('form_designer_formlog', 'data', 'tmp_data')
         from form_designer.models import FormLog
+        from picklefield import PickledObjectField        
+        tmp_data = PickledObjectField(null=True, blank=True)
+        FormLog.contribute_to_class(tmp_data)
+
         for log in FormLog.objects.all():
-            log.set_data(log.data)
+            log.set_data(log.tmp_data)
             log.save()
 
         # Deleting field 'FormLog.data'
