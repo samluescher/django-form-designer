@@ -24,7 +24,7 @@ class Migration(SchemaMigration):
         from form_designer.models import FormLog
         from picklefield import PickledObjectField        
         tmp_data = PickledObjectField(null=True, blank=True)
-        FormLog.contribute_to_class(tmp_data)
+        tmp_data.contribute_to_class(FormLog, 'tmp_data')
 
         for log in FormLog.objects.all():
             log.set_data(log.tmp_data)
