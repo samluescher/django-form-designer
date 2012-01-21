@@ -94,8 +94,9 @@ class FormDefinition(models.Model):
 
     def get_form_data_dict(self, form_data):
         dict = {}
-        for field in form_data:
-            dict[field['name']] = field['value']
+        if form_data:
+            for field in form_data:
+                dict[field['name']] = field['value']
         return dict
 
     def compile_message(self, form_data, template=None):
