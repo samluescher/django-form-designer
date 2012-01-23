@@ -14,11 +14,8 @@ from form_designer.fields import TemplateTextField, TemplateCharField, ModelName
 from form_designer.utils import get_class
 from form_designer import settings
 
-try:
+if settings.VALUE_PICKLEFIELD:
     from picklefield.fields import PickledObjectField
-    PICKLEFIELD_INSTALLED = True
-except ImportError:
-    PICKLEFIELD_INSTALLED = False
 
 
 class FormValueDict(dict):
@@ -79,6 +76,7 @@ class FormDefinition(models.Model):
         return ('form_designer.views.detail', [str(self.name)])
 
     def get_form_data(self, form):
+        # TODO: refactor, move to utils or views
         data = []
         field_dict = self.get_field_dict()
         form_keys = form.fields.keys()
@@ -92,6 +90,7 @@ class FormDefinition(models.Model):
         return data
 
     def get_form_data_context(self, form_data):
+        # TODO: refactor, move to utils
         dict = {}
         if form_data:
             for field in form_data:
@@ -99,6 +98,7 @@ class FormDefinition(models.Model):
         return dict
 
     def compile_message(self, form_data, template=None):
+        # TODO: refactor, move to utils
         from django.template.loader import get_template
         from django.template import Context, Template
         if template:
@@ -126,6 +126,7 @@ class FormDefinition(models.Model):
         FormLog(form_definition=self, data=form_data, created_by=created_by).save()
 
     def string_template_replace(self, text, context_dict):
+        # TODO: refactor, move to utils
         from django.template import Context, Template, TemplateSyntaxError
         try:
             t = Template(text)
@@ -134,6 +135,7 @@ class FormDefinition(models.Model):
             return text
 
     def send_mail(self, form, files=[]):
+        # TODO: refactor, move to utils
         form_data = self.get_form_data(form)
         message = self.compile_message(form_data)
         context_dict = self.get_form_data_context(form_data)
@@ -290,20 +292,6 @@ class FormDefinitionField(models.Model):
         return self.label if self.label else self.name
 
 
-"""
-from picklefield.fields import PickledObjectField
-
-class FormLog(models.Model):
-    created = models.DateTimeField(_('Created'), auto_now=True)
-    form_definition = models.ForeignKey(FormDefinition, verbose_name=_('Form'))
-    #data = PickledObjectField(_('Data'), null=True, blank=True)
-
-    class Meta:
-        verbose_name = _('Form log')
-        verbose_name_plural = _('Form logs')
-        ordering = ['-created']
-"""
-
 class FormLog(models.Model):
     form_definition = models.ForeignKey(FormDefinition, related_name='logs')
     created = models.DateTimeField(_('Created'), auto_now=True)
@@ -373,13 +361,14 @@ class FormLog(models.Model):
 class FormValue(models.Model):
     form_log = models.ForeignKey(FormLog, related_name='values')
     field_name = models.SlugField(_('field name'), max_length=255)
-    if PICKLEFIELD_INSTALLED:
+    if settings.VALUE_PICKLEFIELD:
         # use PickledObjectField if available because it preserves the
         # original data type
         value = PickledObjectField(_('value'), null=True, blank=True)
     else:
         # otherwise just use a TextField, with the drawback that
-        # all values will just be stored as unicode strings.
+        # all values will just be stored as unicode strings, 
+        # but you can easily query the database for form results.
         value = models.TextField(_('value'), null=True, blank=True)
 
     def __unicode__(self):

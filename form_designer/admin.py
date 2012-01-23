@@ -24,6 +24,7 @@ class FormDefinitionFieldInline(admin.StackedInline):
         (_('Model Choices'), {'fields': ['choice_model', 'choice_model_empty_label']}),
     ]
 
+
 class FormDefinitionAdmin(admin.ModelAdmin):
     fieldsets = [
         (_('Basic'), {'fields': ['name', 'require_hash', 'method', 'action', 'title', 'body']}),
@@ -37,6 +38,7 @@ class FormDefinitionAdmin(admin.ModelAdmin):
     inlines = [
         FormDefinitionFieldInline,
     ]
+
 
 class FormLogAdmin(admin.ModelAdmin):
     list_display = ('form_no_link', 'created', 'id', 'created_by', 'data_html')
@@ -109,9 +111,6 @@ class FormLogAdmin(admin.ModelAdmin):
 
         return super(FormLogAdmin, self).changelist_view(request, extra_context)
 
+
 admin.site.register(FormDefinition, FormDefinitionAdmin)
 admin.site.register(FormLog, FormLogAdmin)
-
-
-#admin.site.register(FormSubmission, admin.ModelAdmin)
-admin.site.register(FormValue, admin.ModelAdmin)
