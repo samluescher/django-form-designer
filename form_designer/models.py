@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.utils.datastructures import SortedDict
 
 from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
+from form_designer.utils import get_class
 from form_designer import settings
 
 try:
@@ -136,7 +137,6 @@ class FormDefinition(models.Model):
         message = self.compile_message(form_data)
         context_dict = self.get_form_data_context(form_data)
 
-        import re
         mail_to = re.compile('\s*[,;]+\s*').split(self.mail_to)
         for key, email in enumerate(mail_to):
             mail_to[key] = self.string_template_replace(email, context_dict)
