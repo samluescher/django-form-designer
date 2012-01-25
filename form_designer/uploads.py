@@ -42,7 +42,8 @@ def handle_uploaded_files(form_definition, form):
             uploaded_file = form.cleaned_data.get(field.name, None)
             if uploaded_file is None:
                 continue
-            root, ext = os.path.splitext(uploaded_file.name)
+            valid_file_name = storage.get_valid_name(uploaded_file.name)
+            root, ext = os.path.splitext(valid_file_name)
             filename = storage.get_available_name(
                 os.path.join(app_settings.FILE_STORAGE_DIR, 
                 form_definition.name, 
