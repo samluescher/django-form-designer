@@ -13,6 +13,7 @@ jQuery(function($) {
     var handle = 'h3 b';
     var item = 'div.inline-related';
     var positionInput = 'input[id$=-'+positionField+']';
+    var hidePositionFieldClosest = '.form-row';
 
     var renumberAll = function() {
         var pos = 1;
@@ -32,7 +33,11 @@ jQuery(function($) {
             $(this).find(handle).css('cursor', 'move');
             $(this).find(handle).addClass('draggable');
             $(this).find(positionInput).each(function() {
-                $(this)[0].readOnly = true;
+                if (hidePositionFieldClosest) {
+                    var hidden =$('<input type="hidden" id="'+this.id+'" name="'+this.name+'" />');
+                    hidden.val($(this).val());
+                    $(this).closest(hidePositionFieldClosest).replaceWith(hidden);    
+                }
             });
             $(this).find('input, select, textarea').change(function() {
                 $(this).closest(item).find('input[id$='+positionField+']').val('X'); // mark for renumberAll() to fill in
@@ -49,6 +54,9 @@ jQuery(function($) {
     target.find(item).each(function(i) {
         var initialPos = $(this).find(positionInput).val();
         if (initialPos) {
+            while (initialPos < ordered.length && ordered[initialPos]) {
+                initialPos++;
+            }
             ordered[initialPos] = this;
         } else {
             unordered[unordered.length] = this;
