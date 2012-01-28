@@ -1,5 +1,6 @@
 import re
 import hashlib, uuid
+from decimal import Decimal
 
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -240,8 +241,8 @@ class FormDefinitionField(models.Model):
 
         if self.field_class == 'django.forms.DecimalField':
             args.update({
-                'max_value': self.max_value,
-                'min_value': self.min_value,
+                'max_value': Decimal(str(self.max_value)),
+                'min_value': Decimal(str(self.min_value)),
                 'max_digits': self.max_digits,
                 'decimal_places': self.decimal_places,
             })
