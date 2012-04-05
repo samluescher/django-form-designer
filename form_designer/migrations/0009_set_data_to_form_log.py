@@ -1,34 +1,28 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
-class Migration(SchemaMigration):
+class Migration(DataMigration):
 
     def forwards(self, orm):
-        db.rename_column('form_designer_formlog', 'data', 'tmp_data')
-        # Adding field 'FormLog.created_by'
-        db.add_column('form_designer_formlog', 'created_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True), keep_default=False)
+        from picklefield import PickledObjectField
+        tmp_data = PickledObjectField(null=True, blank=True)
+        tmp_data.contribute_to_class(orm['form_designer.FormLog'], 'tmp_data')
 
-        # Adding model 'FormValue'
-        db.create_table('form_designer_formvalue', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('form_log', self.gf('django.db.models.fields.related.ForeignKey')(related_name='values', to=orm['form_designer.FormLog'])),
-            ('field_name', self.gf('django.db.models.fields.SlugField')(max_length=255, db_index=True)),
-            ('value', self.gf('django.db.models.fields.TextField')(null=True)),
-        ))
-        db.send_create_signal('form_designer', ['FormValue'])
+        for log in orm['form_designer.FormLog'].objects.all():
+            log.set_data(log.tmp_data)
+            log.save()
+
+        # Deleting field 'FormLog.data'
+        db.delete_column('form_designer_formlog', 'tmp_data')
 
     def backwards(self, orm):
-        # Adding field 'FormLog.data'
-        db.add_column('form_designer_formlog', 'data', self.gf('picklefield.fields.PickledObjectField')(null=True, blank=True), keep_default=False)
-
-        # Deleting field 'FormLog.created_by'
-        db.delete_column('form_designer_formlog', 'created_by_id')
-
-        # Deleting model 'FormValue'
-        db.delete_table('form_designer_formvalue')
+        for log in orm['form_designer.FormLog'].objects.all():
+            log.data = log.get_data()
+            raise Exception(log.data)
+            log.save()
 
     models = {
         'auth.group': {
@@ -83,7 +77,7 @@ class Migration(SchemaMigration):
             'mail_uploaded_files': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'message_template': ('form_designer.fields.TemplateTextField', [], {'null': 'True', 'blank': 'True'}),
             'method': ('django.db.models.fields.CharField', [], {'default': "'POST'", 'max_length': '10'}),
-            'name': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255', 'db_index': 'True'}),
+            'name': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
             'private_hash': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '40'}),
             'public_hash': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '40'}),
             'require_hash': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -113,7 +107,7 @@ class Migration(SchemaMigration):
             'max_value': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
             'min_length': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'min_value': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.SlugField', [], {'max_length': '255', 'db_index': 'True'}),
+            'name': ('django.db.models.fields.SlugField', [], {'max_length': '255'}),
             'position': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'regex': ('form_designer.fields.RegexpExpressionField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'required': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
@@ -128,7 +122,7 @@ class Migration(SchemaMigration):
         },
         'form_designer.formvalue': {
             'Meta': {'object_name': 'FormValue'},
-            'field_name': ('django.db.models.fields.SlugField', [], {'max_length': '255', 'db_index': 'True'}),
+            'field_name': ('django.db.models.fields.SlugField', [], {'max_length': '255'}),
             'form_log': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'values'", 'to': "orm['form_designer.FormLog']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'value': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'})
@@ -136,3 +130,4 @@ class Migration(SchemaMigration):
     }
 
     complete_apps = ['form_designer']
+    symmetrical = True
