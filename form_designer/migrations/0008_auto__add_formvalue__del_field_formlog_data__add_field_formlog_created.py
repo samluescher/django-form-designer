@@ -26,9 +26,10 @@ class Migration(SchemaMigration):
         tmp_data = PickledObjectField(null=True, blank=True)
         tmp_data.contribute_to_class(FormLog, 'tmp_data')
 
-        for log in FormLog.objects.all():
-            log.set_data(log.tmp_data)
-            log.save()
+        if not db.dry_run:
+            for log in FormLog.objects.all():
+                log.set_data(log.tmp_data)
+                log.save()
 
         # Deleting field 'FormLog.data'
         db.delete_column('form_designer_formlog', 'data')
@@ -48,10 +49,11 @@ class Migration(SchemaMigration):
         tmp_data = PickledObjectField(null=True, blank=True)
         tmp_data.contribute_to_class(FormLog, 'data')
 
-        for log in FormLog.objects.all():
-            log.data = log.get_data()
-            raise Exception(log.data)
-            log.save()
+        if not db.dry_run:
+            for log in FormLog.objects.all():
+                log.data = log.get_data()
+                raise Exception(log.data)
+                log.save()
 
         # Deleting field 'FormLog.created_by'
         db.delete_column('form_designer_formlog', 'created_by_id')
