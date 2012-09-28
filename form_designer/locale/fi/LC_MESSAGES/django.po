@@ -1,0 +1,463 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-28 11:05+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: .\admin.py:18 .\admin.py:30
+msgid "Basic"
+msgstr "Perus"
+
+#: .\admin.py:19
+msgid "Display"
+msgstr "Näyttöasetukset"
+
+#: .\admin.py:20 .\settings.py:10
+msgid "Text"
+msgstr "Tekstiasetukset"
+
+#: .\admin.py:21
+msgid "Numbers"
+msgstr "Numeroasetukset"
+
+#: .\admin.py:22 .\settings.py:23
+msgid "Regex"
+msgstr "Säännöllinen lauseke"
+
+#: .\admin.py:23
+msgid "Choices"
+msgstr "Valinnat"
+
+#: .\admin.py:24
+msgid "Model Choices"
+msgstr "Tietokantavalinnat"
+
+#: .\admin.py:31
+msgid "Settings"
+msgstr "Asetukset"
+
+#: .\admin.py:32
+msgid "Mail form"
+msgstr "Sähköpostiasetukset"
+
+#: .\admin.py:33
+msgid "Templates"
+msgstr "Asettelupohjat"
+
+#: .\admin.py:34
+msgid "Messages"
+msgstr "Viestit"
+
+#: .\admin.py:63
+#, python-format
+msgid "Export selected %%(verbose_name_plural)s as %s"
+msgstr "Vie valitut %%(verbose_name_plural)s %s-muotoon"
+
+#: .\admin.py:73 .\models.py:55
+#: .\contrib\cms_plugins\form_designer_form\cms_plugins.py:14
+#: .\contrib\exporters\__init__.py:58
+msgid "Form"
+msgstr "Lomake"
+
+#: .\admin.py:84
+msgid "Data"
+msgstr "Data"
+
+#: .\admin.py:108
+#, python-format
+msgid "Export view as %s"
+msgstr "Vie näkymä %s-muotoon"
+
+#: .\forms.py:44
+msgid "This field class requires a regular expression."
+msgstr "Tämä kenttätyyppi vaatii säännöllisen lausekkeen."
+
+#: .\forms.py:49
+msgid "This field class requires a model."
+msgstr "Tämä kenttätyyppi vaatii tietokantamallin."
+
+#: .\models.py:30 .\models.py:180
+msgid "name"
+msgstr "nimi"
+
+#: .\models.py:31
+msgid "obfuscate URL to this form"
+msgstr "piilota tämän lomakkeen URL-osoite"
+
+#: .\models.py:31
+msgid "If enabled, the form can only be reached via a secret URL."
+msgstr "Lomakkeeseen pääsee vain salaisesta URL-osoitteesta mikäli tämä kohta on valittu."
+
+#: .\models.py:34
+msgid "title"
+msgstr "otsikko"
+
+#: .\models.py:35
+msgid "body"
+msgstr "sisältö"
+
+#: .\models.py:36
+msgid "target URL"
+msgstr "kohde-URL"
+
+#: .\models.py:36
+msgid ""
+"If you leave this empty, the page where the form resides will be requested, "
+"and you can use the mail form and logging features. You can also send data "
+"to external sites: For instance, enter \"http://www.google.ch/search\" to "
+"create a search form."
+msgstr ""
+"Mikäli jätät tämän tyhjäksi, voit käyttää sähköpostiasetuksia ja lokitoiminnallisuutta."
+"Voit myös lähettää lomakkeen tiedot ulkoisille sivustoille; syöttämällä esimerkiksi \"http://www.google.fi/search\" "
+"voit luoda hakulomakkeen."
+
+#: .\models.py:37
+msgid "send form data to e-mail address"
+msgstr "lähetä lomakkeen tiedot sähköpostitse"
+
+#: .\models.py:38
+msgid "sender address"
+msgstr "lähettäjän osoite"
+
+#: .\models.py:39
+msgid "email subject"
+msgstr "sähköpostiviestin aihe"
+
+#: .\models.py:40
+msgid "Send uploaded files as email attachments"
+msgstr "Liitä lähetetyt tiedostot sähköpostiviesteihin liitetiedostoina"
+
+#: .\models.py:41
+msgid "method"
+msgstr "metodi"
+
+#: .\models.py:42
+msgid "success message"
+msgstr "kiitosviesti"
+
+#: .\models.py:43
+msgid "error message"
+msgstr "virheviesti"
+
+#: .\models.py:44
+msgid "submit button label"
+msgstr "lähetyspainikkeen teksti"
+
+#: .\models.py:45
+msgid "log form data"
+msgstr "käytä lokia"
+
+#: .\models.py:45
+msgid "Logs all form submissions to the database."
+msgstr "Tallentaa kaikki lähetetyt lomakkeet tietokantaan."
+
+#: .\models.py:46
+msgid "save uploaded files"
+msgstr "tallenna lähetetyt tiedostot"
+
+#: .\models.py:46
+msgid "Saves all uploaded files using server storage."
+msgstr "Tallentaa kaikki lähetetyt tiedostot palvelimelle."
+
+#: .\models.py:47
+msgid "HTTP redirect after successful submission"
+msgstr "HTTP-uudelleenohjaus onnistuneen lähetyksen jälkeen"
+
+#: .\models.py:48
+msgid "clear form after successful submission"
+msgstr "tyhjennä lomake onnistuneen lähetyksen jälkeen"
+
+#: .\models.py:49
+msgid "allow initial values via URL"
+msgstr "salli oletusarvot URL-osoitteessa"
+
+#: .\models.py:49
+msgid ""
+"If enabled, you can fill in form fields by adding them to the query string."
+msgstr ""
+"Mikäli tämä on valittu voit täyttää kenttiin oletusarvot käyttämällä URL:n kyselyosaa."
+
+#: .\models.py:50
+msgid "message template"
+msgstr "viestipohja"
+
+#: .\models.py:50
+msgid ""
+"Your form fields are available as template context. Example: \"{{ message }}"
+"\" if you have a field named `message`. To iterate over all fields, use the "
+"variable `data` (a list containing a dictionary for each form field, each "
+"containing the elements `name`, `label`, `value`)."
+msgstr ""
+"Lomakkeen kentät ovat käytettävissä. Saat esimerkiksi \"viesti\"-nimisen kentän "
+"viestipohjaan kirjoittamalla \"{{ viesti }}\". Iteroidaksesi kaikki lomakkeen kentät läpi "
+"voit käyttää \"data\"-nimistä muuttujaa (lista joka sisältää dictin jossa on elementit \"name\", "
+"\"label\" ja \"value\" per lomakekenttä)."
+
+#: .\models.py:51
+msgid "form template"
+msgstr "lomakepohja"
+
+#: .\models.py:52
+msgid "display logged submissions with form"
+msgstr "näytä tämän lomakkeen lokissa olevat lähetykset"
+
+#: .\models.py:56
+msgid "Forms"
+msgstr "Lomakkeet"
+
+#: .\models.py:116
+msgid "Fields"
+msgstr "Kentät"
+
+#: .\models.py:177
+msgid "field class"
+msgstr "kentän tyyppi"
+
+#: .\models.py:178
+msgid "position"
+msgstr "sijainti"
+
+#: .\models.py:181
+msgid "label"
+msgstr "otsikko"
+
+#: .\models.py:182
+msgid "required"
+msgstr "pakollinen"
+
+#: .\models.py:183
+msgid "include in result"
+msgstr "sisällytä tulokseen"
+
+#: .\models.py:184
+msgid "widget"
+msgstr "vimpain"
+
+#: .\models.py:185
+msgid "initial value"
+msgstr "oletusarvo"
+
+#: .\models.py:186
+msgid "help text"
+msgstr "ohjeteksti"
+
+#: .\models.py:188
+msgid "values"
+msgstr "arvot"
+
+#: .\models.py:188
+msgid "One value per line"
+msgstr "Yksi arvo per rivi"
+
+#: .\models.py:189
+msgid "labels"
+msgstr "otsikot"
+
+#: .\models.py:189
+msgid "One label per line"
+msgstr "Yksi otsikko per rivi"
+
+#: .\models.py:191
+msgid "max. length"
+msgstr "enimmäispituus"
+
+#: .\models.py:192
+msgid "min. length"
+msgstr "vähimmäispituus"
+
+#: .\models.py:193
+msgid "max. value"
+msgstr "enimmäisarvo"
+
+#: .\models.py:194
+msgid "min. value"
+msgstr "vähimmäisarvo"
+
+#: .\models.py:195
+msgid "max. digits"
+msgstr "numeroiden enimmäismäärä"
+
+#: .\models.py:196
+msgid "decimal places"
+msgstr "desimaalitarkkuus"
+
+#: .\models.py:198
+msgid "regular Expression"
+msgstr "säännöllinen lauseke"
+
+#: .\models.py:201
+msgid "data model"
+msgstr "tietokantamalli"
+
+#: .\models.py:202
+msgid "empty label"
+msgstr "tyhjä otsikko"
+
+#: .\models.py:205
+msgid "field"
+msgstr "kenttä"
+
+#: .\models.py:206
+msgid "fields"
+msgstr "kentät"
+
+#: .\models.py:297 .\contrib\exporters\__init__.py:60
+msgid "Created"
+msgstr "Luotu"
+
+#: .\models.py:363
+msgid "field name"
+msgstr "kentän nimi"
+
+#: .\models.py:367 .\models.py:372
+msgid "value"
+msgstr "arvo"
+
+#: .\settings.py:11
+msgid "E-mail address"
+msgstr "Sähköpostiosoite"
+
+#: .\settings.py:12
+msgid "Web address"
+msgstr "Www-osoite"
+
+#: .\settings.py:13
+msgid "Number"
+msgstr "Luku"
+
+#: .\settings.py:14
+msgid "Decimal number"
+msgstr "Desimaaliluku"
+
+#: .\settings.py:15
+msgid "Yes/No"
+msgstr "Kyllä/Ei"
+
+#: .\settings.py:16
+msgid "Date"
+msgstr "Päivämäärä"
+
+#: .\settings.py:17
+msgid "Date & time"
+msgstr "Päivämäärä ja aika"
+
+#: .\settings.py:18
+msgid "Time"
+msgstr "Aika"
+
+#: .\settings.py:19
+msgid "Choice"
+msgstr "Valinta"
+
+#: .\settings.py:20
+msgid "Multiple Choice"
+msgstr "Monivalinta"
+
+#: .\settings.py:21
+msgid "Model Choice"
+msgstr "Tietokantamallivalinta"
+
+#: .\settings.py:22
+msgid "Model Multiple Choice"
+msgstr "Monivalinta (tietokannasta)"
+
+#: .\settings.py:24
+msgid "File"
+msgstr "Tiedosto"
+
+#: .\settings.py:29 .\settings.py:42
+msgid "Default"
+msgstr "Oletus"
+
+#: .\settings.py:30
+msgid "Text area"
+msgstr "Tekstikenttä"
+
+#: .\settings.py:31
+msgid "Password input"
+msgstr "Salasanakenttä"
+
+#: .\settings.py:32
+msgid "Hidden input"
+msgstr "Piilotettu kenttä"
+
+#: .\settings.py:33
+msgid "Radio button"
+msgstr "Valintanappi (radio)"
+
+#: .\settings.py:43
+msgid "as paragraphs"
+msgstr "tekstikappaleina"
+
+#: .\settings.py:44
+msgid "as table"
+msgstr "taulukkona"
+
+#: .\settings.py:45
+msgid "as table (horizontal)"
+msgstr "taulukkona (vaakasuuntaisesti)"
+
+#: .\settings.py:46
+msgid "as unordered list"
+msgstr "listana"
+
+#: .\settings.py:47
+msgid "custom implementation"
+msgstr "räätälöity ratkaisu"
+
+#: .\uploads.py:20
+msgid "This field is required."
+msgstr "Tämä kenttä on pakollinen."
+
+#: .\uploads.py:25
+msgid "This file type is not allowed."
+msgstr "Tämä tiedostomuoto on kielletty."
+
+#: .\uploads.py:27
+#, python-format
+msgid "Please keep file size under %(max_size)s. Current size is %(size)s."
+msgstr "Tiedostojen enimmäiskoko on %(max_size)s. Nykyinen koko on %(size)s."
+
+#: .\views.py:21
+msgid "Thank you, the data was submitted successfully."
+msgstr "Kiitos! Lomake lähetetty."
+
+#: .\views.py:22
+msgid "The data could not be submitted, please try again."
+msgstr "Lähetys epäonnistui, ole hyvä ja kokeile uudestaan."
+
+#: .\contrib\cms_plugins\form_designer_form\cms_plugins.py:13
+msgid "Form Designer"
+msgstr "Lomaketyökalu"
+
+#: .\contrib\cms_plugins\form_designer_form\models.py:8
+msgid "form"
+msgstr "lomake"
+
+#: .\contrib\exporters\__init__.py:62
+msgid "ID"
+msgstr "ID"
+
+#: .\templates\html\formdefinition\forms\includes\submit.html.py:2
+msgid "Submit"
+msgstr "Lähetä"
+
+#: .\templatetags\friendly.py:20
+msgid "yes"
+msgstr "kyllä"
+
+#: .\templatetags\friendly.py:20
+msgid "no"
+msgstr "ei"
