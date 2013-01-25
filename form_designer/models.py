@@ -17,8 +17,6 @@ except ImportError:  # django < 1.5
 else:
     User = get_user_model()
 
-
-
 from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
 from form_designer.utils import get_class
 from form_designer import settings
@@ -33,7 +31,7 @@ class FormValueDict(dict):
         self['value'] = value
         self['label'] = label
         super(FormValueDict, self).__init__()
-        
+
 
 class FormDefinition(models.Model):
     name = models.SlugField(_('name'), max_length=255, unique=True)
