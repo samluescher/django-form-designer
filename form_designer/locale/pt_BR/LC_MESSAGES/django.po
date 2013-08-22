@@ -1,0 +1,469 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-14 16:13-0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: admin.py:18 admin.py:30
+msgid "Basic"
+msgstr "Básico"
+
+#: admin.py:19
+msgid "Display"
+msgstr ""
+
+#: admin.py:20 settings.py:10
+msgid "Text"
+msgstr "Texto"
+
+#: admin.py:21
+msgid "Numbers"
+msgstr "Números"
+
+#: admin.py:22 settings.py:23
+msgid "Regex"
+msgstr "Expressão Regular"
+
+#: admin.py:23
+msgid "Choices"
+msgstr "Escolhas"
+
+#: admin.py:24
+msgid "Model Choices"
+msgstr ""
+
+#: admin.py:31
+msgid "Settings"
+msgstr "Configurações"
+
+#: admin.py:32
+msgid "Mail form"
+msgstr "Formulário de Email"
+
+#: admin.py:33
+msgid "Templates"
+msgstr ""
+
+#: admin.py:34
+msgid "Messages"
+msgstr "Mensagens"
+
+#: admin.py:63
+#, python-format
+msgid "Export selected %%(verbose_name_plural)s as %s"
+msgstr "Exportar %%(verbose_name_plural)s selecionado como %s"
+
+#: admin.py:73 models.py:55
+#: contrib/cms_plugins/form_designer_form/cms_plugins.py:14
+#: contrib/exporters/__init__.py:58
+msgid "Form"
+msgstr "Formulário"
+
+#: admin.py:84
+msgid "Data"
+msgstr "Dados"
+
+#: admin.py:108
+#, python-format
+msgid "Export view as %s"
+msgstr "Exportar view como %s"
+
+#: forms.py:44
+msgid "This field class requires a regular expression."
+msgstr "Esta classe de campo requer uma expressão regular"
+
+#: forms.py:49
+msgid "This field class requires a model."
+msgstr "Esta classe de campo requer um model"
+
+#: models.py:30 models.py:180
+msgid "name"
+msgstr "nome"
+
+#: models.py:31
+msgid "obfuscate URL to this form"
+msgstr "ofuscar URL para esse form"
+
+#: models.py:31
+msgid "If enabled, the form can only be reached via a secret URL."
+msgstr "Se habilitado, o formulário só poderá ser alcançado via uma URL secreta."
+
+#: models.py:34
+msgid "title"
+msgstr "título"
+
+#: models.py:35
+msgid "body"
+msgstr "corpo"
+
+#: models.py:36
+msgid "target URL"
+msgstr "URL alvo"
+
+#: models.py:36
+msgid ""
+"If you leave this empty, the page where the form resides will be requested, "
+"and you can use the mail form and logging features. You can also send data "
+"to external sites: For instance, enter \"http://www.google.ch/search\" to "
+"create a search form."
+msgstr ""
+"Se você o deixar vazio, a página onde o formulário reside será requisitada, "
+"e você pode usar o formulário de email e ferramentas de registro. Você pode também enviar dados"
+"para sites externos: Por exemplo, coloque \"http://www.google.com.br/search\" para "
+"crear um formulário de pesquisa."
+
+
+#: models.py:37
+msgid "send form data to e-mail address"
+msgstr "enviar os dados do formulário para o endereço de email"
+
+#: models.py:38
+msgid "sender address"
+msgstr "endereço do remetente"
+
+#: models.py:39
+msgid "email subject"
+msgstr "assunto do email"
+
+#: models.py:40
+msgid "Send uploaded files as email attachments"
+msgstr "Enviar arquivos como anexos do email"
+
+#: models.py:41
+msgid "method"
+msgstr "método"
+
+#: models.py:42
+msgid "success message"
+msgstr "mensagem de sucesso"
+
+#: models.py:43
+msgid "error message"
+msgstr "mensagem de erro"
+
+#: models.py:44
+msgid "submit button label"
+msgstr "texto do botão de submit"
+
+#: models.py:45
+msgid "log form data"
+msgstr "registrar dados do formulário"
+
+#: models.py:45
+msgid "Logs all form submissions to the database."
+msgstr "Registrar no banco de dados todos os envios de formulário."
+
+#: models.py:46
+msgid "save uploaded files"
+msgstr "salvar arquivos enviados"
+
+#: models.py:46
+msgid "Saves all uploaded files using server storage."
+msgstr "Salvar todos os arquivos enviados usando um server storage."
+
+#: models.py:47
+msgid "HTTP redirect after successful submission"
+msgstr "Executar um HTTP redirect depois do envio com sucesso de um formulário"
+
+#: models.py:48
+msgid "clear form after successful submission"
+msgstr "limpar o formulário depois de um envio de sucesso"
+
+#: models.py:49
+msgid "allow initial values via URL"
+msgstr "permitir valores iniciais via URL"
+
+#: models.py:49
+msgid ""
+"If enabled, you can fill in form fields by adding them to the query string."
+msgstr "Se habilitado, você pode preencher os campos do formulário adicionando seus valores à query string"
+
+#: models.py:50
+msgid "message template"
+msgstr "template de mensagem"
+
+#: models.py:50
+msgid ""
+"Your form fields are available as template context. Example: "
+"\"{{ message }}\" if you have a field named `message`. To iterate over all "
+"fields, use the variable `data` (a list containing a dictionary for each "
+"form field, each containing the elements `name`, `label`, `value`)."
+msgstr ""
+"Seus campos de formulário são disponíveis no contexto da template. Exemplo:"
+"\"{{ message }}\" se você possui um campo nomeado `message`. Para iterar sobre todos "
+"os campos, use a variável `data` (uma lista contendo um dicionário para cada "
+"campo de formulário, os quais contém, por sua vez, os elementos `name`, `label`, "
+"`value`)."
+
+#: models.py:51
+msgid "form template"
+msgstr "template de formulário"
+
+#: models.py:52
+msgid "display logged submissions with form"
+msgstr "mostrar registros de envio com o form"
+
+#: models.py:56
+msgid "Forms"
+msgstr "Formulários"
+
+#: models.py:116
+msgid "Fields"
+msgstr "Campos"
+
+#: models.py:177
+msgid "field class"
+msgstr "classe do campo"
+
+#: models.py:178
+msgid "position"
+msgstr "posição"
+
+#: models.py:181
+msgid "label"
+msgstr ""
+
+#: models.py:182
+msgid "required"
+msgstr "obrigatório"
+
+#: models.py:183
+msgid "include in result"
+msgstr "incluído no resultado"
+
+#: models.py:184
+msgid "widget"
+msgstr ""
+
+#: models.py:185
+msgid "initial value"
+msgstr "valor inicial"
+
+#: models.py:186
+msgid "help text"
+msgstr "texto de ajuda"
+
+#: models.py:188
+msgid "values"
+msgstr "valores"
+
+#: models.py:188
+msgid "One value per line"
+msgstr "Um valor por linha"
+
+#: models.py:189
+msgid "labels"
+msgstr ""
+
+#: models.py:189
+msgid "One label per line"
+msgstr "Um label por linha"
+
+#: models.py:191
+msgid "max. length"
+msgstr "valor máximo"
+
+#: models.py:192
+msgid "min. length"
+msgstr "valor mínimo"
+
+#: models.py:193
+msgid "max. value"
+msgstr "valor máximo"
+
+#: models.py:194
+msgid "min. value"
+msgstr "valor mínimo"
+
+#: models.py:195
+msgid "max. digits"
+msgstr "máximo de dígitos"
+
+#: models.py:196
+msgid "decimal places"
+msgstr "casas decimais"
+
+#: models.py:198
+msgid "regular Expression"
+msgstr "expressão regular"
+
+#: models.py:201
+msgid "data model"
+msgstr "modelo de dados"
+
+#: models.py:202
+msgid "empty label"
+msgstr "label vazio"
+
+#: models.py:205
+msgid "field"
+msgstr "campo"
+
+#: models.py:206
+msgid "fields"
+msgstr "campos"
+
+#: models.py:297 contrib/exporters/__init__.py:60
+msgid "Created"
+msgstr "Criado"
+
+#: models.py:363
+msgid "field name"
+msgstr "nome do campo"
+
+#: models.py:367 models.py:372
+msgid "value"
+msgstr "valor"
+
+#: settings.py:11
+msgid "E-mail address"
+msgstr "Endereço de email"
+
+#: settings.py:12
+msgid "Web address"
+msgstr "Endereço Web"
+
+#: settings.py:13
+msgid "Number"
+msgstr "Número"
+
+#: settings.py:14
+msgid "Decimal number"
+msgstr "Número Decimal"
+
+#: settings.py:15
+msgid "Yes/No"
+msgstr "Sim/Não"
+
+#: settings.py:16
+msgid "Date"
+msgstr "Data"
+
+#: settings.py:17
+msgid "Date & time"
+msgstr "Data & hora"
+
+#: settings.py:18
+msgid "Time"
+msgstr "Hora"
+
+#: settings.py:19
+msgid "Choice"
+msgstr "Escolha"
+
+#: settings.py:20
+msgid "Multiple Choice"
+msgstr "Escolha Múltipla"
+
+#: settings.py:21
+msgid "Model Choice"
+msgstr ""
+
+#: settings.py:22
+msgid "Model Multiple Choice"
+msgstr ""
+
+#: settings.py:24
+msgid "File"
+msgstr "Arquivo"
+
+#: settings.py:29 settings.py:42
+msgid "Default"
+msgstr ""
+
+#: settings.py:30
+msgid "Text area"
+msgstr ""
+
+#: settings.py:31
+msgid "Password input"
+msgstr ""
+
+#: settings.py:32
+msgid "Hidden input"
+msgstr ""
+
+#: settings.py:33
+msgid "Radio button"
+msgstr ""
+
+#: settings.py:43
+msgid "as paragraphs"
+msgstr "como parágrafos"
+
+#: settings.py:44
+msgid "as table"
+msgstr "como tabela"
+
+#: settings.py:45
+msgid "as table (horizontal)"
+msgstr "como tabela (horizontal)"
+
+#: settings.py:46
+msgid "as unordered list"
+msgstr "como lista não ordenada"
+
+#: settings.py:47
+msgid "custom implementation"
+msgstr "implementação customizada"
+
+#: uploads.py:20
+msgid "This field is required."
+msgstr "Este campo é obrigatório"
+
+#: uploads.py:25
+msgid "This file type is not allowed."
+msgstr "Este tipo de arquivo não é permitido"
+
+#: uploads.py:27
+#, python-format
+msgid "Please keep file size under %(max_size)s. Current size is %(size)s."
+msgstr ""
+"Por favor, informe um arquivo menor que %(max_size)s. O tamanho do arquivo "
+"enviado é %(size)s."
+
+#: views.py:21
+msgid "Thank you, the data was submitted successfully."
+msgstr "Obrigado, os dados foram enviados com sucesso."
+
+#: views.py:22
+msgid "The data could not be submitted, please try again."
+msgstr "Os dados não puderam ser enviados, por favor, tente novamente."
+
+#: contrib/cms_plugins/form_designer_form/cms_plugins.py:13
+msgid "Form Designer"
+msgstr ""
+
+#: contrib/cms_plugins/form_designer_form/models.py:8
+msgid "form"
+msgstr "formulário"
+
+#: contrib/exporters/__init__.py:62
+msgid "ID"
+msgstr ""
+
+#: templates/html/formdefinition/forms/includes/submit.html:2
+msgid "Submit"
+msgstr "Enviar"
+
+#: templatetags/friendly.py:20
+msgid "yes"
+msgstr "sim"
+
+#: templatetags/friendly.py:20
+msgid "no"
+msgstr "não"
