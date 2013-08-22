@@ -7,8 +7,15 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.forms import widgets
 from django.core.mail import send_mail
 from django.conf import settings as django_settings
-from django.contrib.auth.models import User
 from django.utils.datastructures import SortedDict
+
+# support for custom User models in Django 1.5+
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:  # django < 1.5
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
 
 from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
 from form_designer.utils import get_class
@@ -24,7 +31,7 @@ class FormValueDict(dict):
         self['value'] = value
         self['label'] = label
         super(FormValueDict, self).__init__()
-        
+
 
 class FormDefinition(models.Model):
     name = models.SlugField(_('name'), max_length=255, unique=True)
