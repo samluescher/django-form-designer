@@ -89,6 +89,13 @@ Using Django Form Designer with Django CMS
             'form_designer.contrib.cms_plugins.form_designer_form',
         )
 
+- Optionally add ``form_designer.middleware.RedirectMiddleware to MIDDLEWARE_CLASSES to handle redirects::
+
+        MIDDLEWARE_CLASSES = (
+            ...
+            'form_designer.middleware.RedirectMiddleware',
+        )
+
 - Set up the database tables using::
 
     $ manage.py syncdb

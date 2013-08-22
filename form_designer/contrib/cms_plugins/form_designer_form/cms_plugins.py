@@ -20,8 +20,7 @@ class FormDesignerPlugin(CMSPluginBase):
         else:
             self.render_template = settings.DEFAULT_FORM_TEMPLATE
 
-        # Redirection does not work with CMS plugin, hence disable:
-        return process_form(context['request'], instance.form_definition, context, disable_redirection=True)
+        return process_form(context['request'], instance.form_definition, context, in_cms=True)
 
 
 plugin_pool.register_plugin(FormDesignerPlugin)

@@ -52,6 +52,7 @@ class FormDefinition(models.Model):
     log_data = models.BooleanField(_('log form data'), help_text=_('Logs all form submissions to the database.'), default=True)
     save_uploaded_files  = models.BooleanField(_('save uploaded files'), help_text=_('Saves all uploaded files using server storage.'), default=True)
     success_redirect = models.BooleanField(_('HTTP redirect after successful submission'), default=True)
+    redirection_url = models.URLField(_('redirect URL'), help_text=_('Leave blank if you would like to redirect to this page, otherwise it will redirect to a custom url.'), max_length=255, blank=True, null=True)
     success_clear = models.BooleanField(_('clear form after successful submission'), default=True)
     allow_get_initial = models.BooleanField(_('allow initial values via URL'), help_text=_('If enabled, you can fill in form fields by adding them to the query string.'), default=True)
     message_template = TemplateTextField(_('message template'), help_text=_('Your form fields are available as template context. Example: "{{ message }}" if you have a field named `message`. To iterate over all fields, use the variable `data` (a list containing a dictionary for each form field, each containing the elements `name`, `label`, `value`).'), blank=True, null=True)
