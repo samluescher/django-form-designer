@@ -440,7 +440,7 @@ msgstr "implémentation personnalisée"
 
 #: uploads.py:20
 msgid "This field is required."
-msgstr "Cette classe de champ nécessite un modèle."
+msgstr "Ce champs est obligatoire."
 
 #: uploads.py:25
 msgid "This file type is not allowed."
