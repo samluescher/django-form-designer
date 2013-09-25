@@ -15,6 +15,7 @@ A Django app for building many kinds of forms visually, without any programming 
   expression etc) 
 * Customizable messages and labels
 * Supports POST and GET forms
+* Signals on form render, submission, success, error.
 
 
 Installation

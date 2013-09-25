@@ -14,6 +14,8 @@ from datetime import datetime
 from form_designer.forms import DesignedForm
 from form_designer.models import FormDefinition, FormLog
 from form_designer.uploads import handle_uploaded_files
+from form_designer.signals import (designedform_submit, designedform_success, 
+                                designedform_error, designedform_render)
 
 
 def process_form(request, form_definition, extra_context={}, disable_redirection=False):
@@ -32,6 +34,8 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
         is_submit = True
 
     if is_submit:
+        designedform_submit.send(sender=process_form, context=context,
+            form_definition=form_definition, request=request)
         if form.is_valid():
             # Handle file uploads using storage object
             files = handle_uploaded_files(form_definition, form)
@@ -39,6 +43,10 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
             # Successful submission
             messages.success(request, success_message)
             form_success = True
+
+            designedform_success.send(sender=process_form, context=context,
+                form_definition=form_definition, request=request)
+
             if form_definition.log_data:
                 form_definition.log(form, request.user)
             if form_definition.mail_to:
@@ -49,12 +57,16 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
                 form = DesignedForm(form_definition) # clear form
         else:
             form_error = True
+            designedform_error.send(sender=process_form, context=context,
+                form_definition=form_definition, request=request)
             messages.error(request, error_message)
     else:
         if form_definition.allow_get_initial:
             form = DesignedForm(form_definition, initial_data=request.GET)
         else:
             form = DesignedForm(form_definition)
+        designedform_render.send(sender=process_form, context=context,
+            form_definition=form_definition, request=request)
 
     context.update({
         'form_error': form_error,
