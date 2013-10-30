@@ -76,7 +76,7 @@ msgstr "Exporteer view als %s"
 
 #: forms.py:44
 msgid "This field class requires a regular expression."
-msgstr "Deze veldklasse vereist een model."
+msgstr "Deze veldklasse vereist een reguliere expressie."
 
 #: forms.py:49
 msgid "This field class requires a model."
@@ -418,7 +418,7 @@ msgstr "eigen implementatie"
 
 #: uploads.py:20
 msgid "This field is required."
-msgstr "Deze veldklasse vereist een model."
+msgstr "Dit veld is verplicht."
 
 #: uploads.py:25
 msgid "This file type is not allowed."
