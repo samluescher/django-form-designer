@@ -444,12 +444,14 @@ msgstr "Ce champs est obligatoire."
 
 #: uploads.py:25
 msgid "This file type is not allowed."
-msgstr ""
+msgstr "Ce type de fichier n'est pas autorisé."
 
 #: uploads.py:27
 #, python-format
 msgid "Please keep file size under %(max_size)s. Current size is %(size)s."
 msgstr ""
+"Veuillez garder une taille de ficher inférieure à %(max_size)s. "
+"La taille actuelle est de %(size)s."
 
 #: views.py:21
 msgid "Thank you, the data was submitted successfully."
