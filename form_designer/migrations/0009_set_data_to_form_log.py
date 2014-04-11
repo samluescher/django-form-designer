@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from form_designer.settings import VALUE_PICKLEFIELD
+DATA_FIELD_TYPE = 'picklefield.fields.PickledObjectField' if VALUE_PICKLEFIELD else 'django.db.models.fields.TextField'
+
 import datetime
 from south.db import db
 from south.v2 import DataMigration
@@ -7,8 +10,11 @@ from django.db import models
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        from picklefield import PickledObjectField
-        tmp_data = PickledObjectField(null=True, blank=True)
+        if VALUE_PICKLEFIELD:
+            from picklefield.fields import PickledObjectField
+            tmp_data = PickledObjectField(null=True, blank=True)
+        else:
+            tmp_data = models.TextField(null=True, blank=True)
         tmp_data.contribute_to_class(orm['form_designer.FormLog'], 'tmp_data')
 
         for log in orm['form_designer.FormLog'].objects.all():

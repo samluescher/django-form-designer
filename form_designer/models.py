@@ -8,6 +8,7 @@ from django.forms import widgets
 from django.core.mail import send_mail
 from django.conf import settings as django_settings
 from django.utils.datastructures import SortedDict
+from django.core.exceptions import ImproperlyConfigured
 
 # support for custom User models in Django 1.5+
 try:
@@ -22,7 +23,10 @@ from form_designer.utils import get_class
 from form_designer import settings
 
 if settings.VALUE_PICKLEFIELD:
-    from picklefield.fields import PickledObjectField
+    try:
+        from picklefield.fields import PickledObjectField
+    except ImportError:
+        raise ImproperlyConfigured('FORM_DESIGNER_VALUE_PICKLEFIELD is True, but django-picklefield is not installed.')
 
 
 class FormValueDict(dict):

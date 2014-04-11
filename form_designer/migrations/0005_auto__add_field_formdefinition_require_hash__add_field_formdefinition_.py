@@ -1,4 +1,7 @@
 # encoding: utf-8
+from form_designer.settings import VALUE_PICKLEFIELD
+DATA_FIELD_TYPE = 'picklefield.fields.PickledObjectField' if VALUE_PICKLEFIELD else 'django.db.models.fields.TextField'
+
 import datetime
 from south.db import db
 from south.v2 import SchemaMigration
@@ -90,7 +93,7 @@ class Migration(SchemaMigration):
         'form_designer.formlog': {
             'Meta': {'object_name': 'FormLog'},
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'data': ('picklefield.fields.PickledObjectField', [], {'null': 'True', 'blank': 'True'}),
+            'data': (DATA_FIELD_TYPE, [], {'null': 'True', 'blank': 'True'}),
             'form_definition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['form_designer.FormDefinition']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         }

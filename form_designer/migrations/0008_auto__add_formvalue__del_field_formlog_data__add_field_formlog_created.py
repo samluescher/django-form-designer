@@ -1,4 +1,7 @@
 # encoding: utf-8
+from form_designer.settings import VALUE_PICKLEFIELD
+DATA_FIELD_TYPE = 'picklefield.fields.PickledObjectField' if VALUE_PICKLEFIELD else 'django.db.models.fields.TextField'
+
 import datetime
 from south.db import db
 from south.v2 import SchemaMigration
@@ -29,7 +32,7 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         # Adding field 'FormLog.data'
-        db.add_column('form_designer_formlog', 'data', self.gf('picklefield.fields.PickledObjectField')(null=True, blank=True), keep_default=False)
+        db.add_column('form_designer_formlog', 'data', self.gf(DATA_FIELD_TYPE)(null=True, blank=True), keep_default=False)
 
         # Deleting field 'FormLog.created_by'
         db.delete_column('form_designer_formlog', 'created_by_id')
