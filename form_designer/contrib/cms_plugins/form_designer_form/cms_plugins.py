@@ -13,6 +13,7 @@ class FormDesignerPlugin(CMSPluginBase):
     module = _('Form Designer')
     name = _('Form')
     admin_preview = False
+    render_template = False
 
     def render(self, context, instance, placeholder):
         if instance.form_definition.form_template_name:
