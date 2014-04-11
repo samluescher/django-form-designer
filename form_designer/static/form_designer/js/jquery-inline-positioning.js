@@ -9,7 +9,7 @@ The model instances can then be ordered by that "position" field.
 jQuery(function($) {
     
     var positionField = $.scriptUrlParam ? $.scriptUrlParam(/jquery-inline-positioning\.js(\?.*)?$/, 'positionField', 'position') : 'position';
-    var target = $('div.inline-group');
+    var target = $('div.inline-group#formdefinitionfield_set-group');
     var handle = 'h3 b';
     var item = 'div.inline-related';
     var positionInput = 'input[id$=-'+positionField+']';
