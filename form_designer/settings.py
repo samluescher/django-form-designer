@@ -33,7 +33,7 @@ WIDGET_CLASSES = getattr(settings, 'FORM_DESIGNER_WIDGET_CLASSES', (
     ('django.forms.widgets.RadioSelect', _('Radio button')),
 ))
 
-EXPORTER_CLASSES = getattr(settings, 'FORM_DESIGNER_WIDGET_CLASSES', (
+EXPORTER_CLASSES = getattr(settings, 'FORM_DESIGNER_EXPORTER_CLASSES', (
     'form_designer.contrib.exporters.csv_exporter.CsvExporter',
     'form_designer.contrib.exporters.xls_exporter.XlsExporter',
 ))
