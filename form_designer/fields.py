@@ -1,5 +1,8 @@
 from django.db import models
 from django import forms
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+
 
 class ModelNameFormField(forms.CharField):
 
@@ -20,7 +23,11 @@ class ModelNameFormField(forms.CharField):
         if value == u'':
             return value
         if not ModelNameFormField.get_model_from_string(value):
-            raise forms.ValidationError(self.error_messages['invalid'])
+            raise ValidationError(
+                _('Model could not be imported: %(value)s. Please use a valid model path.'),
+                    code='invalid',
+                    params={'value': value},
+                )
         return value
 
 class ModelNameField(models.CharField):
@@ -47,7 +54,7 @@ class TemplateFormField(forms.CharField):
         try:
             Template(value)
         except TemplateSyntaxError, error:
-            raise forms.ValidationError(error)
+            raise ValidationError(error)
         return value
 
 class TemplateCharField(models.CharField):
@@ -79,7 +86,7 @@ class RegexpExpressionFormField(forms.CharField):
         try:
             re.compile(value)
         except Exception, error:
-            raise forms.ValidationError(error)
+            raise ValidationError(error)
         return value
 
 class RegexpExpressionField(models.CharField):

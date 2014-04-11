@@ -84,10 +84,21 @@ class FormLogAdmin(admin.ModelAdmin):
     data_html.allow_tags = True
     data_html.short_description = _('Data')
 
-    def get_change_list_query_set(self, request):
-        cl = ChangeList(request, self.model, self.list_display, self.list_display_links, self.list_filter,
-            self.date_hierarchy, self.search_fields, self.list_select_related, self.list_per_page, self.list_editable, self)
-        return cl.get_query_set()
+    def get_change_list_query_set(self, request, extra_context=None):
+        """
+        The 'change list' admin view for this model.
+        """
+        list_display = self.get_list_display(request)
+        list_display_links = self.get_list_display_links(request, list_display)
+        list_filter = self.get_list_filter(request)
+        ChangeList = self.get_changelist(request)
+
+        cl = ChangeList(request, self.model, list_display,
+            list_display_links, list_filter, self.date_hierarchy,
+            self.search_fields, self.list_select_related,
+            self.list_per_page, self.list_max_show_all, self.list_editable,
+            self)
+        return cl.get_query_set(request)
 
     def export_view(self, request, format):
         queryset = self.get_change_list_query_set(request)
