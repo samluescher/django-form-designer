@@ -181,7 +181,7 @@ class FormDefinition(models.Model):
 class FormDefinitionField(models.Model):
 
     form_definition = models.ForeignKey(FormDefinition)
-    field_class = models.CharField(_('field class'), choices=settings.FIELD_CLASSES, max_length=32)
+    field_class = models.CharField(_('field class'), choices=settings.FIELD_CLASSES, max_length=100)
     position = models.IntegerField(_('position'), blank=True, null=True)
 
     name = models.SlugField(_('name'), max_length=255)
