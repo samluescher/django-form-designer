@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-19 20:56-0500\n"
+"POT-Creation-Date: 2013-10-29 18:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Erik Romijn <erik@erik.io>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,118 +10,104 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:27 admin.py:38
+#: admin.py:18 admin.py:30
 msgid "Basic"
 msgstr "Basis"
 
-#: admin.py:28
+#: admin.py:19
 msgid "Display"
 msgstr "Weergave"
 
-#: admin.py:29 settings.py:10
+#: admin.py:20 settings.py:10
 msgid "Text"
 msgstr "Tekst"
 
-#: admin.py:30
+#: admin.py:21
 msgid "Numbers"
 msgstr "Nummers"
 
-#: admin.py:31 settings.py:23
+#: admin.py:22 settings.py:23
 msgid "Regex"
 msgstr "Reguliere expressie"
 
-#: admin.py:32
+#: admin.py:23
 msgid "Choices"
 msgstr "Keuzes"
 
-#: admin.py:33
+#: admin.py:24
 msgid "Model Choices"
 msgstr "Model-keuzes"
 
-#: admin.py:39
+#: admin.py:31
 msgid "Settings"
 msgstr ""
 
-#: admin.py:40
+#: admin.py:32
 msgid "Mail form"
 msgstr "Mail-formulier"
 
-#: admin.py:41
+#: admin.py:33
 msgid "Templates"
 msgstr "Sjablonen"
 
-#: admin.py:42
+#: admin.py:34
 msgid "Messages"
 msgstr "Berichten"
 
-#: admin.py:63 admin.py:102 admin.py:147 models.py:60 models.py:173
+#: admin.py:63
+#, fuzzy, python-format
+msgid "Export selected %%(verbose_name_plural)s as %s"
+msgstr "Exporteer geselecteerde %(verbose_name_plural) als CSV"
+
+#: admin.py:73 models.py:62
 #: contrib/cms_plugins/form_designer_form/cms_plugins.py:14
+#: contrib/exporters/__init__.py:58
 msgid "Form"
 msgstr "Formulier"
 
-#: admin.py:78 models.py:174
+#: admin.py:84
 msgid "Data"
 msgstr "Data"
 
-#: admin.py:104 admin.py:149 models.py:172
-msgid "Created"
-msgstr "Aangemaakt"
+#: admin.py:108
+#, python-format
+msgid "Export view as %s"
+msgstr "Exporteer view als %s"
 
-#: admin.py:106 admin.py:151
-msgid "ID"
-msgstr "ID"
-
-#: admin.py:125
-#, fuzzy, python-format
-msgid "Export selected %(verbose_name_plural)s as CSV"
-msgstr "Exporteer geselecteerde %(verbose_name_plural) als CSV"
-
-#: admin.py:173
-#, fuzzy, python-format
-msgid "Export selected %(verbose_name_plural)s as XLS"
-msgstr "Exporteer geselecteerde %(verbose_name_plural) als Excel XLS"
-
-#: admin.py:185
-msgid "CSV export is not enabled."
-msgstr "CSV-exporteren is niet geäctiveerd."
-
-#: admin.py:190
-msgid "XLS export is not enabled."
-msgstr "XLS-exporteren is niet geäctiveerd."
-
-#: forms.py:43
+#: forms.py:44
 msgid "This field class requires a regular expression."
-msgstr "Deze veldklasse vereist een model."
+msgstr "Deze veldklasse vereist een reguliere expressie."
 
-#: forms.py:48
+#: forms.py:49
 msgid "This field class requires a model."
 msgstr "Deze veldklasse vereist een model."
 
-#: models.py:35 models.py:187
+#: models.py:37 models.py:187
 msgid "name"
 msgstr "Naam"
 
-#: models.py:36
+#: models.py:38
 msgid "obfuscate URL to this form"
-msgstr ""
+msgstr "verberg URL naar dit formulier"
 
-#: models.py:36
+#: models.py:38
 msgid "If enabled, the form can only be reached via a secret URL."
 msgstr ""
+"Indien actief, kan het formulier enkel bezocht worden via een geheime URL."
 
-#: models.py:39
+#: models.py:41
 msgid "title"
 msgstr "Titel"
 
-#: models.py:40
+#: models.py:42
 msgid "body"
 msgstr ""
 
-#: models.py:41
+#: models.py:43
 msgid "target URL"
 msgstr "Doel-URL"
 
-#: models.py:41
+#: models.py:43
 msgid ""
 "If you leave this empty, the page where the form resides will be requested, "
 "and you can use the mail form and logging features. You can also send data "
@@ -133,78 +119,78 @@ msgstr ""
 "naar externe sites versturen. Bijvoorbeeld, voer \"http://www.google.com/"
 "search\" in om een zoekformulier aan te maken. "
 
-#: models.py:42
+#: models.py:44
 msgid "send form data to e-mail address"
 msgstr "Formuliergegevens naar e-mail-adres sturen"
 
-#: models.py:43
+#: models.py:45
 msgid "sender address"
 msgstr "Afzender-adres"
 
-#: models.py:44
+#: models.py:46
 msgid "email subject"
 msgstr "E-mail-onderwerp"
 
-#: models.py:45
+#: models.py:47
 msgid "Send uploaded files as email attachments"
-msgstr ""
+msgstr "Verstuur geüploade bestanden als mailbijlages"
 
-#: models.py:46
+#: models.py:48
 msgid "method"
 msgstr "Methode"
 
-#: models.py:47
+#: models.py:49
 msgid "success message"
 msgstr "Successmelding"
 
-#: models.py:48
+#: models.py:50
 msgid "error message"
 msgstr "Foutmelding"
 
-#: models.py:49
+#: models.py:51
 msgid "submit button label"
 msgstr "Label voor de verzendknop"
 
-#: models.py:50
+#: models.py:52
 msgid "log form data"
 msgstr "Formulierdata loggen"
 
-#: models.py:50
+#: models.py:52
 msgid "Logs all form submissions to the database."
 msgstr "Log alle formulierinsturingen in de database."
 
-#: models.py:51
+#: models.py:53
 msgid "save uploaded files"
-msgstr ""
+msgstr "bewaar geüploade bestanden"
 
-#: models.py:51
+#: models.py:53
 msgid "Saves all uploaded files using server storage."
-msgstr ""
+msgstr "Bewaart alle geüploade bestanden op de server."
 
-#: models.py:52
+#: models.py:54
 msgid "HTTP redirect after successful submission"
 msgstr "Doorsturen na success"
 
-#: models.py:53
+#: models.py:55
 msgid "clear form after successful submission"
 msgstr "Na succesvol versturen formulier leegmaken"
 
-#: models.py:54
+#: models.py:56
 msgid "allow initial values via URL"
 msgstr "Initiële waarden via de URL toelaten"
 
-#: models.py:54
+#: models.py:56
 msgid ""
 "If enabled, you can fill in form fields by adding them to the query string."
 msgstr ""
 "Indien geactiveerd, kunt u formuliervelden invullen door deze aan de query-"
 "string toe te voegen. "
 
-#: models.py:55
+#: models.py:57
 msgid "message template"
 msgstr "Berichtsjabloon"
 
-#: models.py:55
+#: models.py:57
 msgid ""
 "Your form fields are available as template context. Example: \"{{ message }}"
 "\" if you have a field named `message`. To iterate over all fields, use the "
@@ -216,29 +202,21 @@ msgstr ""
 "velden te itereren, gebruikt u de variabele `data`: een lijst met een dict "
 "voor elk veld met de elementen `name`, `label` en `value`."
 
-#: models.py:56
+#: models.py:58
 msgid "form template"
 msgstr "Formulier-sjabloon"
 
-#: models.py:57
+#: models.py:59
 msgid "display logged submissions with form"
-msgstr ""
+msgstr "toon gelogde inzendingen met dit formulier"
 
-#: models.py:61
+#: models.py:63
 msgid "Forms"
 msgstr "Formulieren"
 
-#: models.py:116
+#: models.py:123
 msgid "Fields"
 msgstr "Velden"
-
-#: models.py:177
-msgid "Form log"
-msgstr "Formulier-log"
-
-#: models.py:178
-msgid "Form logs"
-msgstr "Formulier-logs"
 
 #: models.py:184
 msgid "field class"
@@ -332,6 +310,20 @@ msgstr "Veld"
 msgid "fields"
 msgstr "Velden"
 
+#: models.py:304 contrib/exporters/__init__.py:60
+msgid "Created"
+msgstr "Aangemaakt"
+
+#: models.py:370
+#, fuzzy
+msgid "field name"
+msgstr "Veldklasse"
+
+#: models.py:374 models.py:379
+#, fuzzy
+msgid "value"
+msgstr "Waardes"
+
 #: settings.py:11
 msgid "E-mail address"
 msgstr "E-mail-adres"
@@ -384,7 +376,7 @@ msgstr "Model-meerkeuze"
 msgid "File"
 msgstr "Veld"
 
-#: settings.py:29 settings.py:37
+#: settings.py:29 settings.py:42
 msgid "Default"
 msgstr "Standaard"
 
@@ -404,38 +396,40 @@ msgstr "Verborgen veld"
 msgid "Radio button"
 msgstr "Keuzerondje"
 
-#: settings.py:38
+#: settings.py:43
 msgid "as paragraphs"
 msgstr "als paragraaf"
 
-#: settings.py:39
+#: settings.py:44
 msgid "as table"
 msgstr "als tabel"
 
-#: settings.py:40
+#: settings.py:45
 msgid "as table (horizontal)"
-msgstr ""
+msgstr "als tabel (horizontaal)"
 
-#: settings.py:41
+#: settings.py:46
 msgid "as unordered list"
 msgstr "als ongesorteerde lijst"
 
-#: settings.py:42
+#: settings.py:47
 msgid "custom implementation"
 msgstr "eigen implementatie"
 
 #: uploads.py:20
 msgid "This field is required."
-msgstr "Deze veldklasse vereist een model."
+msgstr "Dit veld is verplicht."
 
 #: uploads.py:25
 msgid "This file type is not allowed."
-msgstr ""
+msgstr "Dit type veld is niet toegestaan."
 
 #: uploads.py:27
 #, python-format
 msgid "Please keep file size under %(max_size)s. Current size is %(size)s."
 msgstr ""
+"Beperk de bestandsgrootte tot maximum %(max_size)s. Huidige bestandsgrootte "
+"is %(size)s."
 
 #: views.py:21
 msgid "Thank you, the data was submitted successfully."
@@ -453,22 +447,40 @@ msgstr ""
 msgid "form"
 msgstr "Formulier"
 
-#: templates/admin/form_designer/formlog/change_list.html:9
-msgid "Export CSV"
-msgstr "CSV exporteren"
-
-#: templates/admin/form_designer/formlog/change_list.html:16
-msgid "Export XLS"
-msgstr "XLS exporteren"
+#: contrib/exporters/__init__.py:62
+msgid "ID"
+msgstr "ID"
 
 #: templates/html/formdefinition/forms/includes/submit.html:2
 msgid "Submit"
 msgstr "Verzenden"
 
-#: templatetags/friendly.py:18
+#: templatetags/friendly.py:20
 msgid "yes"
 msgstr "ja"
 
-#: templatetags/friendly.py:18
+#: templatetags/friendly.py:20
 msgid "no"
 msgstr "nee"
+
+#, fuzzy
+#~ msgid "Export selected %(verbose_name_plural)s as XLS"
+#~ msgstr "Exporteer geselecteerde %(verbose_name_plural) als Excel XLS"
+
+#~ msgid "CSV export is not enabled."
+#~ msgstr "CSV-exporteren is niet geäctiveerd."
+
+#~ msgid "XLS export is not enabled."
+#~ msgstr "XLS-exporteren is niet geäctiveerd."
+
+#~ msgid "Form log"
+#~ msgstr "Formulier-log"
+
+#~ msgid "Form logs"
+#~ msgstr "Formulier-logs"
+
+#~ msgid "Export CSV"
+#~ msgstr "CSV exporteren"
+
+#~ msgid "Export XLS"
+#~ msgstr "XLS exporteren"
