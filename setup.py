@@ -45,8 +45,5 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
-    ],
-    install_requires = [
-        'django-picklefield',
-    ],
+    ]
 )
