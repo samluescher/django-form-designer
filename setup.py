@@ -9,7 +9,7 @@ README = read('README.rst')
 
 setup(
     name = "django-form-designer",
-    version = "0.7.0",
+    version = "0.8.0",
     url = 'http://github.com/philomat/django-form-designer',
     license = 'BSD',
     description = "Design contact forms, search forms etc from the Django admin, without writing any code. Integrates with Django CMS.",
