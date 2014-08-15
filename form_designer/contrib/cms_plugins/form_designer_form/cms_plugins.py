@@ -14,6 +14,7 @@ class FormDesignerPlugin(CMSPluginBase):
     name = _('Form')
     admin_preview = False
     render_template = False
+    cache = False  # new with New in version 3.0. see http://django-cms.readthedocs.org/en/latest/advanced/caching.html
 
     def render(self, context, instance, placeholder):
         if instance.form_definition.form_template_name:

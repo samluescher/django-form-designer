@@ -71,6 +71,8 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
     context.update({
         'form_error': form_error,
         'form_success': form_success,
+        'form_success_message': success_message,
+        'form_error_message': error_message,
         'form': form,
         'form_definition': form_definition
     })
