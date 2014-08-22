@@ -10,14 +10,6 @@ from django.conf import settings as django_settings
 from django.utils.datastructures import SortedDict
 from django.core.exceptions import ImproperlyConfigured
 
-# support for custom User models in Django 1.5+
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:  # django < 1.5
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
-
 from form_designer.fields import TemplateTextField, TemplateCharField, ModelNameField, RegexpExpressionField
 from form_designer.utils import get_class
 from form_designer import settings
@@ -306,7 +298,7 @@ class FormDefinitionField(models.Model):
 class FormLog(models.Model):
     form_definition = models.ForeignKey(FormDefinition, related_name='logs')
     created = models.DateTimeField(_('Created'), auto_now=True)
-    created_by = models.ForeignKey(User, null=True, blank=True)
+    created_by = models.ForeignKey(django_settings.AUTH_USER_MODEL, null=True, blank=True)
     _data = None
 
     def __unicode__(self):
