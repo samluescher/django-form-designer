@@ -47,6 +47,7 @@ class FormDefinition(models.Model):
     action = models.URLField(_('target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
     mail_to = TemplateCharField(_('send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named `from_email`.'), max_length=255, blank=True, null=True)
     mail_from = TemplateCharField(_('sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ first_name }} {{ last_name }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
+    mail_replyto = TemplateCharField(_('reply-to address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ first_name }} {{ last_name }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
     mail_subject = TemplateCharField(_('email subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named `subject`.'), blank=True, null=True)
     mail_uploaded_files  = models.BooleanField(_('Send uploaded files as email attachments'), default=True)
     method = models.CharField(_('method'), max_length=10, default="POST", choices = (('POST', 'POST'), ('GET', 'GET')))
@@ -150,6 +151,7 @@ class FormDefinition(models.Model):
         form_data = self.get_form_data(form)
         message = self.compile_message(form_data)
         context_dict = self.get_form_data_context(form_data)
+        header_dict = {}
 
         mail_to = re.compile('\s*[,;]+\s*').split(self.mail_to)
         for key, email in enumerate(mail_to):
@@ -158,14 +160,20 @@ class FormDefinition(models.Model):
         mail_from = self.mail_from or None
         if mail_from:
             mail_from = self.string_template_replace(mail_from, context_dict)
-
+            
+        mail_replyto = self.mail_replyto or None
+        if mail_replyto:
+            mail_replyto = self.string_template_replace(mail_replyto, context_dict)
+            header_dict = {'headers': {'Reply-To': mail_replyto}}
+    
         if self.mail_subject:
             mail_subject = self.string_template_replace(self.mail_subject, context_dict)
         else:
             mail_subject = self.title
 
         from django.core.mail import EmailMessage
-        message = EmailMessage(mail_subject, message, mail_from or None, mail_to)
+        message = EmailMessage(mail_subject, message, mail_from or None,
+                               mail_to, **header_dict)
 
         if self.mail_uploaded_files:
             for file_path in files:
