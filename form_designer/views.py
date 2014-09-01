@@ -18,7 +18,7 @@ from form_designer.signals import (designedform_submit, designedform_success,
                                 designedform_error, designedform_render)
 
 
-def process_form(request, form_definition, extra_context={}, disable_redirection=False):
+def process_form(request, form_definition, extra_context={}, disable_redirection=False, push_messages=True):
     context = extra_context
     success_message = form_definition.success_message or _('Thank you, the data was submitted successfully.')
     error_message = form_definition.error_message or _('The data could not be submitted, please try again.')
@@ -41,7 +41,8 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
             files = handle_uploaded_files(form_definition, form)
 
             # Successful submission
-            messages.success(request, success_message)
+            if push_messages:
+                messages.success(request, success_message)
             form_success = True
 
             designedform_success.send(sender=process_form, context=context,
@@ -59,7 +60,8 @@ def process_form(request, form_definition, extra_context={}, disable_redirection
             form_error = True
             designedform_error.send(sender=process_form, context=context,
                 form_definition=form_definition, request=request)
-            messages.error(request, error_message)
+            if push_messages:
+                messages.error(request, error_message)
     else:
         if form_definition.allow_get_initial:
             form = DesignedForm(form_definition, initial_data=request.GET)
