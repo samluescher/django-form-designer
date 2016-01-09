@@ -1,23 +1,34 @@
+#!/usr/bin/env python
 # encoding=utf8
-import os
-from distutils.core import setup
+from pip.req import parse_requirements
+from os.path import dirname, join
+from setuptools import setup
+
+
+def read_requirements():
+    filepath = join(dirname(__file__), 'requirements.txt')
+    generator = parse_requirements(filepath, session=False)
+    return [str(requirement.req) for requirement in generator]
+
 
 def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    return open(join(dirname(__file__), fname)).read()
 
 README = read('README.rst')
 
 setup(
-    name = "django-form-designer",
-    version = "0.8.0",
-    url = 'http://github.com/philomat/django-form-designer',
-    license = 'BSD',
-    description = "Design contact forms, search forms etc from the Django admin, without writing any code. Integrates with Django CMS.",
-    long_description = README,
+    name="django-form-designer",
+    version="0.8.0",
+    url='https://github.com/samluescher/django-form-designer',
+    license='BSD',
+    description="Design contact forms, search forms etc from the Django admin,"
+                " without writing any code. Integrates with Django CMS.",
+    long_description=README,
 
-    author = 'Samuel Luescher',
-    author_email = 'sam at luescher dot org',
-    packages = [
+    author='Samuel Luescher',
+    author_email='sam at luescher dot org',
+    install_requires=read_requirements(),
+    packages=[
         'form_designer',
         'form_designer.migrations',
         'form_designer.templatetags',
@@ -26,7 +37,7 @@ setup(
         'form_designer.contrib.cms_plugins',
         'form_designer.contrib.cms_plugins.form_designer_form',
     ],
-    package_data = {
+    package_data={
         'form_designer': [
             'static/form_designer/js/*.js',
             'templates/admin/form_designer/formlog/change_list.html',
@@ -37,7 +48,7 @@ setup(
             'locale/*/LC_MESSAGES/*',
         ],
     },
-    classifiers = [
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',
         'Intended Audience :: Developers',
