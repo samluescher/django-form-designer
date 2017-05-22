@@ -45,6 +45,7 @@ class FormDefinition(models.Model):
     body = models.TextField(_('body'), blank=True, null=True)
     action = models.URLField(_('target URL'), help_text=_('If you leave this empty, the page where the form resides will be requested, and you can use the mail form and logging features. You can also send data to external sites: For instance, enter "http://www.google.ch/search" to create a search form.'), max_length=255, blank=True, null=True)
     mail_to = TemplateCharField(_('send form data to e-mail address'), help_text=('Separate several addresses with a comma. Your form fields are available as template context. Example: "admin@domain.com, {{ from_email }}" if you have a field named `from_email`.'), max_length=255, blank=True, null=True)
+    reply_to = TemplateCharField(_('reply-to e-mail address'), help_text=('The reply-to header for the email, used if the sending email is not the email that should be replied to.'), max_length=255, blank=True, null=True)
     mail_from = TemplateCharField(_('sender address'), max_length=255, help_text=('Your form fields are available as template context. Example: "{{ first_name }} {{ last_name }} <{{ from_email }}>" if you have fields named `first_name`, `last_name`, `from_email`.'), blank=True, null=True)
     mail_subject = TemplateCharField(_('email subject'), max_length=255, help_text=('Your form fields are available as template context. Example: "Contact form {{ subject }}" if you have a field named `subject`.'), blank=True, null=True)
     mail_uploaded_files  = models.BooleanField(_('Send uploaded files as email attachments'), default=True)
@@ -162,9 +163,11 @@ class FormDefinition(models.Model):
             mail_subject = self.string_template_replace(self.mail_subject, context_dict)
         else:
             mail_subject = self.title
-
+        reply_to = self.reply_to or None
+        if reply_to:
+            reply_to = self.string_template_replace(reply_to, context_dict)
         from django.core.mail import EmailMessage
-        message = EmailMessage(mail_subject, message, mail_from or None, mail_to)
+        message = EmailMessage(mail_subject, message, mail_from or None, mail_to, headers={'Reply-To': reply_to})
 
         if self.mail_uploaded_files:
             for file_path in files:
