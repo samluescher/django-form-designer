@@ -29,7 +29,7 @@ class FormDefinitionAdmin(admin.ModelAdmin):
     fieldsets = [
         (_('Basic'), {'fields': ['name', 'require_hash', 'method', 'action', 'title', 'body']}),
         (_('Settings'), {'fields': ['allow_get_initial', 'log_data', 'success_redirect', 'success_clear', 'display_logged', 'save_uploaded_files'], 'classes': ['collapse']}),
-        (_('Mail form'), {'fields': ['mail_to', 'mail_from', 'mail_subject', 'mail_uploaded_files'], 'classes': ['collapse']}),
+        (_('Mail form'), {'fields': ['mail_to', 'mail_from', 'reply_to', 'mail_subject', 'mail_uploaded_files'], 'classes': ['collapse']}),
         (_('Templates'), {'fields': ['message_template', 'form_template_name'], 'classes': ['collapse']}),
         (_('Messages'), {'fields': ['success_message', 'error_message', 'submit_label'], 'classes': ['collapse']}),
     ]
@@ -98,7 +98,7 @@ class FormLogAdmin(admin.ModelAdmin):
             self.search_fields, self.list_select_related,
             self.list_per_page, self.list_max_show_all, self.list_editable,
             self)
-        return cl.get_query_set(request)
+        return cl.get_queryset(request)
 
     def export_view(self, request, format):
         queryset = self.get_change_list_query_set(request)
@@ -107,7 +107,7 @@ class FormLogAdmin(admin.ModelAdmin):
         return self.exporter_classes[format](self.model).export(request, queryset)
 
     def changelist_view(self, request, extra_context=None):
-        from django.core.urlresolvers import reverse, NoReverseMatch
+        from django.core.urlresolvers import reverse
         extra_context = extra_context or {}
         try:
             query_string = '?'+request.META['QUERY_STRING']

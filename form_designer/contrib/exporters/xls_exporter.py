@@ -28,7 +28,7 @@ class XlsExporter(FormLogExporterBase):
         self.rownum = 0
 
     def init_response(self):
-        self.response = HttpResponse(mimetype='application/ms-excel')
+        self.response = HttpResponse(content_type='application/ms-excel')
         self.response['Content-Disposition'] = 'attachment; filename=%s.xls' %  \
             unicode(self.model._meta.verbose_name_plural)
 

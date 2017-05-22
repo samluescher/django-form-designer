@@ -37,6 +37,7 @@ class DesignedForm(forms.Form):
 
 class FormDefinitionFieldInlineForm(forms.ModelForm):
     class Meta:
+        fields = '__all__'
         model = FormDefinitionField
 
     def clean_regex(self):
@@ -52,6 +53,7 @@ class FormDefinitionFieldInlineForm(forms.ModelForm):
 
 class FormDefinitionForm(forms.ModelForm):
     class Meta:
+        fields = '__all__'
         model = FormDefinition
 
     def _media(self):
